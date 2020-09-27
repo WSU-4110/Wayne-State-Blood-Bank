@@ -36,7 +36,7 @@ ALTER TABLE account_roles ADD CONSTRAINT fk_account_roles_role_id
     ON UPDATE CASCADE;
 
 
-CREATE VIEW account_details AS SELECT email, password, GROUP_CONCAT(role_name) AS roles FROM accounts AS A INNER JOIN account_roles AS AR ON AR.account_id = A.id
-INNER JOIN roles AS R ON R.id= AR.role_id GROUP BY A.email, A.password;
+CREATE VIEW account_details AS SELECT A.id, email, password, GROUP_CONCAT(role_name) AS roles FROM accounts AS A LEFT JOIN account_roles AS AR ON AR.account_id = A.id
+                               LEFT JOIN roles AS R ON R.id= AR.role_id GROUP BY A.email, A.password, A.id;
 
 INSERT INTO roles(role_name) VALUES('USER'),('ADMIN'), ('UNVERIFIED');

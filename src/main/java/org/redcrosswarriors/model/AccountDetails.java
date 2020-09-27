@@ -3,10 +3,7 @@ package org.redcrosswarriors.model;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -14,10 +11,11 @@ import javax.validation.constraints.NotNull;
 @Table(name ="account_details")
 @Subselect("SELECT * FROM account_details")
 public class AccountDetails {
+    @Id
+    private int id;
 
     @Column
     @NotNull
-    @Id
     private String email;
 
     @Column
@@ -36,7 +34,10 @@ public class AccountDetails {
     }
 
     public String[] getRoles(){
-        return roles.split(",");
+        if(roles != null){
+            return roles.split(",");
+        }
+        return new String[0];
     }
 
     public void setEmail(String email){
@@ -49,5 +50,13 @@ public class AccountDetails {
 
     public void setRoles(String roles){
         this.roles = roles;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 }
