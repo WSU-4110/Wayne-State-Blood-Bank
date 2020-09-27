@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,6 +38,7 @@ public class TestHelloWorldController {
     // make a request to the get message endpoint and assert
     // that a list of messages is returned.
     @Test
+    @WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
     public void getAllMessagesTest() throws Exception {
         // simulate a list of messages from the database without actually
         // having to access the database

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Access Denied</title>
+</head>
+<body>
+
+<script>
+const getParams = window.location.search;
+const params = new URLSearchParams(getParams);
+
+let notVerified = params.get("notVerified");
+let notAdmin = params.get("notAdmin");
+
+if(notVerified != null){
+    // change this to be more user friendly upon error
+    alert("Only verified users can access this page. Please check your email.");
+}
+
+if(notAdmin != null){
+    alert("Only Administrators can access this page.");
+}
+
+</script>
+
+</body>
+</html>

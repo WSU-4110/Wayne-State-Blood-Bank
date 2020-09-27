@@ -1,113 +1,20 @@
 <html>
 <head>
     <title>Hello World Example</title>
-     <script
-      src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous"/>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous"/>
 </head>
 <body>
- 
-<div class="ui one column centered grid">
-    <div class="ui comments column">
-        <br>
-        <h3 class="ui dividing header">Messages</h3>
-        
-        <template id="commentTemplate">
-            <div class="comment">
-                <div class="text">
-                      Hello World!
-                </div>
-            </div>
-        </template>
+<h1> Hello World </h1>
+<a href="/comments"> Hello World</a>
 
-        <div id="messagesList">
+<a href="/logout">
+    <button> Logout </button>
+</a>
 
-        </div>
-
-        <form class="ui reply form">
-            <div class="field">
-              <textarea id="replyMessage"></textarea>
-            </div>
-            <div id="replyButton" class="ui blue labeled submit icon button">
-              <i class="icon edit"></i> Add Reply
-            </div>
-          </form>
-    </div>
-</div>
-<script>
-
-    function removeChildNodes(parent){
-        while (parent.firstChild) {
-            parent.removeChild(parent.lastChild);
-        }
-    }
-
-    function showMessages(data){
-        let messageList = document.querySelector("#messagesList");
-        // clear all messages
-        removeChildNodes(messageList);
-        let messageTemplate = document.getElementById("commentTemplate");
-        // loop through each message and display it.
-        for(var i=0; i < data.length; i++){
-            // create a new message element from the template
-            let newMessageElement = messageTemplate.content.cloneNode(true);
-          
-            // get the text component of the message
-            let textComponent = newMessageElement.querySelector('.text');
-            // set the message to the current message
-            textComponent.innerHTML = data[i].message;
-              // Add the message to the document
-            messageList.appendChild(newMessageElement);
-        }
-    }
-
-    
-
-    function fetchMessages(){
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            url: '/message',
-            success: function(data){
-                showMessages(data);
-            },
-            error: function(){
-                alert("Error Failed To Retrieve Messages");
-            }
-        });
-    }
-
-    function createNewMessage(){
-        var reply = document.getElementById("replyMessage").value;
-        var message = {
-            message:reply
-        }
-        $.ajax({
-            type:"POST",
-            url: "/message",
-            data:JSON.stringify(message),
-            contentType: 'application/json',
-            dataType:"json",
-            success: function(data){
-                reply.value = "";
-                fetchMessages();
-            },
-            failure: function(error){
-                alert(error);
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        fetchMessages();
-    });
-
-    $("#replyButton").click(()=>{
-        createNewMessage();
-    });
-</script>
 </body>
 </html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login page</title>
+</head>
+<body>
+<div>
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <label>Email</label>
+        <input type="text"  name="username" placeholder="email" />
+        <label>Password</label>
+        <input type="password" placeholder="password" name="password" />
+        <input type="submit"/>
+    </form>
+</div>
+
+<script>
+const getParams = window.location.search; 
+const params = new URLSearchParams(getParams);
+
+let isError = params.get("error");
+let isLoggedOut = params.get("logout");
+
+if(isError != null){
+    // change this to be more user friendly upon error
+    alert("Wrong email or password");
+}
+
+if(isLoggedOut != null){
+    alert("You have been logged out.");
+}
+
+</script>
+
+</body>
+</html>
