@@ -88,6 +88,13 @@ public class AccountDetailsService implements UserDetailsService {
         repository.addRole(role.getId(), id);
     }
 
+    public void updatePassword(String email, String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // hash the password so that no one knows what the users password is
+        String securePassword = passwordEncoder.encode(password);
+        repository.updatePassword(email, securePassword);
+    }
+
 }
 
 

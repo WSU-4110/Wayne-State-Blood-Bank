@@ -21,6 +21,14 @@ public class TestAccountDetailsRepository {
     @Autowired
     private AccountDetailsRepository repository;
 
+    @Test
+    @Sql("/test_account_details_no_roles.sql")
+    public void testUpdatePassword(){
+        repository.updatePassword("user@example.com", "newPassword");
+        AccountDetails details = repository.findByEmail("user@example.com");
+        assertEquals("newPassword", details.getPassword());
+    }
+
 
     @Test
     @Sql("/test_account_details_no_roles.sql")

@@ -31,4 +31,9 @@ public interface AccountDetailsRepository extends CrudRepository<AccountDetails,
     @Transactional
     @Query(value="DELETE FROM accounts WHERE email = :email", nativeQuery = true)
     void removeAccountByEmail(@Param("email") String email);
+
+    @Modifying
+    @Query(value="UPDATE accounts SET password = :password WHERE email = :email", nativeQuery=true)
+    void updatePassword(@Param("email") String email, @Param("password") String password);
+
 }
