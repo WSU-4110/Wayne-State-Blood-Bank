@@ -40,3 +40,15 @@ CREATE VIEW account_details AS SELECT A.id, email, password, GROUP_CONCAT(role_n
                                LEFT JOIN roles AS R ON R.id= AR.role_id GROUP BY A.email, A.password, A.id;
 
 INSERT INTO roles(role_name) VALUES('USER'),('ADMIN'), ('UNVERIFIED');
+
+CREATE TABLE verification_tokens(
+    account_id INT NOT NULL,
+    token CHAR(36) NOT NULL,
+    PRIMARY KEY (token),
+    UNIQUE(account_id)
+);
+
+ALTER TABLE verification_tokens ADD CONSTRAINT fk_verification_account_id
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE;

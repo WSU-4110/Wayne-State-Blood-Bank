@@ -1,6 +1,5 @@
 package org.redcrosswarriors.controller;
 
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,12 +12,6 @@ public class LoginController {
         return "login.html";
     }
 
-    // remove this later after team is familiar with rest api process
-    @RequestMapping(value="/comments")
-    @Secured("ROLE_USER")
-    public String getCommentsPage(){
-        return "message.html";
-    }
 
     @RequestMapping("/accessDenied")
     public String getAccessDenied(){
