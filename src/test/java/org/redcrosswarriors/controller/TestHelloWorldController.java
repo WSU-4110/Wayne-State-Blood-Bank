@@ -38,7 +38,7 @@ public class TestHelloWorldController {
     // make a request to the get message endpoint and assert
     // that a list of messages is returned.
     @Test
-    @WithMockUser(username = "admin", authorities = { "ADMIN", "USER" })
+    @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN", "ROLE_USER" })
     public void getAllMessagesTest() throws Exception {
         // simulate a list of messages from the database without actually
         // having to access the database

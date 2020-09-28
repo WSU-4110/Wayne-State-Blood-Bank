@@ -1,5 +1,6 @@
 package org.redcrosswarriors.repository;
 
+import org.hibernate.annotations.SQLDelete;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.redcrosswarriors.model.AccountDetails;
@@ -19,6 +20,18 @@ public class TestAccountDetailsRepository {
 
     @Autowired
     private AccountDetailsRepository repository;
+
+
+    @Test
+    @Sql("/test_account_details_no_roles.sql")
+    public void testRemoveAccountByEmail(){
+        try{
+            repository.removeAccountByEmail("user@example.com");
+        }
+        catch (Exception e){
+            fail(); // if it fails to delete then fail the test
+        }
+    }
 
     @Test
     @Sql("/test_account_details.sql")
