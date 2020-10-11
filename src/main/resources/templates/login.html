@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Wayne State Blood Bank</title>
+    <link rel="stylesheet" href="temp.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+  </head>
+
+
+  <div class="header">
+    <div class="ui green clearing inverted segment">
+      <!--See modal section of semantic, click on login to popup the username and pw prompt-->
+      <!--signup will be a button next to login that turns into a signout after a user is logged in-->
+
+      <div class="ui right floated header">
+        <button class="ui red button" onclick="openLoginModal()" id="loginButton">SignUp/Login</button>
+        <!--onclick should be loginCheck-->
+        <a href="/logout">
+          <button class="ui red button" onclick="loginCheck()" id="logoutButton">Logout</button>
+        </a>
+      </div>
+      <div class="ui left floated huge red header">
+        Red Cross Warriors
+      </div>
+    </div>
+  </div>
+
+
+  <!--jquery should be above semantic because of dependencies-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+  <script src="webpageFun.js"></script>
+  <nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+      <!--how to make this fully left l-->
+      <div class="ui container">
+        <a class="item" onclick="location.href='index.html'">
+          <i class="home icon"></i> Home
+        </a>
+        <a class="item">
+          <i class="grid layout icon"></i> Page 2
+        </a>
+        <a class="item">
+          <i class="mail icon"></i> Page 3
+        </a>
+        <!--how to lock this behind login-->
+        <div class="ui simple dropdown item">
+          More
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a class="item"> Edit Profile</a>
+            <a class="item"> Send Request?</a>
+            <a class="item"> Account Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+<body>
+  <div class="ui fluid container">
+    <div class="content">
+      <div class="transparent-bg">
+        <img src="Blood-Donation.jpg" style="width:100%;">
+      </div>
+          <div class="ui container">
+            <div class="centered">
+              <div class="ui placeholder segment" style="background: rgba(0,0,0,.7)">
+                <h2>Login</h2>
+                <form class="ui form" action="/login" method="post">
+                    <label>Email</label>
+                    <input type="text"  name="username" placeholder="email" />
+                    <label>Password</label>
+                    <input type="password" placeholder="password" name="password" />
+                    <input type="submit"/>
+                </form>
+                <div class="ui inverted red segment" id="deny" style="display: none">
+                  <p>Wrong username or password</p>
+                </div>
+                <div class="ui inverted green segment" id="confirm" style="display: none">
+                  <p>you have successfully been logged in</p>
+                </div>
+                <hr>
+                <div class="ui inverted header">Don't have an account?<br>
+                  <div class="ui big button" onclick="tempButton()">
+                    <i class="signup icon"></i>
+                    Sign Up
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+    </div>
+
+
+  </div>
+
+<script type="text/javascript">
+  loginCheck();
+</script>
+
+</body>
+
+<div class="footer">
+
+</div>
+
+</html>

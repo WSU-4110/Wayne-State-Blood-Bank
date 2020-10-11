@@ -66,3 +66,7 @@ input[type=submit] {
   background: #2185D0;
 
 }
+
+#logoutButton {
+    display: none;
+}

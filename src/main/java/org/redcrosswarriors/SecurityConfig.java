@@ -27,13 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
     	// specify that the user can login using form data, where login is, where to go when it fails, and when it's successful
-		http.formLogin().loginPage("/login")
-				.loginProcessingUrl("/login")
-				.failureUrl("/login?error=true")
+		http.formLogin().loginPage("/")
+				.loginProcessingUrl("/")
+				.failureUrl("/?error=true")
 				.defaultSuccessUrl("/", true)
 				.and()
 				.logout()
-				.logoutSuccessUrl("/login?logout=true");
+				.logoutSuccessUrl("/?logout=true");
 
 		http.csrf().disable(); // allow us to make requests logged in from different domains
 
