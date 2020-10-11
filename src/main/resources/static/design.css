@@ -48,6 +48,7 @@ position:relative;
     display: block;
     background-color: rgba(0,0,0,0.5);
 }
+
 input[type=submit] {
   cursor: pointer;
   display: inline-block;
