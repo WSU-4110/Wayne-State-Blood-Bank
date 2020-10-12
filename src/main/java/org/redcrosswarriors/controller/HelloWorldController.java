@@ -23,7 +23,7 @@ public class HelloWorldController {
     }
 
     @PostMapping(value="/message")
-    @Secured("ROLE_USER")
+    //@Secured("ROLE_USER")
     public ResponseEntity<Object> createMessage(@RequestBody Message message){
         service.createMessage(message);
         JSONObject response = new JSONObject();

@@ -1,4 +1,4 @@
-package org.redcrosswarriors.model.input;
+package org.redcrosswarriors.model;
 
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
@@ -7,10 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Immutable
 @Table(name ="userDetails")
-@Subselect("SELECT * FROM userDetails")
-public class registrationInput {
+
+public class RegistrationDetails {
 
 
     public int getId(){
