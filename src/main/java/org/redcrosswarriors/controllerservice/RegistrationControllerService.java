@@ -38,7 +38,8 @@ public class RegistrationControllerService {
         // validation
         ////////////////BEGIN: send the verification email/////////////////////////
         VerificationToken token = new VerificationToken();
-        String link = "localhost:8080/verify/"+token;
+        String link = "http://localhost:8080/verify/"+token;
+
         send_mail verify;
         verify = new send_mail(registerInput.getEmail(), link);
         try {
