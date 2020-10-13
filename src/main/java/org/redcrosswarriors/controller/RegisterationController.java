@@ -33,6 +33,12 @@ public class RegisterationController
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
 
         }
+        else if(!registerService.isValidPassword(input))
+        {
+            System.out.println("Passwords doesn not meet the requirements");
+            json.put("status", "Invalid Password");
+            return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
+        }
         else
         {
             System.out.println("in the else statement");

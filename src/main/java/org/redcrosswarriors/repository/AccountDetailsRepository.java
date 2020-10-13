@@ -15,6 +15,9 @@ public interface AccountDetailsRepository extends CrudRepository<AccountDetails,
     @Query(value="SELECT * FROM account_details WHERE email = :email", nativeQuery=true)
     AccountDetails findByEmail(@Param("email") String email);
 
+    @Query(value="SELECT id FROM accounts WHERE email = :email", nativeQuery=true)
+    int findIdByEmail(@Param("email") String email);
+
     @Modifying
     @Query(value= "INSERT INTO accounts(email, password) VALUES(:email, :password)", nativeQuery = true)
     void createAccount(@Param("email") String email, @Param("password") String password);

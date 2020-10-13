@@ -12,9 +12,11 @@ import javax.transaction.Transactional;
 public interface RegistrationDetailsRepository extends CrudRepository<RegistrationDetails, String> {
 
     @Modifying
-    @Query(value= "INSERT INTO userDetails(firstName, lastName, birthDay, bloodDonor, phoneNumber, bloodType) " +
-            "VALUES(:firstName, :lastName, :birthDay, :bloodDonor, :phoneNumber, :bloodType)", nativeQuery = true)
-    void registerAccount(@Param("firstName") String firstName,
+    @Query(value= "INSERT INTO userDetails(id, firstName, lastName, birthDay, bloodDonor, phoneNumber, bloodType) " +
+            "VALUES(:id, :firstName, :lastName, :birthDay, :bloodDonor, :phoneNumber, :bloodType)", nativeQuery = true)
+    void registerAccount(
+                         @Param("id") int id,
+                         @Param("firstName") String firstName,
                          @Param("lastName") String lastName,
                          @Param("birthDay") String birthDay,
                          @Param("bloodDonor") String bloodDonor,

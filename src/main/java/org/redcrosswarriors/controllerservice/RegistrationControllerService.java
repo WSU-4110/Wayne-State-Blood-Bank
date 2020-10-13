@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.redcrosswarriors.model.RegistrationDetails;
 import javax.transaction.Transactional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class RegistrationControllerService {
@@ -49,7 +51,9 @@ public class RegistrationControllerService {
         }
         //////////////END: send the verification email////////////////////////////
 
-        registrationRepository.registerAccount(registerInput.getFirstName(),
+        registrationRepository.registerAccount(
+                    accountDetailsRepository.findIdByEmail(registerInput.getEmail()),
+                    registerInput.getFirstName(),
                     registerInput.getLastName(),
                     registerInput.getBirthDay(),
                     registerInput.getBloodDonor(),
@@ -59,18 +63,47 @@ public class RegistrationControllerService {
 
         return true;
     }
-    //public boolean userValid
+
+    public boolean isValidPassword(RegisterationInput registerInput)
+    {
+        String password = registerInput.getPassword();
+
+        // Regex to check valid password.
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=\\S+$).{6,20}$";
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+        if (password == null) {
+            return false;
+        }
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(password);
+
+        // Return if the password
+        // matched the ReGex
+        return m.matches();
+    }
+
 
     public boolean userExists(RegisterationInput input)
     {
-        boolean check = false;
+        boolean check;
         AccountDetails account = accountDetailsRepository.findByEmail(input.getEmail());
         if (account != null)
         {
             check = true;
-        } else if (account == null) {
-            check = false;
         }
+        else
+            check = false;
+
         return check;
 
 
