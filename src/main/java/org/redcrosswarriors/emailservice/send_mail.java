@@ -43,7 +43,7 @@ public class send_mail {
      * @param _recipient email address
      * @param _URL : link to insert into email message
      */
-    send_mail(String _recipient, String _URL){
+    public send_mail(String _recipient, String _URL){
         this();
         recipient = _recipient;
         URL = _URL;
@@ -55,7 +55,7 @@ public class send_mail {
      * @param _recipients : Array of email addresses
      * @param _request : object of type request
      */
-    send_mail(String _recipients[], request _request){
+    public send_mail(String _recipients[], request _request){
         this();
         //copy _recipients
         recipients = new String[_recipients.length];
@@ -85,7 +85,7 @@ public class send_mail {
             message.setFrom(new InternetAddress(myEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject("Red Cross Warriors Account Validation");
-            String htmlCode = new String(String.valueOf(new Scanner(new File("src/email_service/verification_email.html")).useDelimiter("\\Z").next()));
+            String htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/verification_email.html")).useDelimiter("\\Z").next()));
             htmlCode = htmlCode.replace("URL_to_click",URL);
             message.setContent(htmlCode,"text/html");
         } catch (Exception e) {
@@ -121,18 +121,20 @@ public class send_mail {
 
             try {
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients[i]));
-                String htmlCode = new String(String.valueOf(new Scanner(new File("src/email_service/match_notification.html")).useDelimiter("\\Z").next()));
-                htmlCode = htmlCode.replace("Name",request.name);
-                htmlCode = htmlCode.replace("EMAIL_ADDRESS",request.email_address);
-                htmlCode = htmlCode.replace("MESSAGE",request.message);
-                htmlCode = htmlCode.replace("PHONE_NUMBER",request.phone_number);
+                String htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/match_notification.html")).useDelimiter("\\Z").next()));
+                htmlCode = htmlCode.replace("Name",request.getName());
+                htmlCode = htmlCode.replace("EMAIL_ADDRESS",request.getEmail_address());
+                htmlCode = htmlCode.replace("MESSAGE",request.getMessage());
+                htmlCode = htmlCode.replace("PHONE_NUMBER",request.getPhone_number());
 
                 message.setContent(htmlCode,"text/html");
+                Transport.send(message);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            Transport.send(message);
+
         }
     }
 }
