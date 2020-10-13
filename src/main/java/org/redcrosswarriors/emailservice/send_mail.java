@@ -122,7 +122,7 @@ public class send_mail {
             try {
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients[i]));
                 String htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/match_notification.html")).useDelimiter("\\Z").next()));
-                htmlCode = htmlCode.replace("Name",request.getName());
+                htmlCode = htmlCode.replace("NAME",request.getName());
                 htmlCode = htmlCode.replace("EMAIL_ADDRESS",request.getEmail_address());
                 htmlCode = htmlCode.replace("MESSAGE",request.getMessage());
                 htmlCode = htmlCode.replace("PHONE_NUMBER",request.getPhone_number());
