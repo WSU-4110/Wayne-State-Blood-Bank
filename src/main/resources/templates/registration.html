@@ -1,104 +1,153 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registration page</title>
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous">
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Registration page</title>-->
+<!--    <script-->
+<!--            src="https://code.jquery.com/jquery-3.1.1.min.js"-->
+<!--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="-->
+<!--            crossorigin="anonymous">-->
 
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
-            integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
-            crossorigin="anonymous">
+<!--    </script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"-->
+<!--            integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="-->
+<!--            crossorigin="anonymous">-->
 
-    </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous"/>
-</head>
-<body>
+<!--    </script>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous"/>-->
+<!--</head>-->
+<!--<body>-->
 
-<div>
-    <h2>Register Here</h2>
-    <form action="/login" method="post" onsubmit="return checkForm(this)">
-    	<label>Enter your first name: </label>
-        <input type="text"  name="firstname"/>
-        <br>
-        <label>Enter your last name: </label>
-        <input type="text"  name="lastname"/>
-        <br>
-        <label>Enter your Wayne email address: </label>
-        <input type="text"  name="username" placeholder="email" />
-        <br>
-        <label>Enter your new password: </label>
-        <input type="password" name="pwd1" placeholder="password">
-        <br>
-		<label>Confirm your Password: </label>
-		<input type="password" name= "pwd2" placeholder="re-enter password">
+<!--<div>-->
+<!--    <h2>Register Here</h2>-->
+<!--    <form action="/login" method="post" onsubmit="return checkForm(this)">-->
+<!--    	<label>Enter your first name: </label>-->
+<!--        <input type="text"  name = "firstName" id ="firstname"/>-->
+<!--        <br>-->
+<!--        <label>Enter your last name: </label>-->
+<!--        <input type="text"  name="lastname"  id = "lastname"/>-->
+<!--        <br>-->
+<!--        <label>Enter your Wayne email address: </label>-->
+<!--        <input type="text"  name="username" placeholder="email"   id = "email"/>-->
+<!--        <br>-->
+<!--        <label>Enter your new password: </label>-->
+<!--        <input type="password" name="pwd1" placeholder="password"  id = "pwd1" />-->
+<!--        <br>-->
+<!--		<label>Confirm your Password: </label>-->
+<!--		<input type="password" name= "pwd2" placeholder="re-enter password"  id = "pwd2"/>-->
 
-        <p>Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.</p>
-        <br>
-        <label>Date Of Birth:</label>
-  		<input type="date" id="birthday" name="birthday">
-        <br>
-        <input type="submit"/>
-    </form>
-</div>
+<!--        <p>Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.</p>-->
+<!--        <br>-->
 
-<script>
-function checkForm(form)
-{
-  if(form.username.value == "") {
-    alert("Error: Username cannot be blank!");
-    form.username.focus();
-    return false;
-  }
-  re = /^\w+$/;
-  if(!re.test(form.username.value)) {
-    alert("Error: Username must contain only letters, numbers and underscores!");
-    form.username.focus();
-    return false;
-  }
+<!--        <label>Date Of Birth:</label>-->
+<!--  		<input type="date" id="birthday" name="birthday">-->
+<!--        <br>-->
 
-  if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {
-    if(form.pwd1.value.length < 6) {
-      alert("Error: Password must contain at least six characters!");
-      form.pwd1.focus();
-      return false;
-    }
-    if(form.pwd1.value == form.username.value) {
-      alert("Error: Password must be different from Username!");
-      form.pwd1.focus();
-      return false;
-    }
-    re = /[0-9]/;
-    if(!re.test(form.pwd1.value)) {
-      alert("Error: password must contain at least one number (0-9)!");
-      form.pwd1.focus();
-      return false;
-    }
-    re = /[a-z]/;
-    if(!re.test(form.pwd1.value)) {
-      alert("Error: password must contain at least one lowercase letter (a-z)!");
-      form.pwd1.focus();
-      return false;
-    }
-    re = /[A-Z]/;
-    if(!re.test(form.pwd1.value)) {
-      alert("Error: password must contain at least one uppercase letter (A-Z)!");
-      form.pwd1.focus();
-      return false;
-    }
-  } else {
-    alert("Error: Please check that you've entered and confirmed your password!");
-    form.pwd1.focus();
-    return false;
-  }
+<!--        <label>Do you want to be a Blood donor:</label>-->
+<!--        <input type="date" id="birthday" name="birthday">-->
+<!--        <br>-->
 
-  alert("You entered a valid password: " + form.pwd1.value);
-  return true;
-}
+<!--        <input type="submit"/>-->
+<!--    </form>-->
+<!--</div>-->
 
-</script>
+<!--<script>-->
+<!-- function registerAccount(){-->
+<!--        var firstname = document.getElementById("firstname").value;-->
+<!--        var lastname = document.getElementById("lastname").value;-->
+<!--        var password = document.getElementById("pwd1").value;-->
+<!--        var birthDay = document.getElementById("birthday").value;-->
 
-</body>
-</html>
+<!--        var registrationDetails =-->
+<!--        {-->
+<!--            firstname:firstname,-->
+<!--            lastname:lastname,-->
+<!--            password:password,-->
+<!--            birthDay:birthDay,-->
+
+<!--        }-->
+<!--        $.ajax({-->
+<!--            type:"POST",-->
+<!--            url: "/registration",-->
+<!--            data:JSON.stringify(registrationDetails),-->
+<!--            contentType: 'application/json',-->
+<!--            dataType:"json",-->
+<!--            success: function(data){-->
+<!--                alert("You are almost registered! Please check your email to verify.");-->
+<!--            },-->
+<!--            failure: function(error){-->
+<!--                alert("Sorry your registration did not go through!");-->
+<!--            },-->
+<!--            error: function(error){-->
+<!--                alert(error);-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+
+
+<!--function checkForm(form)-->
+<!--{-->
+<!--  var check = true;-->
+<!--  if(form.username.value == "") {-->
+<!--    alert("Error: Username cannot be blank!");-->
+<!--    form.username.focus();-->
+<!--    return false;-->
+<!--  }-->
+<!--  re = /^\w+$/;-->
+<!--  if(!re.test(form.username.value)) {-->
+<!--    alert("Error: Username must contain only letters, numbers and underscores!");-->
+<!--    form.username.focus();-->
+<!--    return false;-->
+<!--  }-->
+
+<!--  if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value)-->
+<!--  {-->
+<!--    if(form.pwd1.value.length < 6) {-->
+<!--      alert("Error: Password must contain at least six characters!");-->
+<!--      form.pwd1.focus();-->
+<!--      return false;-->
+<!--    }-->
+<!--    if(form.pwd1.value == form.username.value) {-->
+<!--      alert("Error: Password must be different from Username!");-->
+<!--      form.pwd1.focus();-->
+<!--      return false;-->
+<!--    }-->
+<!--    re = /[0-9]/;-->
+<!--    if(!re.test(form.pwd1.value)) {-->
+<!--      alert("Error: password must contain at least one number (0-9)!");-->
+<!--      form.pwd1.focus();-->
+<!--      return false;-->
+<!--    }-->
+<!--    re = /[a-z]/;-->
+<!--    if(!re.test(form.pwd1.value)) {-->
+<!--      alert("Error: password must contain at least one lowercase letter (a-z)!");-->
+<!--      form.pwd1.focus();-->
+<!--      return false;-->
+<!--    }-->
+<!--    re = /[A-Z]/;-->
+<!--    if(!re.test(form.pwd1.value))-->
+<!--    {-->
+<!--      alert("Error: password must contain at least one uppercase letter (A-Z)!");-->
+<!--      form.pwd1.focus();-->
+<!--      return false;-->
+<!--    }-->
+<!--  }-->
+<!--  else if(form.pwd1.value != form.pwd2.value)-->
+<!--  {-->
+<!--    alert("Error: Please check that you've entered and confirmed your password!");-->
+<!--    form.pwd1.focus();-->
+<!--    return false;-->
+<!--  }-->
+<!--  else-->
+<!--  {-->
+<!--    check = true;-->
+<!--    registerAccount();-->
+<!--  }-->
+
+<!--  alert("You entered a valid password: " + form.pwd1.value);-->
+<!--  return check;-->
+<!--}-->
+
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
