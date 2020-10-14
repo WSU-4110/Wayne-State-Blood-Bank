@@ -24,24 +24,20 @@ public class RegisterationController
     @PostMapping("/registeration")
     public ResponseEntity<Object> registerAccount(@RequestBody RegisterationInput input)
     {
-        System.out.println("Hi");
         Map<String, Object> json = new HashMap();
         if(registerService.userExists(input))
         {
-            System.out.println("in the if statement");
             json.put("status", "User with that username already exists.");
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
 
         }
         else if(!registerService.isValidPassword(input))
         {
-            System.out.println("Passwords doesn not meet the requirements");
             json.put("status", "Invalid Password");
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
         }
         else
         {
-            System.out.println("in the else statement");
             registerService.registerAccount(input);
             json.put("status", "User created.");
         }

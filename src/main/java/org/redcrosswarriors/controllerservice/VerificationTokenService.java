@@ -26,7 +26,7 @@ public class VerificationTokenService {
     @Autowired
     private RoleRepository roleRepository;
 
-
+    @Transactional
     public VerificationToken createVerificationToken(String email){
         UUID uuid = UUID.randomUUID();
         repository.createVerificationTokenByEmail(email, uuid.toString());

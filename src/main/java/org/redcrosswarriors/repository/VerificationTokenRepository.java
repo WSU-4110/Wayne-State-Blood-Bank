@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface VerificationTokenRepository extends CrudRepository<VerificationToken, String> {
 
     @Modifying
-    @Query(value = "INSERT INTO verification_tokens(account_id, token) VALUES(SELECT id FROM accounts WHERE email = :email, :token)", nativeQuery = true)
+    @Query(value = "INSERT INTO verification_tokens(account_id, token) VALUES((SELECT id FROM accounts WHERE email = :email), :token)", nativeQuery = true)
     void createVerificationTokenByEmail(@Param("email") String email, @Param("token") String token);
 
 }

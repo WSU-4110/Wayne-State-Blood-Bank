@@ -28,6 +28,9 @@ public class RegistrationControllerService {
     @Autowired
     private AccountDetailsRepository accountDetailsRepository;
 
+    @Autowired
+    private VerificationTokenService tokenService;
+
     @Transactional
     public boolean registerAccount(RegisterationInput registerInput) {
         // validate input
@@ -37,11 +40,12 @@ public class RegistrationControllerService {
         account.setPassword(registerInput.getPassword());
         accountService.createAccount(account);
 
-        // validation
-        ////////////////BEGIN: send the verification email/////////////////////////
-        VerificationToken token = new VerificationToken();
+
+        // create teh verification token
+        VerificationToken token = tokenService.createVerificationToken(registerInput.getEmail());
         String link = "http://localhost:8080/verify/"+token.getToken();
 
+        // send verificationEmail
         send_mail verify;
         verify = new send_mail(registerInput.getEmail(), link);
         try {
@@ -49,7 +53,6 @@ public class RegistrationControllerService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //////////////END: send the verification email////////////////////////////
 
         String firstName = registerInput.getFirstName();
         String lastName = registerInput.getLastName();
