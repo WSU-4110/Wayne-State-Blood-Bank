@@ -73,7 +73,6 @@
 
 <!--User input-->
 <form 
- action="http://www.tipjar.com/cgi-bin/test"
  method="post" 
  onsubmit="return checkForm(this)">
 
@@ -110,7 +109,7 @@
     </select> 
     <br><br>
 	
-	<label for="myFName">*Enter a Username:</label>
+	<label for="username">*Enter a Username:</label>
    <input type="text" name="username" id="username"
     required = "required"> 
 	<br><br>
@@ -193,6 +192,58 @@ function checkForm(form)
 
   alert("You entered a valid password: " + form.pwd1.value);
   return true;
+
+
+/*JSON conversion
+function sendJSON(){
+  
+  let result = document.querySelector('.result'); 
+    let fname = document.querySelector('#myFName');
+	let lname = document.querySelector('#myLName');
+	let bday = document.querySelector('#myDate');
+	let email = document.querySelector('#myEmail');
+	let phone = document.querySelector('#myPhone');
+	let bloodType = document.querySelector('#myBlood');
+    let username = document.querySelector('#myEmail'); 
+	let password = document.querySelector('#pwd1');
+	
+         
+      // Creating a XHR object 
+      let xhr = new XMLHttpRequest(); 
+      let url = "C:\Users\Khang\Documents\GitHub\Wayne-State-Blood-Bank\src\main\resources\static\submit.php"; 
+     
+      // open a connection 
+      xhr.open("POST", url, true); 
+  
+      // Set the request header i.e. which type of content you are sending 
+      xhr.setRequestHeader("Content-Type", "application/json"); 
+  
+      // Create a state change callback 
+      xhr.onreadystatechange = function () { 
+          if (xhr.readyState === 4 && xhr.status === 200) { 
+  
+              // Print received data from server 
+              result.innerHTML = this.responseText; 
+  
+          } 
+      }; 
+  
+      // Converting JSON data to string 
+      var data = JSON.stringify({ 
+	  "fname": form.myFName.value, : 
+	  "lname": form.myLName.value,
+	  "bday": form.myDate.value, 
+	  "email": form.myEmail.value,
+	  "phone": form.myPhone.value,
+	  "bloodType": form.myBlood.value,
+	  "username": form.username.value,
+	  "password": form.pwd1.value });
+  
+      // Sending data with the request 
+      xhr.send(data); 
+      
+
+*/
 }
 
 </script>
