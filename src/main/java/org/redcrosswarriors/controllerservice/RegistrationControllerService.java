@@ -40,7 +40,7 @@ public class RegistrationControllerService {
         // validation
         ////////////////BEGIN: send the verification email/////////////////////////
         VerificationToken token = new VerificationToken();
-        String link = "http://localhost:8080/verify/"+token;
+        String link = "http://localhost:8080/verify/"+token.getToken();
 
         send_mail verify;
         verify = new send_mail(registerInput.getEmail(), link);
@@ -51,10 +51,14 @@ public class RegistrationControllerService {
         }
         //////////////END: send the verification email////////////////////////////
 
+        String firstName = registerInput.getFirstName();
+        String lastName = registerInput.getLastName();
+        firstName.replace(" ", "");
+        lastName.replace(" ", "");
         registrationRepository.registerAccount(
                     accountDetailsRepository.findIdByEmail(registerInput.getEmail()),
-                    registerInput.getFirstName(),
-                    registerInput.getLastName(),
+                    firstName,
+                    lastName,
                     registerInput.getBirthDay(),
                     registerInput.getBloodDonor(),
                     registerInput.getPhoneNumber(),
@@ -63,6 +67,44 @@ public class RegistrationControllerService {
 
         return true;
     }
+    public boolean isNameValid(RegisterationInput registerInput)
+    {
+        boolean check = false;
+        String firstName = registerInput.getFirstName();
+        String lastName = registerInput.getLastName();
+        // no white space
+        // no numbers
+        // Regex to check valid password.
+        String regex = "^[a-zA-Z]+";
+
+        String regex1 = "^\\d{10}";
+
+        String regex2 = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+        if (firstName == null || lastName == null) {
+            return false;
+        }
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher mFirst = p.matcher(firstName);
+        Matcher mLast = p.matcher(lastName);
+
+        // Return if the password
+        // matched the ReGex
+        if(mFirst.matches() && mLast.matches())
+            check = true;
+
+        return check;
+
+    }
+
 
     public boolean isValidPassword(RegisterationInput registerInput)
     {
@@ -71,7 +113,7 @@ public class RegistrationControllerService {
         // Regex to check valid password.
         String regex = "^(?=.*[0-9])"
                 + "(?=.*[a-z])(?=.*[A-Z])"
-                + "(?=\\S+$).{6,20}$";
+                + ".{6,20}$";
 
         // Compile the ReGex
         Pattern p = Pattern.compile(regex);
