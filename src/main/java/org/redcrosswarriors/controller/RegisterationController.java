@@ -21,7 +21,7 @@ public class RegisterationController
     @Autowired
     RegistrationControllerService registerService;
 
-    @PostMapping("/registeration")
+    @PostMapping("/registration")
     public ResponseEntity<Object> registerAccount(@RequestBody RegisterationInput input)
     {
         Map<String, Object> json = new HashMap();

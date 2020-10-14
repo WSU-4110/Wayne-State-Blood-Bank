@@ -73,8 +73,7 @@
 
 <!--User input-->
 <form 
- method="post" 
- onsubmit="return checkForm(this)">
+ method="post">
 
    <label for="myFName">*First Name:</label>
    <input type="text" name="myFName" id="myFName"
@@ -86,8 +85,8 @@
    required = "required">
    <br><br>
 
-   <label for="birthday">*Birthday</label>  
-   <input    type="date" name="myDate" id="myDate">
+   <label for="birthday">*Birthday</label>
+   <input    type="date" name="myDate" id="birthday">
    <br><br>
 
    <label for="myEmail">*E-Mail:</label>
@@ -96,15 +95,24 @@
    <br><br>
 
    <label for="myPhone">Phone:</label>
-   <input type="tel" name="myPhone" id="myPhone">
+   <input type="tel" name="myPhone" id = "myPhone">
    <br><br>
+
+<!--    <label for="donor">Do you want to be :</label>-->
+<!--    <input type="tel" name="myPhone" id= "myPhone">-->
+<!--    <br><br>-->
+
    
 	<label>Blood Type:</label>
-    <select name="myBlood">
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="O">O</option>
-	  <option value="AB">AB</option>
+    <select name="myBlood" id = "bloodType">
+      <option value="A+">A+</option>
+      <option value="B+">B+</option>
+      <option value="O+">O+</option>
+	  <option value="AB+">AB+</option>
+       <option value="A-">A-</option>
+       <option value="B-">B-</option>
+        <option value="O-">O-</option>
+        <option value="AB-">AB-</option>
 	  <option value="U">Unknown</option>
     </select> 
     <br><br>
@@ -122,12 +130,12 @@
   <input type="password" name= "pwd2" placeholder="re-enter password">
   <br><br>
 
-   <input id="mySubmit" type="submit" value="Submit">
+    <button onclick = "registerAccount()">Submit</button>
    <input type="reset" value="Reset" class="formButton">
 
 </form>
 
-</main>
+
 
 
 <!--
@@ -141,11 +149,58 @@ return "Leaving the page, your inputs will not be saved";};
 
 <!--Functions for validation-->
 <script>
-function checkForm(form)
+ function registerAccount()
+ {
+        var firstName = document.getElementById("myFName").value;
+        var lastName = document.getElementById("myLName").value;
+        var password = document.getElementById("pwd1").value;
+        var birthDay = document.getElementById("birthday").value;
+        var email = document.getElementById("email").value;
+        var phoneNumber = document.getElementById("myPhone").value;
+        var bloodType = document.getElementById("bloodType").value;
+        var bloodDonor = "Y";
+
+        var registrationDetails =
+        {
+            firstname:firstname,
+            lastname:lastname,
+            password:password,
+            birthDay:birthDay,
+            phoneNumber: myPhone,
+            email : email,
+            bloodType:bloodType,
+            bloodDonor:bloodDonor
+
+        }
+        $.ajax({
+            type:"POST",
+            url: "/registration",
+            data:JSON.stringify(registrationDetails),
+            contentType: 'application/json',
+            dataType:"json",
+            success: function(data){
+                alert("You are almost registered! Please check your email to verify.");
+            },
+            failure: function(error){
+                alert("Sorry your registration did not go through!");
+            },
+            error: function(error){
+                alert(error);
+            }
+        });
+    }
+
+
+function checkForm()
 {
+  var check = true;
+  var password = document.getElementById("pwd1").value;
+  var email = document.getElementById("email").value;
+  var password2 = document.getElementById("pwd2").value;
+
   if(form.username.value == "") {
     alert("Error: Username cannot be blank!");
-    form.username.focus();
+    document.getElementById("email").focus();
     return false;
   }
   re = /^\w+$/;
@@ -155,13 +210,14 @@ function checkForm(form)
     return false;
   }
 
-  if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {
-    if(form.pwd1.value.length < 6) {
+  if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value)
+  {
+    if(password.length < 6) {
       alert("Error: Password must contain at least six characters!");
       form.pwd1.focus();
       return false;
     }
-    if(form.pwd1.value == form.username.value) {
+    if(password.value == form.username.value) {
       alert("Error: Password must be different from Username!");
       form.pwd1.focus();
       return false;
@@ -173,80 +229,37 @@ function checkForm(form)
       return false;
     }
     re = /[a-z]/;
-    if(!re.test(form.pwd1.value)) {
+    if(!re.test(password.value)) {
       alert("Error: password must contain at least one lowercase letter (a-z)!");
       form.pwd1.focus();
       return false;
     }
     re = /[A-Z]/;
-    if(!re.test(form.pwd1.value)) {
+    if(!re.test(password.value))
+    {
       alert("Error: password must contain at least one uppercase letter (A-Z)!");
-      form.pwd1.focus();
+      password.focus();
       return false;
     }
-  } else {
-    alert("Error: Passwords do not match!");
+  }
+  else if(form.pwd1.value != form.pwd2.value)
+  {
+    alert("Error: Please check that you've entered and confirmed your password!");
     form.pwd1.focus();
     return false;
   }
+  else
+  {
+    check = true;
+    registerAccount();
+  }
 
   alert("You entered a valid password: " + form.pwd1.value);
-  return true;
-
-
-/*JSON conversion
-function sendJSON(){
-  
-  let result = document.querySelector('.result'); 
-    let fname = document.querySelector('#myFName');
-	let lname = document.querySelector('#myLName');
-	let bday = document.querySelector('#myDate');
-	let email = document.querySelector('#myEmail');
-	let phone = document.querySelector('#myPhone');
-	let bloodType = document.querySelector('#myBlood');
-    let username = document.querySelector('#myEmail'); 
-	let password = document.querySelector('#pwd1');
-	
-         
-      // Creating a XHR object 
-      let xhr = new XMLHttpRequest(); 
-      let url = "C:\Users\Khang\Documents\GitHub\Wayne-State-Blood-Bank\src\main\resources\static\submit.php"; 
-     
-      // open a connection 
-      xhr.open("POST", url, true); 
-  
-      // Set the request header i.e. which type of content you are sending 
-      xhr.setRequestHeader("Content-Type", "application/json"); 
-  
-      // Create a state change callback 
-      xhr.onreadystatechange = function () { 
-          if (xhr.readyState === 4 && xhr.status === 200) { 
-  
-              // Print received data from server 
-              result.innerHTML = this.responseText; 
-  
-          } 
-      }; 
-  
-      // Converting JSON data to string 
-      var data = JSON.stringify({ 
-	  "fname": form.myFName.value, : 
-	  "lname": form.myLName.value,
-	  "bday": form.myDate.value, 
-	  "email": form.myEmail.value,
-	  "phone": form.myPhone.value,
-	  "bloodType": form.myBlood.value,
-	  "username": form.username.value,
-	  "password": form.pwd1.value });
-  
-      // Sending data with the request 
-      xhr.send(data); 
-      
-
-*/
+  return check;
 }
 
 </script>
+
 
 <footer>
 Copyright &copy; Red Cross Warriors<br>
@@ -254,4 +267,5 @@ Copyright &copy; Red Cross Warriors<br>
 </footer>
 </div>
 </body>
+</main>
 </html>
