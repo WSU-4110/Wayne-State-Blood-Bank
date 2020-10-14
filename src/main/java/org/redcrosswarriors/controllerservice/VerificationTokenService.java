@@ -64,7 +64,7 @@ public class VerificationTokenService {
         }
         catch (Exception e){
             e.printStackTrace();
-            response = new ResponseEntity<>("An unknown error has occured", HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>("An unknown error has occurred", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return response;
