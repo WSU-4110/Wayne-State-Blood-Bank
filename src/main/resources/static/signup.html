@@ -72,7 +72,11 @@
 <p>Thank you for signing up with us, please fill out the information below.</p>
 
 <!--User input-->
-<form>
+<form 
+ action="http://www.tipjar.com/cgi-bin/test"
+ method="post" 
+ onsubmit="return checkForm(this)">
+
    <label for="myFName">*First Name:</label>
    <input type="text" name="myFName" id="myFName"
     required = "required"> 
@@ -106,6 +110,11 @@
     </select> 
     <br><br>
 	
+	<label for="myFName">*Enter a Username:</label>
+   <input type="text" name="username" id="username"
+    required = "required"> 
+	<br><br>
+	
 	<label>Enter your new password: </label>
     <input type="password" name="pwd1" placeholder="password">
     <br><br>
@@ -115,17 +124,20 @@
   <br><br>
 
    <input id="mySubmit" type="submit" value="Submit">
+   <input type="reset" value="Reset" class="formButton">
 
 </form>
 
 </main>
 
+
+<!--
 <script>
 window.onbeforeunload = function() 
 {
 return "Leaving the page, your inputs will not be saved";};
 </script>
-
+-->
 
 
 <!--Functions for validation-->
@@ -174,7 +186,7 @@ function checkForm(form)
       return false;
     }
   } else {
-    alert("Error: Please check that you've entered and confirmed your password!");
+    alert("Error: Passwords do not match!");
     form.pwd1.focus();
     return false;
   }
