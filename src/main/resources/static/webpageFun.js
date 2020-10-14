@@ -11,47 +11,6 @@ function tempButton() {
   alert("This feature has not been implemented yet!");
 }
 
-function loginPage() {
-
-      $(document).ready(function() {
-        $.get("/loginStatus", function(data, status) {
-          if (data.isLoggedIn == true){
-              // change this to be more user friendly upon error
-              //alert("deny")
-              //hide main content on page and show login info
-              document.getElementById("confirm").style.display = "none";
-              document.getElementById("deny").style.display = "block";
-
-          } else {
-            $("confirm").hide();
-            $("deny").show();
-          }
-
-
-        });
-      });
-}
-/*
-function loginCheck() {
-  $(document).ready(function() {
-    $.get("/loginStatus", function(data, status) {
-      if (data.isLoggedIn == true){
-          // change this to be more user friendly upon error
-          //alert("deny")
-          //hide main content on page and show login info
-          $("logoutButton").show();
-          $("loginButton").hide();
-
-      } else {
-        $("logoutButton").hide();
-        $("loginButton").show();
-      }
-
-
-    });
-  });
-}
-*/
 function loginCheck() {
       const getParams = window.location.search;
       const params = new URLSearchParams(getParams);
