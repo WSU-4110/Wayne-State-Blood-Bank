@@ -32,7 +32,7 @@
 <!--jquery should be above semantic because of dependencies-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-<script src="webpageFun.js"></script>
+
 <nav>
     <!--whatever pages we want-->
     <div class="ui attached stackable menu">
@@ -72,8 +72,7 @@
 <p>Thank you for signing up with us, please fill out the information below.</p>
 
 <!--User input-->
-<form 
- method="post">
+<form>
 
    <label for="myFName">*First Name:</label>
    <input type="text" name="myFName" id="myFName"
@@ -117,11 +116,7 @@
     </select> 
     <br><br>
 	
-	<label for="username">*Enter a Username:</label>
-   <input type="text" name="username" id="username"
-    required = "required"> 
-	<br><br>
-	
+
 	<label>Enter your new password: </label>
     <input type="password" name="pwd1" placeholder="password">
     <br><br>
@@ -130,10 +125,11 @@
   <input type="password" name= "pwd2" placeholder="re-enter password">
   <br><br>
 
-    <button onclick = "registerAccount()">Submit</button>
-   <input type="reset" value="Reset" class="formButton">
+
 
 </form>
+
+<button onclick = "registerAccount()">Submit</button>
 
 
 
@@ -151,25 +147,40 @@ return "Leaving the page, your inputs will not be saved";};
 <script>
  function registerAccount()
  {
+        console.log("hi");
+        /*
         var firstName = document.getElementById("myFName").value;
         var lastName = document.getElementById("myLName").value;
         var password = document.getElementById("pwd1").value;
         var birthDay = document.getElementById("birthday").value;
-        var email = document.getElementById("email").value;
+        var email = document.getElementById("myEmail").value;
         var phoneNumber = document.getElementById("myPhone").value;
         var bloodType = document.getElementById("bloodType").value;
         var bloodDonor = "Y";
+        */
+
+        var firstName = "Tia";
+        var lastName = "Tia";
+        var password = "Tia";
+        var birthDay = "2000-08-02";
+        var email = "tiagijo@gmail.com";
+        var phoneNumber = "15868646943";
+        var bloodType = "A";
+        var bloodDonor = "Y";
+
+        console.log(firstName + lastName + password + birthDay + email + phoneNumber + bloodType + bloodType + bloodDonor);
 
         var registrationDetails =
         {
-            firstname:firstname,
-            lastname:lastname,
-            password:password,
-            birthDay:birthDay,
-            phoneNumber: myPhone,
-            email : email,
-            bloodType:bloodType,
-            bloodDonor:bloodDonor
+
+                email : "tiagijo@gmail.com",
+                password : "tiagijo12345T",
+                firstName: "Tia" ,
+                lastName : "Gijo" ,
+                birthDay : "2000-08-02" ,
+                bloodDonor : "Y" ,
+                phoneNumber : "5868646943",
+                bloodType: "A"
 
         }
         $.ajax({
