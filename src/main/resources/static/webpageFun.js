@@ -37,6 +37,7 @@ function loginCheck() {
         //show logout button and hide login -- doesnt work right now
         //document.getElementById("loginButton").style.display = "none";
         //document.getElementById("logoutButton").style.display = "block";
+
       }
 
       if(isLoggedOut != null){
