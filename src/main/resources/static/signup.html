@@ -97,9 +97,8 @@
    <input type="tel" name="myPhone" id = "myPhone">
    <br><br>
 
-<!--    <label for="donor">Do you want to be :</label>-->
-<!--    <input type="tel" name="myPhone" id= "myPhone">-->
-<!--    <br><br>-->
+
+
 
     <label>Do you want to be a blood donor?:</label>
     <select name="bloodDonor" id = "bloodDonor">
@@ -155,55 +154,69 @@ return "Leaving the page, your inputs will not be saved";};
 <script>
  function registerAccount()
  {
-    if(checkForm() == true)
-    {
-        console.log("hi");
-        var firstName = document.getElementById("myFName").value;
-        var lastName = document.getElementById("myLName").value;
-        var password = document.getElementById("pwd1").value;
-        var birthDay = document.getElementById("birthday").value;
-        var email = document.getElementById("myEmail").value;
-        var phoneNumber = document.getElementById("myPhone").value;
-        var bloodType =  document.getElementById("bloodType").value;
-        var bloodDonor = document.getElementById("bloodDonor").value;
+   if(ValidateDOB() == true)
+   {
+        var myEmail = document.getElementById("myEmail").value;
 
-        // birthDay = birthDay.split("-");
-        // birthDay = birthDay[0] + "-" + birthDay[1] + "-" + birthDay[2];
-
-        //console.log(firstName + lastName + password + birthDay + email + phoneNumber + bloodType + bloodType + bloodDonor);
-
-        var registrationDetails =
+        if (/@wayne.edu\s*$/.test(myEmail) && /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(myEmail))
         {
-            email : email,
-            password : password,
-            firstName: firstName ,
-            lastName : lastName ,
-            birthDay : birthDay ,
-            bloodDonor : bloodDonor ,
-            phoneNumber : phoneNumber,
-            bloodType: bloodType
-        }
-        $.ajax({
-            type:"POST",
-            url: "/registration",
-            data:JSON.stringify(registrationDetails),
-            contentType: 'application/json',
-            dataType:"json",
-            success: function(data){
-                alert("You are almost registered! Please check your email to verify.");
-            },
-            failure: function(error){
-                alert("Sorry your registration did not go through!");
-            },
-            error: function(error){
-                alert(error);
-            }
-        });
+                if(checkForm() == true )
+                {
+                    console.log("hi");
+                    var firstName = document.getElementById("myFName").value;
+                    var lastName = document.getElementById("myLName").value;
+                    var password = document.getElementById("pwd1").value;
+                    var birthDay = document.getElementById("birthday").value;
+                    var email = document.getElementById("myEmail").value;
+                    var phoneNumber = document.getElementById("myPhone").value;
+                    var bloodType =  document.getElementById("bloodType").value;
+                    var bloodDonor = document.getElementById("bloodDonor").value;
 
-    }
-    else
-        alert("Registration was not successful");
-}
+
+                    var registrationDetails =
+                    {
+                        email : email,
+                        password : password,
+                        firstName: firstName ,
+                        lastName : lastName ,
+                        birthDay : birthDay ,
+                        bloodDonor : bloodDonor ,
+                        phoneNumber : phoneNumber,
+                        bloodType: bloodType
+                    }
+                    $.ajax(
+                    {
+                        type:"POST",
+                        url: "/registration",
+                        data:JSON.stringify(registrationDetails),
+                        contentType: 'application/json',
+                        dataType:"json",
+                        success: function(data){
+                            alert("You are almost registered! Please check your email to verify.");
+                        },
+                        failure: function(error){
+                            alert("Sorry your registration did not go through!");
+                        },
+                        error: function(error){
+                        alert(error);
+                        }
+                    });
+
+                }
+                else
+                    alert("Registration was not successful because of incorrect passoword");
+
+        }
+        else
+            alert("Invalid email address. Please make sure to enter your Wayne email ID");
+
+   }
+   else
+   {
+        alert("You must be above 18 to register!");
+   }
+
+ }
 
 
 function checkForm()
@@ -265,6 +278,52 @@ function checkForm()
   }
 
   return check;
+}
+
+function ValidateDOB()
+{
+
+
+        //Get the date from the TextBox.
+        var myAge = document.getElementById("birthday").value;
+        //yyyy-mm-dd
+        console.log(myAge);
+        var split = myAge = myAge.split("-");
+        var dateString = split[2] + "-" + split[1] + "-" + split[0]
+        console.log(dateString);
+
+        var parts = dateString.split("-");
+        var dtDOB = new Date(parts[0] + "/" + parts[1] + "/" + parts[2]);
+
+
+            var dtCurrent = new Date();
+
+            if (dtCurrent.getFullYear() - parts[2] < 18)
+            {
+                return false;
+            }
+
+            if (dtCurrent.getFullYear() - parts[2] == 18)
+            {
+
+                //CD: 11/06/2018 and DB: 15/07/2000. Will turned 18 on 15/07/2018.
+                if (dtCurrent.getMonth() < parts[1])
+                {
+                    return false;
+                }
+                if (dtCurrent.getMonth() == parts[1])
+                {
+                    //CD: 11/06/2018 and DB: 15/06/2000. Will turned 18 on 15/06/2018.
+                    if (dtCurrent.getDate() < parts[0])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+
+
 }
 
 </script>
