@@ -57,7 +57,8 @@ public class VerificationTokenService {
             // delete the token
             repository.deleteById(token);
 
-            response = new ResponseEntity<>("user successfully verified please log in again to access your account", HttpStatus.OK);
+            response = new ResponseEntity<>("user successfully verified please log in again to access your account" +
+                    "click <a href='/'> here </a> to login ", HttpStatus.OK);
         }
         catch (ErrorException e){
             response = new ResponseEntity<>(e.getMessage(), e.getStatus());

@@ -29,12 +29,14 @@ public class TestVerificationController {
     @Test
     public void testVerifyUser() throws Exception{
         when(service.verifyUser("ABC-123")).thenReturn(
-                new ResponseEntity<>("user successfully verified please log in again to access your account",
+                new ResponseEntity<>("user successfully verified please log in again to access your account" +
+                        "click <a href='/'> here </a> to login ",
                         HttpStatus.OK)
         );
 
         this.mockMvc.perform(get("/verify/ABC-123")).andDo(print()).andExpect(status().isOk())
                 .andExpect(
-                        content().string("user successfully verified please log in again to access your account"));
+                        content().string("user successfully verified please log in again to access your account" +
+                                "click <a href='/'> here </a> to login "));
     }
 }
