@@ -49,6 +49,15 @@ position:relative;
     background-color: rgba(0,0,0,0.5);
 }
 
+/*Added to align input boxes*/
+label
+{
+float: left;
+width: 20em;
+padding-right: 1em;
+display:block;
+}
+
 input[type=submit] {
   cursor: pointer;
   display: inline-block;

@@ -6,7 +6,7 @@ CREATE TABLE accounts(
     UNIQUE (email)
 );
 
-CREATE TABLE roles(
+CREATE TABLE roles (
     id INT NOT NULL AUTO_INCREMENT,
     role_name VARCHAR(10) NOT NULL,
     PRIMARY KEY(id),
@@ -46,3 +46,25 @@ ALTER TABLE verification_tokens ADD CONSTRAINT fk_verification_account_id
     FOREIGN KEY (account_id) REFERENCES accounts(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE;
+
+CREATE TABLE userDetails
+(
+    id INT NOT NULL,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    birthDay DATE NOT NULL,
+    bloodDonor CHAR(1),
+    phoneNumber VARCHAR(11),
+    bloodType CHAR(3),
+    PRIMARY KEY (id),
+    CHECK (bloodDonor = 'Y')
+);
+
+ALTER TABLE userDetails ADD CONSTRAINT fk_user_detials_accounts
+   FOREIGN KEY (id) REFERENCES accounts(id)
+   ON DELETE CASCADE
+   ON UPDATE CASCADE;
+
+CREATE VIEW donorList AS SELECT U.id, A.email, U.birthDay, U.bloodType, U.phoneNumber
+                         FROM userDetails U, accounts A
+                         WHERE U.id = A.id AND U.bloodDonor ='Y';

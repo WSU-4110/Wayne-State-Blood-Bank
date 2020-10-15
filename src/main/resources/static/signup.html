@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<!--Copied from Kyle-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Wayne State Blood Bank</title>
+    <link rel="stylesheet" href="design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+
+<div class="header">
+    <div class="ui green clearing inverted segment">
+        <!--See modal section of semantic, click on login to popup the username and pw prompt-->
+        <!--signup will be a button next to login that turns into a signout after a user is logged in-->
+
+        <div class="ui right floated header">
+            <button class="ui red button" onclick="openLoginModal()">SignUp/Login</button>
+            <!--show after logged in-->
+            <a href="/logout">
+              <button class="ui red button" onclick="loginCheck()" id="logoutButton">Logout</button>
+            </a>
+        </div>
+        <h3 class="ui left floated huge red header">
+            Red Cross Warriors
+        </h3>
+    </div>
+</div>
+
+
+<!--Nav Code-->
+<!--jquery should be above semantic because of dependencies-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+
+<nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+        <!--how to make this fully left l-->
+        <div class="ui container">
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item">
+                <i class="grid layout icon"></i> Page 2
+            </a>
+            <a class="item">
+                <i class="mail icon"></i> Page 3
+            </a>
+            <!--how to lock this behind login-->
+            <div class="ui simple dropdown item">
+                More
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item"> Edit Profile</a>
+                    <a class="item"> Send Request?</a>
+                    <a class="item">Account Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<div id="mySubmit">
+</div>
+
+<main>
+<body>
+<h3>Register</h3>
+
+<p>Thank you for signing up with us, please fill out the information below.</p>
+
+<!--User input-->
+<form>
+
+   <label for="myFName">*First Name:</label>
+   <input type="text" name="myFName" id="myFName"
+    required = "required"> 
+	<br><br>
+
+   <label for="myLName">*Last Name:</label>
+   <input type="text" name="myLName" id="myLName"
+   required = "required">
+   <br><br>
+
+   <label for="birthday">*Birthday</label>
+   <input    type="date" name="myDate" id="birthday">
+   <br><br>
+
+   <label for="myEmail">*E-Mail:</label>
+   <input type="email" name="myEmail" id="myEmail"
+   required = "required">
+   <br><br>
+
+   <label for="myPhone">Phone:</label>
+   <input type="tel" name="myPhone" id = "myPhone">
+   <br><br>
+
+<!--    <label for="donor">Do you want to be :</label>-->
+<!--    <input type="tel" name="myPhone" id= "myPhone">-->
+<!--    <br><br>-->
+
+    <label>Do you want to be a blood donor?:</label>
+    <select name="bloodDonor" id = "bloodDonor">
+        <option value="Y">YES</option>
+        <option value="N">NO</option>
+
+    </select>
+    <br><br>
+
+   
+	<label>Blood Type:</label>
+    <select name="myBlood" id = "bloodType">
+      <option value="A+">A+</option>
+      <option value="B+">B+</option>
+      <option value="O+">O+</option>
+	  <option value="AB+">AB+</option>
+       <option value="A-">A-</option>
+       <option value="B-">B-</option>
+        <option value="O-">O-</option>
+        <option value="AB-">AB-</option>
+	  <option value="U">Unknown</option>
+    </select> 
+    <br><br>
+	
+
+	<label>Enter your new password: </label>
+    <input type="password" name="pwd1" placeholder="password" id = "pwd1">
+    <br><br>
+
+  <label>Confirm your Password: </label>
+  <input type="password" name= "pwd2" placeholder="re-enter password" id = "pwd2">
+  <br><br>
+
+
+
+</form>
+
+<button onclick = "registerAccount()">Submit</button>
+
+
+
+
+<!--
+<script>
+window.onbeforeunload = function() 
+{
+return "Leaving the page, your inputs will not be saved";};
+</script>
+-->
+
+
+<!--Functions for validation-->
+<script>
+ function registerAccount()
+ {
+    if(checkForm() == true)
+    {
+        console.log("hi");
+        var firstName = document.getElementById("myFName").value;
+        var lastName = document.getElementById("myLName").value;
+        var password = document.getElementById("pwd1").value;
+        var birthDay = document.getElementById("birthday").value;
+        var email = document.getElementById("myEmail").value;
+        var phoneNumber = document.getElementById("myPhone").value;
+        var bloodType =  document.getElementById("bloodType").value;
+        var bloodDonor = document.getElementById("bloodDonor").value;
+
+        // birthDay = birthDay.split("-");
+        // birthDay = birthDay[0] + "-" + birthDay[1] + "-" + birthDay[2];
+
+        //console.log(firstName + lastName + password + birthDay + email + phoneNumber + bloodType + bloodType + bloodDonor);
+
+        var registrationDetails =
+        {
+            email : email,
+            password : password,
+            firstName: firstName ,
+            lastName : lastName ,
+            birthDay : birthDay ,
+            bloodDonor : bloodDonor ,
+            phoneNumber : phoneNumber,
+            bloodType: bloodType
+        }
+        $.ajax({
+            type:"POST",
+            url: "/registration",
+            data:JSON.stringify(registrationDetails),
+            contentType: 'application/json',
+            dataType:"json",
+            success: function(data){
+                alert("You are almost registered! Please check your email to verify.");
+            },
+            failure: function(error){
+                alert("Sorry your registration did not go through!");
+            },
+            error: function(error){
+                alert(error);
+            }
+        });
+
+    }
+    else
+        alert("Registration was not successful");
+}
+
+
+function checkForm()
+{
+  var check = true;
+  var password = document.getElementById("pwd1").value;
+  var email = document.getElementById("myEmail").value;
+  var password2 = document.getElementById("pwd2").value;
+
+  if(password != "" && password == password2)
+  {
+      if(password.length < 6)
+      {
+        alert("Error: Password must contain at least six characters!");
+        document.getElementById("pwd1").focus();
+        check = false;
+      }
+
+      if(password.value == email)
+      {
+        alert("Error: Password must be different from Username!");
+        document.getElementById("pwd1").focus();
+        check = false;
+      }
+
+      re = /[0-9]/;
+      if(!re.test(password))
+      {
+        alert("Error: password must contain at least one number (0-9)!");
+        document.getElementById("pwd1").focus();
+        check = false;
+      }
+
+       re = /[a-z]/;
+       if(!re.test(password))
+       {
+         alert("Error: password must contain at least one lowercase letter (a-z)!");
+         document.getElementById("pwd1").focus();
+         check = false;
+       }
+
+       re = /[A-Z]/;
+       if(!re.test(password))
+       {
+         alert("Error: password must contain at least one uppercase letter (A-Z)!");
+         document.getElementById("pwd1").focus();
+         check = false;
+       }
+  }
+  else if(password != password2)
+  {
+    alert("Error: Please check that you've entered and confirmed your password!");
+    document.getElementById("pwd1").focus();
+    check = false;
+  }
+  else
+  {
+    check = true;
+  }
+
+  return check;
+}
+
+</script>
+
+
+<footer>
+Copyright &copy; Red Cross Warriors<br>
+<!--<a href="mailto:">whateverouremailis.com</>-->
+</footer>
+</div>
+</body>
+</main>
+</html>

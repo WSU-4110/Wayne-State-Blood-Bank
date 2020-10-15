@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebPageController {
     // Login form
-    @RequestMapping("/login")
-    public String login() {
-        return "login.html";
-    }
+
 
 
     @RequestMapping("/accessDenied")
