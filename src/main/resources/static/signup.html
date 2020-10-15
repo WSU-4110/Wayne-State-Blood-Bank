@@ -154,60 +154,69 @@ return "Leaving the page, your inputs will not be saved";};
 <script>
  function registerAccount()
  {
-    if(ValidateDOB() == true)
-    {
-    if(checkForm() == true)
-    {
-        console.log("hi");
-        var firstName = document.getElementById("myFName").value;
-        var lastName = document.getElementById("myLName").value;
-        var password = document.getElementById("pwd1").value;
-        var birthDay = document.getElementById("birthday").value;
-        var email = document.getElementById("myEmail").value;
-        var phoneNumber = document.getElementById("myPhone").value;
-        var bloodType =  document.getElementById("bloodType").value;
-        var bloodDonor = document.getElementById("bloodDonor").value;
+   if(ValidateDOB() == true)
+   {
+        var myEmail = document.getElementById("myEmail").value;
 
-        // birthDay = birthDay.split("-");
-        // birthDay = birthDay[0] + "-" + birthDay[1] + "-" + birthDay[2];
-
-        //console.log(firstName + lastName + password + birthDay + email + phoneNumber + bloodType + bloodType + bloodDonor);
-
-        var registrationDetails =
+        if (/@wayne.edu\s*$/.test(myEmail) && /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(myEmail))
         {
-            email : email,
-            password : password,
-            firstName: firstName ,
-            lastName : lastName ,
-            birthDay : birthDay ,
-            bloodDonor : bloodDonor ,
-            phoneNumber : phoneNumber,
-            bloodType: bloodType
-        }
-        $.ajax({
-            type:"POST",
-            url: "/registration",
-            data:JSON.stringify(registrationDetails),
-            contentType: 'application/json',
-            dataType:"json",
-            success: function(data){
-                alert("You are almost registered! Please check your email to verify.");
-            },
-            failure: function(error){
-                alert("Sorry your registration did not go through!");
-            },
-            error: function(error){
-                alert(error);
-            }
-        });
+                if(checkForm() == true )
+                {
+                    console.log("hi");
+                    var firstName = document.getElementById("myFName").value;
+                    var lastName = document.getElementById("myLName").value;
+                    var password = document.getElementById("pwd1").value;
+                    var birthDay = document.getElementById("birthday").value;
+                    var email = document.getElementById("myEmail").value;
+                    var phoneNumber = document.getElementById("myPhone").value;
+                    var bloodType =  document.getElementById("bloodType").value;
+                    var bloodDonor = document.getElementById("bloodDonor").value;
 
-    }
-    else
-        alert("Registration was not successful because of incorrect passowrd");
-    }
-    else
-        alert("You must be above 18 to register!")
-}
+
+                    var registrationDetails =
+                    {
+                        email : email,
+                        password : password,
+                        firstName: firstName ,
+                        lastName : lastName ,
+                        birthDay : birthDay ,
+                        bloodDonor : bloodDonor ,
+                        phoneNumber : phoneNumber,
+                        bloodType: bloodType
+                    }
+                    $.ajax(
+                    {
+                        type:"POST",
+                        url: "/registration",
+                        data:JSON.stringify(registrationDetails),
+                        contentType: 'application/json',
+                        dataType:"json",
+                        success: function(data){
+                            alert("You are almost registered! Please check your email to verify.");
+                        },
+                        failure: function(error){
+                            alert("Sorry your registration did not go through!");
+                        },
+                        error: function(error){
+                        alert(error);
+                        }
+                    });
+
+                }
+                else
+                    alert("Registration was not successful because of incorrect passoword");
+
+        }
+        else
+            alert("Invalid email address");
+
+   }
+   else
+   {
+        alert("You must be above 18 to register!");
+   }
+
+ }
 
 
 function checkForm()
