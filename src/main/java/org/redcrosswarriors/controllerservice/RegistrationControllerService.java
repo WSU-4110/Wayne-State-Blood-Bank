@@ -108,6 +108,77 @@ public class RegistrationControllerService {
 
     }
 
+    public boolean isPhoneValid(RegisterationInput registerInput)
+    {
+        boolean check = false;
+        String phoneNumber = registerInput.getPhoneNumber();
+
+        // no white space
+        // no numbers
+        // Regex to check valid password.
+        String regex = "^\\d{10}";
+
+
+
+        String regex2 = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(phoneNumber);
+
+
+        // Return if the password
+        // matched the ReGex
+        if(m.matches())
+            check = true;
+
+        return check;
+
+    }
+
+    public boolean isBloodTypeValid(RegisterationInput registerInput)
+    {
+        boolean check = false;
+        String bloodType = registerInput.getBloodType();
+
+        // no white space
+        // no numbers
+        // Regex to check valid password.
+        String regex = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
+
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(bloodType);
+
+
+        // Return if the password
+        // matched the ReGex
+        if(m.matches())
+            check = true;
+
+        return check;
+
+    }
+
+
+
 
     public boolean isValidPassword(RegisterationInput registerInput)
     {
