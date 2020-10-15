@@ -1,10 +1,4 @@
-CREATE TABLE messages (
-    id INT NOT NULL AUTO_INCREMENT,
-    message VARCHAR(50) NOT NULL,
-    PRIMARY KEY(id)
-);
-
-CREATE TABLE accounts (
+CREATE TABLE accounts(
     id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(320) NOT NULL,
     password CHAR(60) NOT NULL,

@@ -1,9 +1,7 @@
 package org.redcrosswarriors.controller;
 
-import io.swagger.models.Response;
-import org.json.JSONObject;
+
 import org.redcrosswarriors.controllerservice.RegistrationControllerService;
-import org.redcrosswarriors.model.Message;
 import org.redcrosswarriors.model.input.RegisterationInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

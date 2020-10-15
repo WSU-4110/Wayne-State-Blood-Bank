@@ -90,7 +90,6 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-
 		<dependency>
     		<groupId>io.springfox</groupId>
     		<artifactId>springfox-data-rest</artifactId>

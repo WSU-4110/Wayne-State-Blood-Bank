@@ -1,6 +1,5 @@
 package org.redcrosswarriors.repository;
 
-import org.hibernate.annotations.SQLDelete;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.redcrosswarriors.model.AccountDetails;
