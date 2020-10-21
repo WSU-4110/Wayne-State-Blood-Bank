@@ -1,6 +1,6 @@
 package org.redcrosswarriors.controllerservice;
 
-import org.redcrosswarriors.emailservice.send_mail;
+import org.redcrosswarriors.emailservice.SendMail;
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegisterationInput;
@@ -8,9 +8,8 @@ import org.redcrosswarriors.repository.AccountDetailsRepository;
 import org.redcrosswarriors.repository.RegistrationDetailsRepository;
 import org.redcrosswarriors.security.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.redcrosswarriors.model.RegistrationDetails;
+
 import javax.transaction.Transactional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,8 +45,8 @@ public class RegistrationControllerService {
         String link = "http://localhost:8080/verify/"+token.getToken();
 
         // send verificationEmail
-        send_mail verify;
-        verify = new send_mail(registerInput.getEmail(), link);
+        SendMail verify;
+        verify = new SendMail(registerInput.getEmail(), link);
         try {
             verify.send_verification();
         } catch (Exception e) {

@@ -3,25 +3,25 @@ package org.redcrosswarriors.emailservice;
 /**
  * this class holds data members for sending match notification emails
  */
-public class request {
+public class Request {
     private String name;
-    private String email_address;
-    private String phone_number;
+    private String emailAddress;
+    private String phoneNumber;
     private String message;
 
-    request(){}
+    Request(){}
 
     /**
      * constructor - easiest way to build object
      * @param name
-     * @param email_address
-     * @param phone_number
+     * @param emailAddress
+     * @param phoneNumber
      * @param message
      */
-    public request(String name, String email_address, String phone_number, String message) {
+    public Request(String name, String emailAddress, String phoneNumber, String message) {
         this.name = name;
-        this.email_address = email_address;
-        this.phone_number = phone_number;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
         this.message = message;
     }
 
@@ -29,10 +29,10 @@ public class request {
      *copy constructor
      * @param _request
      */
-    public request(request _request){
+    public Request(Request _request){
         this.name = _request.name;
-        this.email_address = _request.email_address;
-        this.phone_number = _request.phone_number;
+        this.emailAddress = _request.emailAddress;
+        this.phoneNumber = _request.phoneNumber;
         this.message = _request.message;
     }
 
@@ -44,16 +44,16 @@ public class request {
         this.name = name;
     }
 
-    public String getEmail_address() {
-        return email_address;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getMessage() {
@@ -64,8 +64,8 @@ public class request {
         this.message = message;
     }
 
-    public void setEmail_address(String email_address) {
-        this.email_address = email_address;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
 
@@ -74,6 +74,6 @@ public class request {
      * @return : String of every data member
      */
     public String toString(){
-        return name+'\n'+email_address+'\n'+phone_number+'\n'+message;
+        return name+'\n'+ emailAddress +'\n'+ phoneNumber +'\n'+message;
     }
 }

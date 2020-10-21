@@ -5,14 +5,14 @@ import org.redcrosswarriors.model.VerificationToken;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class send_mailTest {
-/*
+class TestSendMail {
+
     @Test
     void send_verification() throws Exception{
-        VerificationToken token = new VerificationToken();
+        String  token = new String("thisisthetoken123");
         String link = "http://localhost:8080/verify/"+token;
-        //String link = "http://localhost:8080";
-        send_mail verify;
+
+        SendMail verify;
         // we'll have to change this to a mocked version so it doesn't send
         // an email every time we run the test in the future
         //verify = new send_mail("lbrombach2@gmail.com", link);
@@ -20,6 +20,9 @@ class send_mailTest {
 
 
     }
+
+
+    /*
 
     @Test
     void send_notification() throws Exception{
