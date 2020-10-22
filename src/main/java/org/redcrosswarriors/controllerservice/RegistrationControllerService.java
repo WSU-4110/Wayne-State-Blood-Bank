@@ -31,7 +31,7 @@ public class RegistrationControllerService {
     private VerificationTokenService tokenService;
 
     @Transactional
-    public boolean registerAccount(RegisterationInput registerInput) {
+    public boolean registerAccount(RegisterationInput registerInput){
         // validate input
         AccountDetails account = new AccountDetails();
         account.setRoles("UNVERIFIED");
@@ -45,9 +45,9 @@ public class RegistrationControllerService {
         String link = "http://localhost:8080/verify/"+token.getToken();
 
         // send verificationEmail
-        SendMail verify;
-        verify = new SendMail(registerInput.getEmail(), link);
         try {
+            SendMail verify;
+            verify = new SendMail(registerInput.getEmail(), link);
             verify.send_verification();
         } catch (Exception e) {
             e.printStackTrace();

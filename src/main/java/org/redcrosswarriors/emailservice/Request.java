@@ -9,10 +9,10 @@ public class Request {
     private String phoneNumber;
     private String message;
 
-    Request(){}
 
     /**
      * constructor - easiest way to build object
+     *
      * @param name
      * @param emailAddress
      * @param phoneNumber
@@ -26,10 +26,11 @@ public class Request {
     }
 
     /**
-     *copy constructor
+     * copy constructor
+     *
      * @param _request
      */
-    public Request(Request _request){
+    public Request(Request _request) {
         this.name = _request.name;
         this.emailAddress = _request.emailAddress;
         this.phoneNumber = _request.phoneNumber;
@@ -70,10 +71,9 @@ public class Request {
 
 
     /**
-     *
      * @return : String of every data member
      */
-    public String toString(){
-        return name+'\n'+ emailAddress +'\n'+ phoneNumber +'\n'+message;
+    public String toString() {
+        return name + '\n' + emailAddress + '\n' + phoneNumber + '\n' + message;
     }
 }
