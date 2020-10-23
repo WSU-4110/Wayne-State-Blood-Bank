@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserDetailsRepository extends CrudRepository<Profile, String> {
 
     @Modifying
-    @Query(value= "INSERT INTO userDetails(id, firstName, lastName, birthDay, bloodDonor, phoneNumber, bloodType) " +
+    @Query(value= "INSERT INTO user_details(id, first_name, last_name, birth_day, blood_donor_status, phone_number, blood_type) " +
             "VALUES(:id, :firstName, :lastName, :birthDay, :bloodDonor, :phoneNumber, :bloodType)", nativeQuery = true)
     void registerAccount(
                          @Param("id") int id,
@@ -21,5 +21,9 @@ public interface UserDetailsRepository extends CrudRepository<Profile, String> {
                          @Param("bloodDonor") String bloodDonor,
                          @Param("phoneNumber") String phoneNumber,
                          @Param("bloodType") String bloodType);
+
+
+    @Query(value = "SELECT * FROM vw_user_profile WHERE email = :email", nativeQuery = true)
+    Profile getProfileByEmail(@Param("email") String email);
 
 }

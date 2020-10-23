@@ -5,10 +5,13 @@ all profile inputs should have and validate those fields.
  */
 package org.redcrosswarriors.model;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+
+@MappedSuperclass
 public abstract class AbstractProfile {
 
     @NotBlank
