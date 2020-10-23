@@ -3,14 +3,13 @@ package org.redcrosswarriors.controllerservice;
 import org.redcrosswarriors.emailservice.send_mail;
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.VerificationToken;
-import org.redcrosswarriors.model.input.RegisterationInput;
+import org.redcrosswarriors.model.input.RegistrationInput;
 import org.redcrosswarriors.repository.AccountDetailsRepository;
 import org.redcrosswarriors.repository.RegistrationDetailsRepository;
 import org.redcrosswarriors.security.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.redcrosswarriors.model.RegistrationDetails;
+
 import javax.transaction.Transactional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,7 +31,7 @@ public class RegistrationControllerService {
     private VerificationTokenService tokenService;
 
     @Transactional
-    public boolean registerAccount(RegisterationInput registerInput) {
+    public boolean registerAccount(RegistrationInput registerInput) {
         // validate input
         AccountDetails account = new AccountDetails();
         account.setRoles("UNVERIFIED");
@@ -70,7 +69,7 @@ public class RegistrationControllerService {
 
         return true;
     }
-    public boolean isNameValid(RegisterationInput registerInput)
+    public boolean isNameValid(RegistrationInput registerInput)
     {
         boolean check = false;
         String firstName = registerInput.getFirstName();
@@ -108,7 +107,7 @@ public class RegistrationControllerService {
 
     }
 
-    public boolean isPhoneValid(RegisterationInput registerInput)
+    public boolean isPhoneValid(RegistrationInput registerInput)
     {
         boolean check = false;
         String phoneNumber = registerInput.getPhoneNumber();
@@ -144,7 +143,7 @@ public class RegistrationControllerService {
 
     }
 
-    public boolean isBloodTypeValid(RegisterationInput registerInput)
+    public boolean isBloodTypeValid(RegistrationInput registerInput)
     {
         boolean check = false;
         String bloodType = registerInput.getBloodType();
@@ -180,7 +179,7 @@ public class RegistrationControllerService {
 
 
 
-    public boolean isValidPassword(RegisterationInput registerInput)
+    public boolean isValidPassword(RegistrationInput registerInput)
     {
         String password = registerInput.getPassword();
 
@@ -209,7 +208,7 @@ public class RegistrationControllerService {
     }
 
 
-    public boolean userExists(RegisterationInput input)
+    public boolean userExists(RegistrationInput input)
     {
         boolean check;
         AccountDetails account = accountDetailsRepository.findByEmail(input.getEmail());

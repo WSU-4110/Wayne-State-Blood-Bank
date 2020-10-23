@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class WebPageController {
-    // Login form
-
-
 
     @RequestMapping("/accessDenied")
     public String getAccessDenied(){
