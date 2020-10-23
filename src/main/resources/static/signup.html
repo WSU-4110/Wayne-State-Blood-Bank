@@ -139,17 +139,6 @@
 <button onclick = "registerAccount()">Submit</button>
 
 
-
-
-<!--
-<script>
-window.onbeforeunload = function() 
-{
-return "Leaving the page, your inputs will not be saved";};
-</script>
--->
-
-
 <!--Functions for validation-->
 <script>
  function registerAccount()
@@ -198,7 +187,7 @@ return "Leaving the page, your inputs will not be saved";};
                             alert("Sorry your registration did not go through!");
                         },
                         error: function(error){
-                        alert(error);
+                            alert(error);
                         }
                     });
 
@@ -331,7 +320,6 @@ function ValidateDOB()
 
 <footer>
 Copyright &copy; Red Cross Warriors<br>
-<!--<a href="mailto:">whateverouremailis.com</>-->
 </footer>
 </div>
 </body>

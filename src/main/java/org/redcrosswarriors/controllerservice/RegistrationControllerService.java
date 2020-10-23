@@ -62,154 +62,17 @@ public class RegistrationControllerService {
                     firstName,
                     lastName,
                     registerInput.getBirthDay(),
-                    registerInput.getBloodDonor(),
+                    registerInput.getBloodDonorStatus(),
                     registerInput.getPhoneNumber(),
                     registerInput.getBloodType());
 
 
         return true;
     }
-    public boolean isNameValid(RegistrationInput registerInput)
-    {
-        boolean check = false;
-        String firstName = registerInput.getFirstName();
-        String lastName = registerInput.getLastName();
-        // no white space
-        // no numbers
-        // Regex to check valid password.
-        String regex = "^[a-zA-Z]+";
-
-        String regex1 = "^\\d{10}";
-
-        String regex2 = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
-
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-
-        // If the password is empty
-        // return false
-        if (firstName == null || lastName == null) {
-            return false;
-        }
-
-        // Pattern class contains matcher() method
-        // to find matching between given password
-        // and regular expression.
-        Matcher mFirst = p.matcher(firstName);
-        Matcher mLast = p.matcher(lastName);
-
-        // Return if the password
-        // matched the ReGex
-        if(mFirst.matches() && mLast.matches())
-            check = true;
-
-        return check;
-
-    }
-
-    public boolean isPhoneValid(RegistrationInput registerInput)
-    {
-        boolean check = false;
-        String phoneNumber = registerInput.getPhoneNumber();
-
-        // no white space
-        // no numbers
-        // Regex to check valid password.
-        String regex = "^\\d{10}";
 
 
 
-        String regex2 = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
-
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-
-        // If the password is empty
-        // return false
-
-
-        // Pattern class contains matcher() method
-        // to find matching between given password
-        // and regular expression.
-        Matcher m = p.matcher(phoneNumber);
-
-
-        // Return if the password
-        // matched the ReGex
-        if(m.matches())
-            check = true;
-
-        return check;
-
-    }
-
-    public boolean isBloodTypeValid(RegistrationInput registerInput)
-    {
-        boolean check = false;
-        String bloodType = registerInput.getBloodType();
-
-        // no white space
-        // no numbers
-        // Regex to check valid password.
-        String regex = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
-
-
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-
-        // If the password is empty
-        // return false
-
-
-        // Pattern class contains matcher() method
-        // to find matching between given password
-        // and regular expression.
-        Matcher m = p.matcher(bloodType);
-
-
-        // Return if the password
-        // matched the ReGex
-        if(m.matches())
-            check = true;
-
-        return check;
-
-    }
-
-
-
-
-    public boolean isValidPassword(RegistrationInput registerInput)
-    {
-        String password = registerInput.getPassword();
-
-        // Regex to check valid password.
-        String regex = "^(?=.*[0-9])"
-                + "(?=.*[a-z])(?=.*[A-Z])"
-                + ".{8,20}$";
-
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-
-        // If the password is empty
-        // return false
-        if (password == null) {
-            return false;
-        }
-
-        // Pattern class contains matcher() method
-        // to find matching between given password
-        // and regular expression.
-        Matcher m = p.matcher(password);
-
-        // Return if the password
-        // matched the ReGex
-        return m.matches();
-    }
-
-
-    public boolean userExists(RegistrationInput input)
-    {
+    public boolean userExists(RegistrationInput input) {
         boolean check;
         AccountDetails account = accountDetailsRepository.findByEmail(input.getEmail());
         if (account != null)
@@ -220,8 +83,6 @@ public class RegistrationControllerService {
             check = false;
 
         return check;
-
-
     }
 
 }

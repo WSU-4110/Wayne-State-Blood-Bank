@@ -29,7 +29,7 @@ public abstract class AbstractProfile {
     //type of string instead of boolean so that it doesn't break existing code
     @NotNull
     @NotBlank
-    @Pattern(regexp = "^Y|N", message = "Invalid Status must be either 'Y' or 'N'")
+    @Pattern(regexp = "^Y|N", message = "Invalid blood donor status must be either 'Y' or 'N'")
     protected String bloodDonorStatus;
 
 

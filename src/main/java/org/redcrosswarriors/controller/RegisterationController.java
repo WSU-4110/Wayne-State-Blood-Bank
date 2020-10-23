@@ -27,11 +27,6 @@ public class RegisterationController
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
 
         }
-        else if(!registerService.isValidPassword(input))
-        {
-            json.put("status", "Invalid Password");
-            return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
-        }
         else
         {
             registerService.registerAccount(input);
