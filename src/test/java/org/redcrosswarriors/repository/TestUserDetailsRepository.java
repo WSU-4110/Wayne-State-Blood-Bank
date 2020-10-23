@@ -24,8 +24,18 @@ public class TestUserDetailsRepository {
     @Sql("/test_get_profile.sql")
     public void testGetProfile(){
         Profile profile = repository.getProfileByEmail("user@wayne.edu");
-        System.out.println(profile.getBirthDay());
         assertEquals("John", profile.getFirstName());
+    }
+
+    @Test
+    @Sql("/test_get_profile.sql")
+    public void testUpdateProfile(){
+        // update name to Jane
+        repository.updateProfileByEmail("user@wayne.edu", "Jane",
+                "Smith", "1111111112", "N");
+
+        Profile profile1 = repository.getProfileByEmail("user@wayne.edu");
+        assertEquals("Jane", profile1.getFirstName());
     }
 
 }
