@@ -56,11 +56,10 @@ CREATE TABLE userDetails
     bloodDonor CHAR(1),
     phoneNumber VARCHAR(11),
     bloodType CHAR(3),
-    PRIMARY KEY (id),
-    CHECK (bloodDonor = 'Y')
+    PRIMARY KEY (id)
 );
 
-ALTER TABLE userDetails ADD CONSTRAINT fk_user_detials_accounts
+ALTER TABLE userDetails ADD CONSTRAINT fk_user_details_accounts
    FOREIGN KEY (id) REFERENCES accounts(id)
    ON DELETE CASCADE
    ON UPDATE CASCADE;
@@ -68,3 +67,7 @@ ALTER TABLE userDetails ADD CONSTRAINT fk_user_detials_accounts
 CREATE VIEW donorList AS SELECT U.id, A.email, U.birthDay, U.bloodType, U.phoneNumber
                          FROM userDetails U, accounts A
                          WHERE U.id = A.id AND U.bloodDonor ='Y';
+
+CREATE VIEW vw_user_profile AS SELECT U.firstName, U.lastName, U.phoneNumber, U.bloodDonor AS bloodDonorStatus,
+    U.bloodType, U.birthDay, A.email
+    FROM userDetails AS U INNER JOIN accounts AS A ON A.id = U.id;

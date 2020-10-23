@@ -5,21 +5,19 @@ import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegistrationInput;
 import org.redcrosswarriors.repository.AccountDetailsRepository;
-import org.redcrosswarriors.repository.RegistrationDetailsRepository;
+import org.redcrosswarriors.repository.UserDetailsRepository;
 import org.redcrosswarriors.security.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class RegistrationControllerService {
 
 
     @Autowired // dependencies injection, automatically
-    private RegistrationDetailsRepository registrationRepository;
+    private UserDetailsRepository registrationRepository;
 
     @Autowired
     private AccountDetailsService accountService;
