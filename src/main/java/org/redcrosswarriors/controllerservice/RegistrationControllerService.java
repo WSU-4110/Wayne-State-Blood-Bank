@@ -48,7 +48,7 @@ public class RegistrationControllerService {
         try {
             SendMail verify;
             verify = new SendMail(registerInput.getEmail(), link);
-            verify.send_verification();
+            verify.sendVerification();
         } catch (Exception e) {
             e.printStackTrace();
         }

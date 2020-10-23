@@ -19,7 +19,7 @@ public class SendMail {
     private Properties properties = null;
     private String recipient;
     private String URL = null;
-    private String recipients[] = null;
+    private String[] recipients = null;
     private String htmlCode = null;
     private Request request = null;
 
@@ -42,7 +42,7 @@ public class SendMail {
      * constructor for "contact us" messages.
      * Use this constructor to email the message entered by the user to our own account.
      *
-     * @param contactMessage
+     * @param contactMessage : the message submitted by the user. This should begin with the users email address.
      * @throws Exception
      */
     public SendMail(String contactMessage) throws Exception {
@@ -74,14 +74,11 @@ public class SendMail {
      * @param _recipients : Array of email addresses
      * @param _request    : object of type request
      */
-    public SendMail(String _recipients[], Request _request) throws Exception {
+    public SendMail(String[] _recipients, Request _request) throws Exception {
         this();
         //copy _recipients
         recipients = new String[_recipients.length];
-        for (int i = 0; i < _recipients.length; i++) {
-            recipients[i] = _recipients[i];
-        }
-        ;
+        System.arraycopy(_recipients, 0, recipients, 0, _recipients.length);
         request = new Request(_request);
         htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/matchNotification.html")).useDelimiter("\\Z").next()));
         htmlCode = htmlCode.replace("NAME", request.getName());
@@ -91,12 +88,15 @@ public class SendMail {
     }
 
 
+
+
+
     /**
      * method for sending message from "contact us" page to our own email
      *
      * @throws Exception
      */
-    public void send_contact() throws Exception {
+    public void sendContact() throws Exception {
         //create email session
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -126,7 +126,7 @@ public class SendMail {
      *
      * @throws Exception
      */
-    public void send_verification() throws Exception {
+    public void sendVerification() throws Exception {
         //create email session
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -156,7 +156,7 @@ public class SendMail {
      *
      * @throws Exception
      */
-    public void send_notification() throws Exception {
+    public void sendNotification() throws Exception {
         System.out.println("notification method");
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -169,10 +169,10 @@ public class SendMail {
         message.setFrom(new InternetAddress(myEmail));
         message.setSubject("YOUR Blood is Needed!");
 
-        for (int i = 0; i < recipients.length; i++) {
+        for (String s : recipients) {
 
             try {
-                message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients[i]));
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(s));
 
 
                 message.setContent(htmlCode, "text/html");
@@ -187,7 +187,7 @@ public class SendMail {
     /**
      * mostly for unit testing purposes
      *
-     * @return
+     * @return : return the html string that would be inserted into email
      */
     public String getHtmlCode() {
         return htmlCode;
@@ -196,7 +196,7 @@ public class SendMail {
     /**
      * mostly for unit testing purposes
      *
-     * @return
+     * @return array of recipients
      */
     public String[] getRecipients() {
         return recipients;
