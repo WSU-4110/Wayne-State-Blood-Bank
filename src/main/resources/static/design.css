@@ -22,6 +22,7 @@
   position: relative;
   text-align: center;
   color: white;
+  max-height: 90%;
 }
 
 /* Centered text */

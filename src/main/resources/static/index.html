@@ -21,9 +21,11 @@
               <button class="ui red button" id="logoutButton">Logout</button>
             </a>
         </div>
-        <h3 class="ui left floated huge red header">
-            Red Cross Warriors
-        </h3>
+        <a href="/index.html">
+          <h3 class="ui left floated huge red header">
+              Red Cross Warriors
+          </h3>
+        </a>
     </div>
 </div>
 
@@ -88,8 +90,8 @@
             <a class="item">
                 <i class="grid layout icon"></i> Page 2
             </a>
-            <a class="item">
-                <i class="mail icon"></i> Page 3
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
             </a>
             <!--how to lock this behind login-->
             <div class="ui simple dropdown item">
@@ -110,7 +112,7 @@
 <div class="ui fluid container">
     <div class="content">
         <div class="transparent-bg">
-            <img src="Blood-Donation.jpg" id="bdimg" style="width:100%;">
+            <img src="images/Blood-Donation.jpg" id="bdimg" style="width:100%;">
         </div>
         <div class="ui container">
             <div class="centered">
@@ -119,8 +121,9 @@
                 <p style="font-size:2vw;">Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo,
                     eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri
                     ponderum tractatos ei.</p>
-
-                <button class="ui red button" id="Register" onclick="openLoginModal()">Register now</button>
+                <a href="/signup.html">
+                  <button class="ui red button" id="Register">Register now</button>
+                </a>
                 <button class="ui basic inverted button" onclick="tempButton()">Search for blood</button>
               </div>
 
@@ -159,9 +162,9 @@
     </div>
 
 </div>
-<script>
-    loginCheck();
-</script>
+  <script>
+      loginCheck();
+  </script>
 </body>
 
 <div class="footer">
