@@ -17,8 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -88,5 +87,14 @@ public class TestProfileController {
                 new ResponseEntity<>(new Profile(), HttpStatus.OK)
         );
         this.mockMvc.perform(get("/profile")).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username = "admin@wayne.edu", roles={"USER", "ADMIN"})
+    public void testDeleteProfile() throws Exception{
+        when(service.deleteProfile("admin@wayne.edu")).thenReturn(
+                new ResponseEntity<>(HttpStatus.OK)
+        );
+        this.mockMvc.perform(delete("/profile")).andDo(print()).andExpect(status().isOk());
     }
 }

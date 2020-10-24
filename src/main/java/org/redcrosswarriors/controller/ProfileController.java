@@ -5,10 +5,8 @@ import org.redcrosswarriors.model.input.EditProfileInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -27,5 +25,11 @@ public class ProfileController {
     @Secured("ROLE_USER")
     public ResponseEntity<Object> getProfile(Principal principal){
         return service.getProfile(principal.getName());
+    }
+
+    @DeleteMapping("/profile")
+    @Secured("ROLE_USER")
+    public ResponseEntity<Object> deleteProfile(Principal principal){
+        return service.deleteProfile(principal.getName());
     }
 }

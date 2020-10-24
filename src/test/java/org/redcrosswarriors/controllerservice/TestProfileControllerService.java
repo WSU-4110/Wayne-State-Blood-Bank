@@ -28,6 +28,12 @@ public class TestProfileControllerService {
     private ProfileControllerService service;
 
     @Test
+    public void testDeleteProfile(){
+        ResponseEntity<Object> response = service.deleteProfile("user@wayne.edu");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
     public void testUpdateProfile(){
         EditProfileInput input = new EditProfileInput();
         input.setFirstName("John");

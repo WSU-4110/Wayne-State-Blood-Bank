@@ -23,6 +23,22 @@ public class ProfileControllerService {
     private AccountDetailsService accountDetailsService;
 
     @Transactional
+    public ResponseEntity<Object> deleteProfile(String email){
+        Map<String, Object> responseObject = new HashMap<String, Object>();
+        try{
+            accountDetailsService.deleteAccount(email);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            responseObject.put("message", "An unknown error has occurred");
+            return new ResponseEntity<Object>(responseObject, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        responseObject.put("message", "Successfully deleted profile");
+        return new ResponseEntity<Object>(responseObject, HttpStatus.OK);
+    }
+
+    @Transactional
     public ResponseEntity<Object> updateProfile(String email, EditProfileInput input){
         Map<String, Object> responseObject = new HashMap<String, Object>();
 
