@@ -76,7 +76,8 @@ ALTER TABLE feedback ADD CONSTRAINT fk_feedback_account_id
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
-
+CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
+INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
 
 CREATE VIEW vw_user_profile AS SELECT U.first_name, U.last_name, U.phone_number
 , U.blood_donor_status, U.blood_type, U.birth_day, A.email as email

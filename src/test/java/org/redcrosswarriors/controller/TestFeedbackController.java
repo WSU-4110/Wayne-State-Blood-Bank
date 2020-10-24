@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,4 +44,15 @@ public class TestFeedbackController {
                 post("/feedback").contentType(MediaType.APPLICATION_JSON).content(json))
                 .andDo(print()).andExpect(status().isCreated());
     }
+
+    @WithMockUser(username="admin@wayne.edu",roles={"USER","ADMIN"})
+    @Test
+    public void testGetFeedback() throws Exception{
+        when(service.getAllFeedback()).thenReturn(new ResponseEntity<Object>(HttpStatus.OK));
+        this.mockMvc.perform(
+                get("/feedback")
+        ).andDo(print()).andExpect(status().isOk());
+    }
+
+
 }
