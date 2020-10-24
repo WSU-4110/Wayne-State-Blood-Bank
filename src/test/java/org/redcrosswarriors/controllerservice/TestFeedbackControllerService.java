@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.redcrosswarriors.model.Feedback;
 import org.redcrosswarriors.model.ViewFeedback;
 import org.redcrosswarriors.repository.AccountDetailsRepository;
+import org.redcrosswarriors.repository.FeedbackRepository;
 import org.redcrosswarriors.repository.ViewFeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,9 @@ public class TestFeedbackControllerService {
 
     @MockBean
     private ViewFeedbackRepository feedbackRepository;
+
+    @MockBean
+    private FeedbackRepository repository;
 
     @Autowired
     private FeedbackControllerService service;
@@ -57,6 +61,12 @@ public class TestFeedbackControllerService {
         ResponseEntity<Object> response = service.getAllFeedback();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(2, ((List) response.getBody()).size());
+    }
+
+    @Test
+    public void testDeleteFeedback(){
+        ResponseEntity<Object> response = service.deleteFeedback(1);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
 }

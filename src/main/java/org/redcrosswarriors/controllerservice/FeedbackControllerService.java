@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.Map;
 import java.util.HashMap;
@@ -47,6 +46,20 @@ public class FeedbackControllerService {
     public ResponseEntity<Object> getAllFeedback(){
         List<ViewFeedback> feedbackList = feedbackRepository.findAll();
         return new ResponseEntity<Object>(feedbackList, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> deleteFeedback(int id){
+        Map<String,String> json = new HashMap<String, String>();
+        try{
+            repository.deleteById(id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            json.put("message", "An unknown error has occurred");
+            return new ResponseEntity<Object>(json, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        json.put("message", "Successfully deleted feedback");
+        return new ResponseEntity<Object>(json, HttpStatus.OK);
     }
 
 
