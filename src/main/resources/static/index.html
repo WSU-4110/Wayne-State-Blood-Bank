@@ -38,14 +38,14 @@
                 <div class="column">
                     <form class="ui form" method="post">
                         <div class="field">
-                            <label>E-mail</label>
+                            <label style="text-align: left;">E-mail</label>
                             <div class="ui left icon input">
                                 <input type="text"  name="username" placeholder="email" id="un"/>
                                 <i class="user icon"></i>
                             </div>
                         </div>
                         <div class="field">
-                            <label>Password</label>
+                            <label style="text-align: left;">Password</label>
                             <div class="ui left icon input">
                                 <input type="password" placeholder="password" name="password" id="pw"/>
                                 <i class="lock icon"></i>
@@ -117,6 +117,9 @@
         <div class="ui container">
             <div class="centered">
               <div class="mainContainer" id="mainContainer" style="display: block">
+                <div class="ui inverted blue segment" id="logoutLabel" style="display: none">
+                  <p>you have successfully been logged out</p>
+                </div>
                 <h1 style="font-size:4vw;">Donate Blood To Save Life</h1>
                 <p style="font-size:2vw;">Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo,
                     eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri
@@ -131,9 +134,9 @@
                 <div class="ui placeholder segment" style="background: rgba(0,0,0,.7)">
                   <h2>Login</h2>
                   <form class="ui form" method="post">
-                      <label>Email</label>
+                      <label style="text-align: left;">Email</label>
                       <input type="text"  name="username" placeholder="email" />
-                      <label>Password</label>
+                      <label style="text-align: left;">Password</label>
                       <input type="password" placeholder="password" name="password" />
                       <input type="submit"/>
                   </form>

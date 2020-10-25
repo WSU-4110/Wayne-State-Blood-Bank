@@ -11,6 +11,7 @@ function tempButton() {
   alert("This feature has not been implemented yet!");
 }
 
+/*
 function loginCheckIndex() {
       const getParams = window.location.search;
       const params = new URLSearchParams(getParams);
@@ -44,12 +45,16 @@ function loginCheckIndex() {
       });
 
       if(isLoggedOut != null){
-          alert("You have been logged out.");
+          //alert("You have been logged out.");
+          document.getElementById("logoutLabel").style.display = "block";
+          setTimeout(function() {
+            document.getElementById("logoutLabel").style.display = "none";
+          }, 5000)
           document.getElementById("logoutButton").style.display = "none";
           document.getElementById("loginButton").style.display = "block";
       }
 }
-
+*/
 function loginCheck() {
       const getParams = window.location.search;
       const params = new URLSearchParams(getParams);
@@ -83,7 +88,11 @@ function loginCheck() {
       });
 
       if(isLoggedOut != null){
-          alert("You have been logged out.");
+        //alert("You have been logged out.");
+        document.getElementById("logoutLabel").style.display = "block";
+        setTimeout(function() {
+          document.getElementById("logoutLabel").style.display = "none";
+        }, 5000)
           document.getElementById("logoutButton").style.display = "none";
           document.getElementById("loginButton").style.display = "block";
       }
