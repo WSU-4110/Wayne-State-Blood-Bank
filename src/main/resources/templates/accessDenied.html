@@ -1,13 +1,88 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Access Denied</title>
-</head>
-<body>
+
 <!--maybe similar format to the homepage but replace the background image with
 an image of a lock and the text with the access denied message of choice
 remove the buttons
 -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>ACCESS DENIED</title>
+    <link rel="stylesheet" href="design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+
+
+<div class="header">
+    <div class="ui green clearing inverted segment">
+        <a href="/index.html">
+          <h3 class="ui left floated huge red header">
+              Red Cross Warriors
+          </h3>
+        </a>
+    </div>
+</div>
+
+</div>
+<!--jquery should be above semantic because of dependencies-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="webpageFun.js"></script>
+<nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+        <!--how to make this fully left l-->
+        <div class="ui container">
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item">
+                <i class="grid layout icon"></i> Page 2
+            </a>
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
+            </a>
+            <!--how to lock this behind login-->
+            <div class="ui simple dropdown item">
+                More
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item"> Edit Profile</a>
+                    <a class="item"> Send Request?</a>
+                    <a class="item">Account Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<body>
+<div class="ui fluid container">
+    <div class="content">
+        <div class="transparent-bg">
+            <img src="lock-image.png" id="bdimg" style="width:100%;">
+        </div>
+        <div class="ui container">
+            <div class="centered">
+              <div class="mainContainer" id="mainContainer" style="display: block">
+                <h1 style="font-size:4vw;">ACCESSED DENIED</h1>
+                <p style="font-size:2vw;" id="verifedUser">Only verified users can access this page. Please check your email.</p>
+                <p style="font-size:2vw;" id="adminUser">Only Administrators can access this page.</p>
+                <a href="/index.html">
+                  <button class="ui red button">HOME</button>
+                </a>
+              </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!--move to .js file at some point-->
 <script>
 const getParams = window.location.search;
 const params = new URLSearchParams(getParams);
@@ -17,11 +92,15 @@ let notAdmin = params.get("notAdmin");
 
 if(notVerified != null){
     // change this to be more user friendly upon error
-    alert("Only verified users can access this page. Please check your email.");
+    //alert("Only verified users can access this page. Please check your email.");
+    document.getElementById("adminUser").style.display = "none";
+    document.getElementById("verifedUser").style.display = "block";
 }
 
 if(notAdmin != null){
-    alert("Only Administrators can access this page.");
+    //alert("Only Administrators can access this page.");
+    document.getElementById("adminUser").style.display = "block";
+    document.getElementById("verifedUser").style.display = "none";
 }
 
 </script>
