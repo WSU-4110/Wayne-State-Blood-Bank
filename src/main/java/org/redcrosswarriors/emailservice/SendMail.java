@@ -26,7 +26,7 @@ abstract public class SendMail {
      * default constructor
      * must set these properties for all cases
      */
-    SendMail() {
+    protected SendMail() {
         myEmail = "wsuredcrosswarriors@gmail.com";
         myPW = "give_blood_2020";
         properties = new Properties();
@@ -36,7 +36,10 @@ abstract public class SendMail {
         properties.put("mail.smtp.port", "587");
     }
 
-
+    /**
+     * sends the email to the recipients in the recipients[] array built in subclass constructor
+     * @throws Exception :
+     */
     public void send() throws Exception {
         System.out.println("Sending mail");
         Session session = Session.getInstance(properties, new Authenticator() {
@@ -50,10 +53,10 @@ abstract public class SendMail {
         message.setFrom(new InternetAddress(myEmail));
         message.setSubject(subject);
 
-        for (String s : recipients) {
+        for (String address : recipients) {
 
             try {
-                message.setRecipient(Message.RecipientType.TO, new InternetAddress(s));
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(address));
                 message.setContent(htmlCode, "text/html");
                 Transport.send(message);
 
