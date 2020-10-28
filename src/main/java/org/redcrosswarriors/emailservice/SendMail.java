@@ -13,15 +13,13 @@ import java.util.Scanner;
  * Create object of type send_mail using the constructor that matches your need.
  * Then send your email with the send_verification() or send_notification() method
  */
-public class SendMail {
-    private String myEmail = null;
-    private String myPW = null;
-    private Properties properties = null;
-    private String recipient;
-    private String URL = null;
-    private String[] recipients = null;
-    private String htmlCode = null;
-    private Request request = null;
+abstract public class SendMail {
+    protected String myEmail = null;
+    protected String myPW = null;
+    protected String[] recipients;
+    protected Properties properties = null;
+    protected String htmlCode = null;
+    protected String subject;
 
 
     /**
@@ -38,126 +36,9 @@ public class SendMail {
         properties.put("mail.smtp.port", "587");
     }
 
-    /**
-     * constructor for "contact us" messages.
-     * Use this constructor to email the message entered by the user to our own account.
-     *
-     * @param contactMessage : the message submitted by the user. This should begin with the users email address.
-     * @throws Exception
-     */
-    public SendMail(String contactMessage) throws Exception {
-        this();
-        recipient = "wsuredcrosswarriors@gmail.com";
-        htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/contactEmail.html")).useDelimiter("\\Z").next()));
-        htmlCode = htmlCode.replace("MESSAGE", contactMessage);
-    }
 
-    /**
-     * verification constructor
-     * use this constructor when sending an account verification message
-     *
-     * @param _recipient email address
-     * @param _URL       : link to insert into email message
-     */
-    public SendMail(String _recipient, String _URL) throws Exception {
-        this();
-        recipient = _recipient;
-        URL = _URL;
-        htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/verificationEmail.html")).useDelimiter("\\Z").next()));
-        htmlCode = htmlCode.replace("URL_to_click", URL);
-    }
-
-    /**
-     * match notification constructor
-     * use this constructor when sending match notifications
-     *
-     * @param _recipients : Array of email addresses
-     * @param _request    : object of type request
-     */
-    public SendMail(String[] _recipients, Request _request) throws Exception {
-        this();
-        //copy _recipients
-        recipients = new String[_recipients.length];
-        System.arraycopy(_recipients, 0, recipients, 0, _recipients.length);
-        request = new Request(_request);
-        htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/matchNotification.html")).useDelimiter("\\Z").next()));
-        htmlCode = htmlCode.replace("NAME", request.getName());
-        htmlCode = htmlCode.replace("EMAIL_ADDRESS", request.getEmailAddress());
-        htmlCode = htmlCode.replace("MESSAGE", request.getMessage());
-        htmlCode = htmlCode.replace("PHONE_NUMBER", request.getPhoneNumber());
-    }
-
-
-
-
-
-    /**
-     * method for sending message from "contact us" page to our own email
-     *
-     * @throws Exception
-     */
-    public void sendContact() throws Exception {
-        //create email session
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(myEmail, myPW);
-            }
-        });
-
-        //create message to be sent
-        Message message = new MimeMessage(session);
-        try {
-            message.setFrom(new InternetAddress(myEmail));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Red Cross Warriors User Contact");
-            message.setContent(htmlCode, "text/html");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // send message
-        Transport.send(message);
-    }
-
-
-    /**
-     * method for sending account verification emails
-     *
-     * @throws Exception
-     */
-    public void sendVerification() throws Exception {
-        //create email session
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(myEmail, myPW);
-            }
-        });
-
-        //create message to be sent
-        Message message = new MimeMessage(session);
-        try {
-            message.setFrom(new InternetAddress(myEmail));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Red Cross Warriors Account Validation");
-            message.setContent(htmlCode, "text/html");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // send message
-        Transport.send(message);
-    }
-
-
-    /**
-     * method for sending match notification emails to as many email addresses are in the recipients[] array.
-     *
-     * @throws Exception
-     */
-    public void sendNotification() throws Exception {
-        System.out.println("notification method");
+    public void send() throws Exception {
+        System.out.println("Sending mail");
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -167,14 +48,12 @@ public class SendMail {
 
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(myEmail));
-        message.setSubject("YOUR Blood is Needed!");
+        message.setSubject(subject);
 
         for (String s : recipients) {
 
             try {
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(s));
-
-
                 message.setContent(htmlCode, "text/html");
                 Transport.send(message);
 
@@ -185,7 +64,7 @@ public class SendMail {
     }
 
     /**
-     * mostly for unit testing purposes
+     * for unit testing purposes
      *
      * @return : return the html string that would be inserted into email
      */
@@ -194,7 +73,7 @@ public class SendMail {
     }
 
     /**
-     * mostly for unit testing purposes
+     * for unit testing purposes
      *
      * @return array of recipients
      */

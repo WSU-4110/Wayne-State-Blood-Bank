@@ -1,6 +1,7 @@
 package org.redcrosswarriors.controllerservice;
 
 import org.redcrosswarriors.emailservice.SendMail;
+import org.redcrosswarriors.emailservice.SendVerificationEmail;
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegisterationInput;
@@ -40,15 +41,15 @@ public class RegistrationControllerService {
         accountService.createAccount(account);
 
 
-        // create teh verification token
+        // create the verification token and append to link
         VerificationToken token = tokenService.createVerificationToken(registerInput.getEmail());
         String link = "http://localhost:8080/verify/"+token.getToken();
 
         // send verificationEmail
         try {
             SendMail verify;
-            verify = new SendMail(registerInput.getEmail(), link);
-            verify.sendVerification();
+            verify = new SendVerificationEmail(registerInput.getEmail(), link);
+            verify.send();
         } catch (Exception e) {
             e.printStackTrace();
         }
