@@ -49,7 +49,7 @@ public class RegistrationControllerService {
         try {
             SendMail verify;
             verify = new SendVerificationEmail(registerInput.getEmail(), link);
-            verify.send();
+            verify.start();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,22 +3,20 @@ package org.redcrosswarriors.emailservice;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.util.Properties;
-import java.util.Scanner;
 
 
 /**
- * class for sending emails
- * Create object of type send_mail using the constructor that matches your need.
+ * Base class (abstract) for sending emails
+ * Create object of type subclass you need, then
  * Then send your email with the send_verification() or send_notification() method
  */
-abstract public class SendMail {
-    protected String myEmail = null;
-    protected String myPW = null;
+abstract public class SendMail extends Thread {
+    protected String myEmail;
+    protected String myPW;
     protected String[] recipients;
-    protected Properties properties = null;
-    protected String htmlCode = null;
+    protected Properties properties;
+    protected String htmlCode;
     protected String subject;
 
 
@@ -37,32 +35,40 @@ abstract public class SendMail {
     }
 
     /**
-     * sends the email to the recipients in the recipients[] array built in subclass constructor
-     * @throws Exception :
+     * call this method to start the below run() method in a new thread
      */
-    public void send() throws Exception {
-        System.out.println("Sending mail");
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(myEmail, myPW);
-            }
-        });
+    public void start() {
+        super.start();
+    }
 
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(myEmail));
-        message.setSubject(subject);
+    /**
+     * NOTE: This should NOT be called directly:
+     * Calling this method with object.run() will result in this method being run
+     * in the main thread instead of a new one. To start this method in a new thread, call with object.start()
+     */
+    public void run() {
+        try {
+            System.out.println("Sending mail");
 
-        for (String address : recipients) {
+            Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(myEmail, myPW);
+                }
+            });
 
-            try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myEmail));
+            message.setSubject(subject);
+
+            for (String address : recipients) {
+                System.out.println("Sending to : " + address);
                 message.setRecipient(Message.RecipientType.TO, new InternetAddress(address));
                 message.setContent(htmlCode, "text/html");
                 Transport.send(message);
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Throwable e) {
+            e.printStackTrace();
         }
     }
 

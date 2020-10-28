@@ -7,8 +7,9 @@ public class SendVerificationEmail extends SendMail {
 
     /**
      * Constructor
+     *
      * @param recipient : the new user's email address
-     * @param URL : the link to the verification page the user should click (must include appended verification token)
+     * @param URL       : the link to the verification page the user should click (must include appended verification token)
      * @throws Exception :
      */
     public SendVerificationEmail(String recipient, String URL) throws Exception {

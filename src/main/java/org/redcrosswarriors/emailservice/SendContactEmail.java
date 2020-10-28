@@ -3,15 +3,16 @@ package org.redcrosswarriors.emailservice;
 import java.io.File;
 import java.util.Scanner;
 
-public class SendContactEmail extends SendMail{
+public class SendContactEmail extends SendMail {
 
     /**
      * Constructor
-     * @param sendersEmail : The sender's email address
+     *
+     * @param sendersEmail   : The sender's email address
      * @param contactMessage : the body of the message the sender submitted
      * @throws Exception :
      */
-    public SendContactEmail(String sendersEmail, String contactMessage) throws Exception{
+    public SendContactEmail(String sendersEmail, String contactMessage) throws Exception {
         recipients = new String[1];
         recipients[0] = "wsuredcrosswarriors@gmail.com";
         String HTML_TEMPLATE;

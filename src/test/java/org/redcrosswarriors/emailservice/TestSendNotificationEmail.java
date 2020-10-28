@@ -11,12 +11,11 @@ class TestSendNotificationEmail extends SendMail {
 
     @Test
     void send_notification() throws Exception {
-        String[] matches = new String[5];
-        matches[0] = "test1@fakemail.com";
-        matches[1] = "test2@fakemail.com";
-        matches[2] = "test3@fakemail.com";
-        matches[3] = "test4@fakemail.com";
-        matches[4] = "test5@fakemail.com";
+        final int numMessages = 100;
+        String[] matches = new String[numMessages];
+        for (int i = 0; i < matches.length; i++) {
+            matches[i] = "test" + i + "@fakemail.com";
+        }
 
         Request req = new Request("Vlad Thirsty",
                 "vlad@the_impaler.com",
