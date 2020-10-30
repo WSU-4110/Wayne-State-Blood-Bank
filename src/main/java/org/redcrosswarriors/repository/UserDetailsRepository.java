@@ -1,18 +1,19 @@
 package org.redcrosswarriors.repository;
 
+import org.redcrosswarriors.model.Profile;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.redcrosswarriors.model.RegistrationDetails;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import javax.transaction.Transactional;
 
 @Repository
-public interface RegistrationDetailsRepository extends CrudRepository<RegistrationDetails, String> {
+public interface UserDetailsRepository extends CrudRepository<Profile, String> {
 
     @Modifying
-    @Query(value= "INSERT INTO userDetails(id, firstName, lastName, birthDay, bloodDonor, phoneNumber, bloodType) " +
+    @Query(value= "INSERT INTO user_details(id, first_name, last_name, birth_day, blood_donor_status, phone_number, blood_type) " +
             "VALUES(:id, :firstName, :lastName, :birthDay, :bloodDonor, :phoneNumber, :bloodType)", nativeQuery = true)
     void registerAccount(
                          @Param("id") int id,
@@ -23,22 +24,20 @@ public interface RegistrationDetailsRepository extends CrudRepository<Registrati
                          @Param("phoneNumber") String phoneNumber,
                          @Param("bloodType") String bloodType);
 
-    @Modifying
-    @Query(value = "INSERT INTO donorList VALUES( :id, :email, :birthDay, :bloodType, :phoneNumber)", nativeQuery = true)
-    void addDonor(@Param("id") int id,
-                  @Param("email") String email,
-                  @Param("birthDay") String birthDay,
-                  @Param("bloodType") String bloodType,
-                  @Param("phoneNumber") String phoneNumber);
 
+    @Query(value = "SELECT * FROM vw_user_profile WHERE email = :email", nativeQuery = true)
+    Profile getProfileByEmail(@Param("email") String email);
 
     @Modifying
     @Transactional
-    @Query(value="DELETE FROM userDetails WHERE id = :id", nativeQuery = true)
-    void removeAccountById(@Param("id") int id);
-
-    @Modifying
-    @Query(value="UPDATE userDetails SET bloodDonor = :bloodDonor WHERE id = :id", nativeQuery=true)
-    void updateDonor(@Param("id") int id, @Param("bloodDonor") String bloodDonor);
+    @Query(value = "UPDATE user_details SET first_name = :firstName, last_name = :lastName, phone_number = :phoneNumber," +
+            "blood_donor_status = :bloodDonorStatus WHERE id = (SELECT id FROM accounts WHERE email = :email) ",
+            nativeQuery = true)
+    void updateProfileByEmail(
+            @Param("email") String email,
+            @Param("firstName") String firstName,
+            @Param("lastName") String lastName,
+            @Param("phoneNumber") String phoneNumber,
+            @Param("bloodDonorStatus") String bloodDonorStatus);
 
 }

@@ -47,24 +47,42 @@ ALTER TABLE verification_tokens ADD CONSTRAINT fk_verification_account_id
         ON DELETE CASCADE
         ON UPDATE CASCADE;
 
-CREATE TABLE userDetails
+CREATE TABLE user_details
 (
     id INT NOT NULL,
-    firstName VARCHAR(100) NOT NULL,
-    lastName VARCHAR(100) NOT NULL,
-    birthDay DATE NOT NULL,
-    bloodDonor CHAR(1),
-    phoneNumber VARCHAR(11),
-    bloodType CHAR(3),
-    PRIMARY KEY (id),
-    CHECK (bloodDonor = 'Y')
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    birth_day DATE NOT NULL,
+    blood_donor_status CHAR(1),
+    phone_number VARCHAR(11),
+    blood_type CHAR(3),
+    PRIMARY KEY (id)
 );
 
-ALTER TABLE userDetails ADD CONSTRAINT fk_user_detials_accounts
+ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    FOREIGN KEY (id) REFERENCES accounts(id)
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
-CREATE VIEW donorList AS SELECT U.id, A.email, U.birthDay, U.bloodType, U.phoneNumber
-                         FROM userDetails U, accounts A
-                         WHERE U.id = A.id AND U.bloodDonor ='Y';
+CREATE TABLE feedback(
+    id INT NOT NULL AUTO_INCREMENT,
+    message TEXT NOT NULL,
+    account_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE feedback ADD CONSTRAINT fk_feedback_account_id
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
+INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
+
+CREATE VIEW vw_user_profile AS SELECT U.first_name, U.last_name, U.phone_number
+, U.blood_donor_status, U.blood_type, U.birth_day, A.email as email
+    FROM user_details AS U INNER JOIN accounts AS A ON A.id = U.id;
+
+CREATE VIEW vw_donor_list AS SELECT U.id, A.email, U.birth_day, U.blood_type, U.phone_number as phone_number
+                         FROM user_details U, accounts A
+                         WHERE U.id = A.id AND U.blood_donor_status ='Y';

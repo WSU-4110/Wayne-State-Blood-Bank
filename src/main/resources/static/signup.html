@@ -139,17 +139,6 @@
 <button onclick = "registerAccount()">Submit</button>
 
 
-
-
-<!--
-<script>
-window.onbeforeunload = function() 
-{
-return "Leaving the page, your inputs will not be saved";};
-</script>
--->
-
-
 <!--Functions for validation-->
 <script>
  function registerAccount()
@@ -180,7 +169,7 @@ return "Leaving the page, your inputs will not be saved";};
                         firstName: firstName ,
                         lastName : lastName ,
                         birthDay : birthDay ,
-                        bloodDonor : bloodDonor ,
+                        bloodDonorStatus : bloodDonor ,
                         phoneNumber : phoneNumber,
                         bloodType: bloodType
                     }
@@ -198,7 +187,7 @@ return "Leaving the page, your inputs will not be saved";};
                             alert("Sorry your registration did not go through!");
                         },
                         error: function(error){
-                        alert(error);
+                            alert(error);
                         }
                     });
 
@@ -228,9 +217,9 @@ function checkForm()
 
   if(password != "" && password == password2)
   {
-      if(password.length < 6)
+      if(password.length < 8)
       {
-        alert("Error: Password must contain at least six characters!");
+        alert("Error: Password must contain at least eight characters!");
         document.getElementById("pwd1").focus();
         check = false;
       }
@@ -331,7 +320,6 @@ function ValidateDOB()
 
 <footer>
 Copyright &copy; Red Cross Warriors<br>
-<!--<a href="mailto:">whateverouremailis.com</>-->
 </footer>
 </div>
 </body>
