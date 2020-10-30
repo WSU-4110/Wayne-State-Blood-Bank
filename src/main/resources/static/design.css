@@ -12,12 +12,6 @@ footer {
   padding: 45px 50px;
 }
 
-.body {
-  font-family: Arial;
-  font-size: 17px;
-  background-color: rgba(0,0,0,0.5);
-}
-
 .header {
   background-blend-mode: color;
 }
@@ -56,6 +50,7 @@ position:relative;
     display: block;
     background-color: rgba(0,0,0,0.5);
 }
+
 
 /*Added to align input boxes*/
 label
