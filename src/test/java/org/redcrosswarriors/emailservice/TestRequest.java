@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TestRequest {
 
     @Test
-    void request_constructor_test(){
+    void requestConstructorTest(){
 
         Request req = new Request("Vlad Thirsty",
                 "vlad@the_impaler.com",

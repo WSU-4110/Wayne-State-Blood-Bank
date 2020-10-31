@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestSendContactEmail extends SendMail {
 
     @Test
-    void send_contact() throws Exception {
+    void sendContact() throws Exception {
         SendContactEmail testContact;
         testContact = new SendContactEmail("test@gmail.com", "This is the test message words for the unit test");
         String testHtml;

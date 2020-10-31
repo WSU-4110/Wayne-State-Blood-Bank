@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TestSendVerificationEmail extends SendMail {
     @Test
-    void send_verification() throws Exception {
+    void sendVerification() throws Exception {
         String token = "thisisthetoken123";
         String link = "http://localhost:8080/verify/" + token;
 

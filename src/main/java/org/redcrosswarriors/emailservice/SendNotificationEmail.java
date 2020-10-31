@@ -8,13 +8,13 @@ public class SendNotificationEmail extends SendMail {
     /**
      * Constructor
      *
-     * @param _recipients : array of email addresses of matches to be notified
+     * @param recipients : array of email addresses of matches to be notified
      * @param request     : Request object. Elements of this are inserted to html email tamplate and sent to recipients
      * @throws Exception :
      */
-    public SendNotificationEmail(String[] _recipients, Request request) throws Exception {
-        recipients = new String[_recipients.length];
-        System.arraycopy(_recipients, 0, recipients, 0, _recipients.length);
+    public SendNotificationEmail(String[] recipients, Request request) throws Exception {
+        this.recipients = new String[recipients.length];
+        System.arraycopy(recipients, 0, this.recipients, 0, recipients.length);
 
         subject = "YOUR Blood is Needed!";
         String HTML_TEMPLATE;

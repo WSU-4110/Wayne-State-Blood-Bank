@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TestSendNotificationEmail extends SendMail {
 
     @Test
-    void send_notification() throws Exception {
+    void sendNotification() throws Exception {
         final int numMessages = 100;
         String[] matches = new String[numMessages];
         for (int i = 0; i < matches.length; i++) {

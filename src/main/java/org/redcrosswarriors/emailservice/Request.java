@@ -28,13 +28,13 @@ public class Request {
     /**
      * copy constructor
      *
-     * @param _request
+     * @param request
      */
-    public Request(Request _request) {
-        this.name = _request.name;
-        this.emailAddress = _request.emailAddress;
-        this.phoneNumber = _request.phoneNumber;
-        this.message = _request.message;
+    public Request(Request request) {
+        this.name = request.name;
+        this.emailAddress = request.emailAddress;
+        this.phoneNumber = request.phoneNumber;
+        this.message = request.message;
     }
 
     public String getName() {
