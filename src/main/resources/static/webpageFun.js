@@ -54,6 +54,25 @@ function loginCheck() {
       }
 }
 
+function roleCheckFeedback() {
+
+  const getParams = window.location.search;
+  const params = new URLSearchParams(getParams);
+
+  let notVerified = params.get("notVerified");
+  let notAdmin = params.get("notAdmin");
+
+  if(notVerified == null){
+      // change this to be more user friendly upon error
+      document.getElementById("feedbackDisplay").style.display = "block";
+  }
+
+  if(notAdmin == null){
+      //alert("Only Administrators can access this page.");
+      document.getElementById("viewFeed").style.display = "block";
+  }
+}
+
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

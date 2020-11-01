@@ -88,6 +88,14 @@ input[type=submit] {
     display: none;
 }
 
+#feedbackDisplay {
+    display: none;
+}
+
+#viewFeed {
+    display: none;
+}
+
 #Search {
   max-height: 42em;
 }
