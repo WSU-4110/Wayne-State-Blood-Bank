@@ -22,7 +22,6 @@ public class AccessDeniedHandlerImp implements AccessDeniedHandler {
                        AccessDeniedException e) throws IOException, ServletException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String redirectLink = "/accessDenied";
-
         if(auth != null){
             boolean isUnverified = auth.getAuthorities().stream().anyMatch(
                     r -> r.getAuthority().equals("ROLE_UNVERIFIED")
@@ -37,8 +36,7 @@ public class AccessDeniedHandlerImp implements AccessDeniedHandler {
             else if(!isAdmin){
                 redirectLink +="?notAdmin=true";
             }
-
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + redirectLink);
         }
+        httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + redirectLink);
     }
 }
