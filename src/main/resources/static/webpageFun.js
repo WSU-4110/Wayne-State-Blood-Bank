@@ -107,3 +107,12 @@ function signInButton() {
   setCookie("openModal", "true", 1);
   window.location.href= "index.html";
 }
+
+function feedbackLabel() {
+  document.getElementById("feedbackLabel").style.display = "block";
+  setTimeout(function() {
+    document.getElementById("feedbackLabel").style.display = "none";
+    //uncomment when rolled out
+    //window.location.href= "index.html";
+  }, 5000)
+}

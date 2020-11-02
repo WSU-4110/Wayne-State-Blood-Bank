@@ -76,9 +76,8 @@
                             <div class="text">
                                   Hello World!
                             </div>
-                            <!--<button class="ui red inverted button" id="but">Resolve</button>-->
+                            <!--<button class="ui red inverted button" id="temp" onclick="deleteButton(this.id)">Resolve</button>-->
                         </div>
-                        <hr/>
                     </template>
                     <div class="ui container" id="feedbackList">
 
@@ -104,7 +103,6 @@
   loginCheck();
 
   function deleteButton (id) {
-    alert("helo");
       $.ajax({
           type: 'DELETE',
           dataType: 'json',
@@ -139,10 +137,23 @@ function showMessages(data){
         // get the text component of the message
         let textComponent = newMessageElement.querySelector('.text');
         // set the message to the current message
-        let format = "Name: " + data[i].name + "<br/>"
+        let format = "<hr/>Name: " + data[i].name + "<br/>"
           + "E-mail: " + data[i].email + "<br/>"
-          + "Message: <br/>" + data[i].message + "<br/>"
-          + `<button class='ui red inverted button' id='${data[i].id}'>Resolve</button>`;
+          + "Message: <br/>" + data[i].message;
+
+          var button = document.createElement('input');
+
+          // SET INPUT ATTRIBUTE 'type' AND 'value'.
+          button.setAttribute('type', 'button');
+          button.setAttribute('class', 'ui red inverted button');
+          button.setAttribute('value', 'Resolve');
+          button.setAttribute('id', data[i].id);
+
+          // ADD THE BUTTON's 'onclick' EVENT.
+          button.setAttribute('onclick', 'deleteButton(this.id)');
+
+          //$("#temp").attr("id", data[i].id);
+
         textComponent.innerHTML = format;
         //document.getElementById("but").onclick = deleteButton(data[i].id);
 /*
@@ -152,7 +163,10 @@ function showMessages(data){
 */
           // Add the message to the document
         feedbackList.appendChild(newMessageElement);
+        feedbackList.appendChild(button);
+
       }
+
   }
 
   function fetchMessages(){
@@ -173,12 +187,12 @@ function showMessages(data){
 
   $(document).ready(function() {
     fetchMessages();
-
+/*
     $('.ui red inverted button').click(function() {
      var t = $(this).attr('id');
      deleteButton(t);
    });
-
+*/
   });
 
 

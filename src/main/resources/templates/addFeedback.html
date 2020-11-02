@@ -72,6 +72,9 @@
               <div class="centered">
                 <div class="feedbackContainer" id="feedbackContainer">
                   <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7);">
+                    <div class="ui inverted blue segment" id="feedbackLabel" style="display: none">
+                      <p>Your feedback has been submitted, you will now be redirected to the homepage</p>
+                    </div>
                     <h2 style="aligned: left;">Feedback</h2>
                     <form class="ui form" method="post">
                       <div class="field">
@@ -122,7 +125,13 @@
         'method':'POST',
         'dataType': 'json',
         'contentType': 'application/json',
-        'data':jsonObj
+        'data':jsonObj,
+        success: function(){
+            feedbackLabel()
+        },
+        error: function(){
+            alert("Error Failed To Submit Feedback");
+        }
       });
     }
   }
