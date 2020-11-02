@@ -64,6 +64,21 @@ ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
+CREATE TABLE feedback(
+    id INT NOT NULL AUTO_INCREMENT,
+    message TEXT NOT NULL,
+    account_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE feedback ADD CONSTRAINT fk_feedback_account_id
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
+INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
+
 CREATE VIEW vw_user_profile AS SELECT U.first_name, U.last_name, U.phone_number
 , U.blood_donor_status, U.blood_type, U.birth_day, A.email as email
     FROM user_details AS U INNER JOIN accounts AS A ON A.id = U.id;
