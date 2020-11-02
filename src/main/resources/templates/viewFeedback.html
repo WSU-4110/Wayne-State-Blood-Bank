@@ -76,7 +76,7 @@
                             <div class="text">
                                   Hello World!
                             </div>
-                            <button class="ui red inverted button" id="but">Resolve</button>
+                            <!--<button class="ui red inverted button" id="but">Resolve</button>-->
                         </div>
                         <hr/>
                     </template>
@@ -129,8 +129,9 @@ function showMessages(data){
     // clear all messages
     removeChildNodes(feedbackList);
     let messageTemplate = document.getElementById("commentTemplate");
-    let loop = false;
+
     // loop through each message and display it.
+
     for(var i=0; i < data.length; i++){
         // create a new message element from the template
         let newMessageElement = messageTemplate.content.cloneNode(true);
@@ -140,14 +141,15 @@ function showMessages(data){
         // set the message to the current message
         let format = "Name: " + data[i].name + "<br/>"
           + "E-mail: " + data[i].email + "<br/>"
-          + "Message: <br/>" + data[i].message + "<br/>";
+          + "Message: <br/>" + data[i].message + "<br/>"
+          + `<button class='ui red inverted button' id='${data[i].id}'>Resolve</button>`;
         textComponent.innerHTML = format;
         //document.getElementById("but").onclick = deleteButton(data[i].id);
-
+/*
         $(document).ready(function(){
           $('#but').click(deleteButton(data[i].id));
         });
-
+*/
           // Add the message to the document
         feedbackList.appendChild(newMessageElement);
       }
@@ -171,6 +173,12 @@ function showMessages(data){
 
   $(document).ready(function() {
     fetchMessages();
+
+    $('.ui red inverted button').click(function() {
+     var t = $(this).attr('id');
+     deleteButton(t);
+   });
+
   });
 
 
