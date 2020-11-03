@@ -24,8 +24,31 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestBlo
     @Query(value = "SELECT * FROM requester_time WHERE email = :email", nativeQuery = true)
     RequestedTimeDetails getRequestedTimeByEmail(@Param("email") String email);
 
-    @Modifying
+    @Query(value = "SELECT COUNT(*) FROM blood_a_plus", nativeQuery = true)
+    int aPlus();
 
+    @Query(value = "SELECT COUNT(*) FROM blood_b_plus", nativeQuery = true)
+    int bPlus();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_ab_plus", nativeQuery = true)
+    int abPlus();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_o_plus", nativeQuery = true)
+    int oPlus();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_a_neg", nativeQuery = true)
+    int aNeg();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_b_neg", nativeQuery = true)
+    int bNeg();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_ab_neg", nativeQuery = true)
+    int abNeg();
+
+    @Query(value = "SELECT COUNT(*) FROM blood_o_neg", nativeQuery = true)
+    int oNeg();
+
+    @Modifying
     @Query(value= "INSERT INTO requester_details(first_name, last_name, email, phone_number, blood_type, hospital_name, street_name, city_name, state_name, zip_code, message) " +
             "VALUES(:firstName, :lastName, :email, :phoneNumber, :bloodType, :hospitalName, :street, :city, :state, :zipCode, :message)", nativeQuery = true)
     void newRequester(

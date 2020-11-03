@@ -21,4 +21,16 @@ public class WebPageController {
         return "myProfile.html";
     }
 
+    @RequestMapping("/addFeedback")
+    @Secured("ROLE_USER")
+    public String getAddFeedbackPage(){
+        return "addFeedback.html";
+    }
+
+    @RequestMapping("/viewFeedback")
+    @Secured("ROLE_ADMIN")
+    public String getViewFeedbackPage(){
+        return "viewFeedback.html";
+    }
+
 }

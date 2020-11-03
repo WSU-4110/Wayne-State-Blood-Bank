@@ -59,32 +59,6 @@ CREATE TABLE user_details
     PRIMARY KEY (id)
 );
 
-CREATE TABLE requester_details
-(
-    id INT NOT NULL AUTO_INCREMENT,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(320) NOT NULL,
-    phone_number VARCHAR(11),
-    blood_type CHAR(3),
-    hospital_name VARCHAR(100) NOT NULL,
-    street_name VARCHAR(100) NOT NULL,
-    city_name VARCHAR(100) NOT NULL,
-    state_name VARCHAR(100) NOT NULL,
-    zip_code VARCHAR(10) NOT NULL,
-    message VARCHAR(500),
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE requester_time
-(
-    id INT NOT NULL AUTO_INCREMENT,
-    email VARCHAR(320) NOT NULL,
-    time_requested VARCHAR(100) NOT NULL,
-    PRIMARY KEY (id)
-)
-
-
 ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    FOREIGN KEY (id) REFERENCES accounts(id)
    ON DELETE CASCADE
@@ -94,3 +68,16 @@ CREATE VIEW vw_user_profile AS SELECT U.first_name, U.last_name, U.phone_number
 , U.blood_donor_status, U.blood_type, U.birth_day, A.email as email
     FROM user_details AS U INNER JOIN accounts AS A ON A.id = U.id;
 
+CREATE VIEW donor_list AS SELECT U.id, A.email, U.blood_type
+                         FROM user_details U, accounts A
+                         WHERE U.id = A.id AND U.blood_donor_status ='Y';
+
+
+CREATE VIEW blood_a_plus AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'A+';
+CREATE VIEW blood_b_plus AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'B+';
+CREATE VIEW blood_ab_plus AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'AB+';
+CREATE VIEW blood_o_plus AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'O+';
+CREATE VIEW blood_a_neg AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'A-';
+CREATE VIEW blood_b_neg AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'B-';
+CREATE VIEW blood_ab_neg AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'AB-';
+CREATE VIEW blood_o_neg AS SELECT id, email FROM donor_list d WHERE d.blood_type = 'O-';
