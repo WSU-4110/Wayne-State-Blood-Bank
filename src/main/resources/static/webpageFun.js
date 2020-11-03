@@ -111,6 +111,6 @@ function feedbackLabel() {
   document.getElementById("feedbackLabel").style.display = "block";
   setTimeout(function() {
     document.getElementById("feedbackLabel").style.display = "none";
-
+    window.location.href= "index.html";
   }, 5000)
 }
