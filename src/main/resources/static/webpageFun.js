@@ -109,6 +109,7 @@ function signInButton() {
 
 function feedbackLabel() {
   document.getElementById("feedbackLabel").style.display = "block";
+  document.getElementById("submitButton").style.display = "none";
   setTimeout(function() {
     document.getElementById("feedbackLabel").style.display = "none";
     window.location.href= "index.html";
