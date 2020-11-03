@@ -1,6 +1,7 @@
 package org.redcrosswarriors.controllerservice;
 
 
+import org.redcrosswarriors.emailservice.SendNotificationEmail;
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.VerificationToken;
@@ -29,7 +30,7 @@ public class RequestBloodControllerService
     private RequestedTimeDetails timeDetails;
 
     @Transactional
-    public boolean requestBlood(RequestBloodInput requestInput, String email)
+    public boolean requestBlood(RequestBloodInput requestInput, String email)throws Exception
     {
         boolean check = true;
         requestRepository.newRequester(requestInput.getFirstName(),
@@ -51,6 +52,8 @@ public class RequestBloodControllerService
             requestRepository.requesterTimeUpdate(email, currentTime);
             List<String> matches;
             matches = requestRepository.findMatches(requestInput.getBloodType());
+            SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+            sendRequest.start();
         }
         else
         {
@@ -62,6 +65,8 @@ public class RequestBloodControllerService
                 requestRepository.updateTime(currentTime, email);
                 List<String> matches;
                 matches = requestRepository.findMatches(requestInput.getBloodType());
+                SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                sendRequest.start();
             }
             else
             {
