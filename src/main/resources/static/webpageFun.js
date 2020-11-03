@@ -19,8 +19,7 @@ function loginCheck() {
       let isLoggedOut = params.get("logout");
 
       if (isError != null){
-          // change this to be more user friendly upon error
-          //alert("deny")
+
           //hide main content on page and show login info
           document.getElementById("mainContainer").style.display = "none";
           document.getElementById("loginContainer").style.display = "block";
@@ -44,7 +43,7 @@ function loginCheck() {
       });
 
       if(isLoggedOut != null){
-        //alert("You have been logged out.");
+
         document.getElementById("logoutLabel").style.display = "block";
         setTimeout(function() {
           document.getElementById("logoutLabel").style.display = "none";
@@ -68,7 +67,7 @@ function roleCheckFeedback() {
   }
 
   if(notAdmin == null){
-      //alert("Only Administrators can access this page.");
+
       document.getElementById("viewFeed").style.display = "block";
   }
 }
@@ -112,7 +111,6 @@ function feedbackLabel() {
   document.getElementById("feedbackLabel").style.display = "block";
   setTimeout(function() {
     document.getElementById("feedbackLabel").style.display = "none";
-    //uncomment when rolled out
-    //window.location.href= "index.html";
+
   }, 5000)
 }

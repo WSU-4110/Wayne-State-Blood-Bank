@@ -64,7 +64,7 @@
   <div class="ui fluid container">
       <div class="content">
           <div class="transparent-bg">
-              <img src="images/Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
+              <img src="Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
           </div>
           <div class="ui left aligned container">
               <div class="centered">
@@ -74,9 +74,9 @@
                     <template id="commentTemplate">
                         <div class="comment">
                             <div class="text">
-                                  Hello World!
+
                             </div>
-                            <!--<button class="ui red inverted button" id="temp" onclick="deleteButton(this.id)">Resolve</button>-->
+
                         </div>
                     </template>
                     <div class="ui container" id="feedbackList">
@@ -152,16 +152,10 @@ function showMessages(data){
           // ADD THE BUTTON's 'onclick' EVENT.
           button.setAttribute('onclick', 'deleteButton(this.id)');
 
-          //$("#temp").attr("id", data[i].id);
 
         textComponent.innerHTML = format;
-        //document.getElementById("but").onclick = deleteButton(data[i].id);
-/*
-        $(document).ready(function(){
-          $('#but').click(deleteButton(data[i].id));
-        });
-*/
-          // Add the message to the document
+
+        // Add the message to the document
         feedbackList.appendChild(newMessageElement);
         feedbackList.appendChild(button);
 
@@ -187,12 +181,7 @@ function showMessages(data){
 
   $(document).ready(function() {
     fetchMessages();
-/*
-    $('.ui red inverted button').click(function() {
-     var t = $(this).attr('id');
-     deleteButton(t);
-   });
-*/
+
   });
 
 
