@@ -117,49 +117,35 @@
               <div class="mainContainer" id="mainContainer" style="display: block">
 			  <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 500px; overflow-y: auto;">
                 <h1 style="font-size:4vw;">Your Profile</h1>
-                <p style="font-size:2vw;">Make sure the information below is correct</p>
-<table class="ui definition table">
-  <tbody>
-    <tr>
-      <td class="two wide column">First name</td>
-      <td>Info here</td>
-    </tr>
-    <tr>
-      <td>Last Name</td><!--Info-->
-      <td>Call to get last name</td><!--Call to database info here-->
-    </tr>
-    <tr>
-      <td>Birthday</td><!--Info-->
-      <td>Call to get birthday </td><!--Call to database info here-->
-    </tr>
-    <tr>
-      <td>Email</td><!--Info-->
-      <td>Call to get email</td><!--Call to database info here-->
-    </tr>
-	<tr>
-      <td>Email</td><!--Info-->
-      <td>Call to get email</td><!--Call to database info here-->
-    </tr>
-	<tr>
-      <td>Phone</td><!--Info-->
-      <td>Call to get phone #</td><!--Call to database info here-->
-    </tr>
-	<tr>
-      <td>Are you a blood donor?</td><!--Info-->
-      <td>Call for yes or no</td><!--Call to database info here-->
-    </tr>
-	<tr>
-      <td>Blood Type</td><!--Info-->
-      <td>Call to get blood type</td><!--Call to database info here-->
-    </tr>
-  </tbody>
+                <p style="font-size:2vw;">Make sure the information below is correct, if not fill out the input boxes where changes are neccessary</p>
+				
+				
+				
+<!--Form that displays user info-->
+<form class="ui form">
+  <div class="field">
+    <label1>First Name</label1>
+    <input type="text" id ="firstname" name="first-name" placeholder = document.getElementById("myFName").value>
  
-</table>
-
-
-                <button class="ui blue button" id="Register" onclick="openLoginModal()">Edit Profile</button<!--Need an edit profile function-->
-              </div>
-
+    <label1>Last Name</label1>
+    <input type="text" id = "lastname" name="last-name" placeholder="Last Name">
+  
+  
+    <label1>Birthday</label1>
+    <input type="date" id = "birthday" name="last-name" placeholder="Last Name">
+ 
+    <label1>Email</label1>
+    <input type="text" id = "email" name="last-name" placeholder="Last Name">
+ 
+    <label1>Phone</label1>
+    <input type="number" id = "phone" name="last-name" placeholder="Last Name">
+ 
+    <label1>Blood Type</label1>
+    <input type="text" id = "phone" name="last-name" placeholder="Last Name">
+  </div>
+  
+  <button "ui button"id="editProfileButton"> Edit Profile </button> 
+</form>
             </div>
 
         </div>
@@ -167,6 +153,67 @@
     </div>
  </div>
 </div>
+
+
+
+<script>
+
+
+var getInfo = {
+    firstName: "John",
+    lastName: "Doe",
+    phoneNumber: "1111111111",
+    bloodDonorStatus: "Y",
+    bloodType: "A+",
+    birthDay: "0000-01-01",
+    email: "example@wayne.edu"
+};
+
+displayInfo(getInfo); 
+
+// place your code to display Info in this function 
+function displayInfo(data){
+	// you can remove this line and replace it with your code to display the information 
+    // as place holders in the form. 
+	
+   $("#firstname").attr("placeholder", document.getElementById("myFName").value);
+   $("#lastname").attr("placeholder", document.getElementById("myLName").value);
+   $("#phoneNumber").attr("placeholder", document.getElementById("myPhone").value);
+   $("#bloodType").attr("placeholder", document.getElementById("bloodType").value);
+   $("#birthDay").attr("placeholder", document.getElementById("birthday").value);
+   $("#email").attr("placeholder", document.getElementById("myEmail").value);
+}
+
+
+// don't worry about this method just make sure it can send the right information to the method from the form 
+function sendEditProfileRequest(data){
+	 alert(data.password); 
+     alert(data.firstName); 
+     alert(data.lastName);
+     alert(data.phoneNumber);
+     alert(data.bloodDonorStatus); 
+}
+
+$("#editProfileButton").click(function(){
+// replace these values with the values in the form 
+// if there is no password then set password to null 
+// all other input for the object needs to be filled out
+	var profileInfo = {
+    	password: "Password1234", 
+    	firstName: "John",
+    	lastName: "Doe",
+    	phoneNumber: "1111111111",
+    	bloodDonorStatus: "Y"
+	}
+    
+    sendEditProfileRequest(profileInfo); 
+    
+});
+
+
+
+
+</script>
 <script>
     loginCheck();
 </script>
