@@ -124,26 +124,26 @@
 
 
    <label for="myFName">*Name:</label>
-   <input type="text" name="myFName" id="myFName"
+   <input style="color: black;" type="text" name="myFName" id="myFName"
     required = "required"> 
 	<br>
 
    <label for="hospital">*Hospital</label>
-   <input type="text" name="myHospital" id="hospital">
+   <input style="color: black;"  type="text" name="myHospital" id="hospital">
    <br>
 
    <label for="myStreet">*Street:</label>
-   <input type="text" name="myStreet" id="myStreet"
+   <input style="color: black;"  type="text" name="myStreet" id="myStreet"
    required = "required">
    <br>
 
    <label for="myCity">*City:</label>
-   <input type="text" name="myCity" id="myCity"
+   <input style="color: black;"  type="text" name="myCity" id="myCity"
    required = "required">
    <br>
    
   <label>*State:</label>
-    <select name="myState" id = "myState">
+    <select  style="color: black;" name="myState" id = "myState">
     <option value="AL" class = "others">Alabama</option>
 	<option value="AK" class = "others">Alaska</option>
 	<option value="AZ" class = "others">Arizona</option>
@@ -199,13 +199,13 @@
     <br>
 
    <label for="myPhone">Phone:</label>
-   <input type="tel" name="myPhone" id = "myPhone">
+   <input  style="color: black;" type="tel" name="myPhone" id = "myPhone">
    <br>
 
 
    
 	<label>Blood Type:</label>
-    <select name="myBlood" id = "bloodType">
+    <select  style="color: black;" name="myBlood" id = "bloodType">
       <option value="A+"class = "others">A+</option>
       <option value="B+"class = "others">B+</option>
       <option value="O+"class = "others">O+</option>
@@ -219,7 +219,7 @@
 	
 	
    <label for="description">*Situation:</label>
-  <textarea name="Text1" cols="40" rows="5" style="color=black"
+  <textarea  style="color: black;" name="Text1" cols="40" rows="5" style="color=black"
    required = "required">
    <br>
 
@@ -227,72 +227,6 @@
 <button onclick = "validate()">Submit</button>
 
 
-<!--Functions for validation-->
-<script>
-
-function checkForm()
-{
-  var check = true;
-  var password = document.getElementById("pwd1").value;
-  var email = document.getElementById("myEmail").value;
-  var password2 = document.getElementById("pwd2").value;
-
-  if(password != "" && password == password2)
-  {
-      if(password.length < 8)
-      {
-        alert("Error: Password must contain at least eight characters!");
-        document.getElementById("pwd1").focus();
-        check = false;
-      }
-
-      if(password.value == email)
-      {
-        alert("Error: Password must be different from Username!");
-        document.getElementById("pwd1").focus();
-        check = false;
-      }
-
-      re = /[0-9]/;
-      if(!re.test(password))
-      {
-        alert("Error: password must contain at least one number (0-9)!");
-        document.getElementById("pwd1").focus();
-        check = false;
-      }
-
-       re = /[a-z]/;
-       if(!re.test(password))
-       {
-         alert("Error: password must contain at least one lowercase letter (a-z)!");
-         document.getElementById("pwd1").focus();
-         check = false;
-       }
-
-       re = /[A-Z]/;
-       if(!re.test(password))
-       {
-         alert("Error: password must contain at least one uppercase letter (A-Z)!");
-         document.getElementById("pwd1").focus();
-         check = false;
-       }
-  }
-  else if(password != password2)
-  {
-    alert("Error: Please check that you've entered and confirmed your password!");
-    document.getElementById("pwd1").focus();
-    check = false;
-  }
-  else
-  {
-    check = true;
-  }
-
-  return check;
-}
-
-
-</script>
 
   
 <script>
