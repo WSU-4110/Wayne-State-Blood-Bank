@@ -18,9 +18,6 @@ public class RequestBloodController
     @Autowired
     RequestBloodControllerService requestBloodControllerService;
 
-
-
-
     @PostMapping("/requestblood")
     public ResponseEntity<Object> registerAccount(@RequestBody RequestBloodInput input, Principal principal)
     {

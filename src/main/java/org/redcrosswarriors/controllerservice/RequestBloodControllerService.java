@@ -30,39 +30,27 @@ public class RequestBloodControllerService
     private RequestedTimeDetails timeDetails;
 
     @Transactional
-    public boolean requestBlood(RequestBloodInput requestInput, String email)throws Exception
+    public boolean requestBlood(RequestBloodInput requestInput, String email)
     {
         boolean check = true;
-        requestRepository.newRequester(requestInput.getFirstName(),
-                requestInput.getLastName(),
-                requestInput.getEmail(),
-                requestInput.getPhoneNumber(),
-                requestInput.getBloodType(),
-                requestInput.getHospitalName(),
-                requestInput.getStreet(),
-                requestInput.getCity(),
-                requestInput.getZipCode(),
-                requestInput.getMessage());
+        try{
+            requestRepository.newRequester(requestInput.getFirstName(),
+                    requestInput.getLastName(),
+                    requestInput.getEmail(),
+                    requestInput.getPhoneNumber(),
+                    requestInput.getBloodType(),
+                    requestInput.getHospitalName(),
+                    requestInput.getStreet(),
+                    requestInput.getCity(),
+                    requestInput.getZipCode(),
+                    requestInput.getMessage());
 
-        timeDetails = requestRepository.getRequestedTimeByEmail(email);
-        String currentTime = returnTime();
-        if(timeDetails == null)
-        {
-            currentTime = returnTime();
-            requestRepository.requesterTimeUpdate(email, currentTime);
-            List<String> matches;
-            matches = requestRepository.findMatches(requestInput.getBloodType());
-            SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-            sendRequest.start();
-        }
-        else
-        {
-            String lastTime;
-            lastTime = timeDetails.getTime();
-            currentTime = returnTime();
-            if(findDifference(lastTime, currentTime))
+            timeDetails = requestRepository.getRequestedTimeByEmail(email);
+            String currentTime = returnTime();
+            if(timeDetails == null)
             {
-                requestRepository.updateTime(currentTime, email);
+                currentTime = returnTime();
+                requestRepository.requesterTimeUpdate(email, currentTime);
                 List<String> matches;
                 matches = requestRepository.findMatches(requestInput.getBloodType());
                 SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
@@ -70,9 +58,27 @@ public class RequestBloodControllerService
             }
             else
             {
-                check = false;
-                System.out.println("Sorry you have to wait 24 hrs for a new request!");
+                String lastTime;
+                lastTime = timeDetails.getTime();
+                currentTime = returnTime();
+                if(findDifference(lastTime, currentTime))
+                {
+                    requestRepository.updateTime(currentTime, email);
+                    List<String> matches;
+                    matches = requestRepository.findMatches(requestInput.getBloodType());
+                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    sendRequest.start();
+                }
+                else
+                {
+                    check = false;
+                    System.out.println("Sorry you have to wait 24 hrs for a new request!");
+                }
             }
+        }
+        catch (Exception e){
+            check = false;
+            e.printStackTrace();
         }
 
         return check;
