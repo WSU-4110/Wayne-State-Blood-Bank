@@ -18,11 +18,11 @@ public class RequestBloodController
     @Autowired
     RequestBloodControllerService requestBloodControllerService;
 
-    @Autowired
-    Principal principal;
+
+
 
     @PostMapping("/requestblood")
-    public ResponseEntity<Object> registerAccount(@RequestBody RequestBloodInput input)
+    public ResponseEntity<Object> registerAccount(@RequestBody RequestBloodInput input, Principal principal)
     {
         System.out.println("start");
         String email = principal.getName();

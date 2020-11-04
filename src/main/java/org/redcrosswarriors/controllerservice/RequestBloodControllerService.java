@@ -25,7 +25,7 @@ public class RequestBloodControllerService
     @Autowired
     private RequestBloodDetailsRepository requestRepository;
 
-    @Autowired
+
     private RequestedTimeDetails timeDetails;
 
     @Transactional
@@ -165,6 +165,7 @@ public class RequestBloodControllerService
 
         return check;
     }
+
 
     public int numberOfMatches(String BloodType)
     {
