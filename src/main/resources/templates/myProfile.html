@@ -117,11 +117,11 @@
                     </ul>
                 </div>
               <div class="mainContainer" id="mainContainer" style="display: block">
-               
-			  <div class="ui placeholder inverted segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 500px; overflow-y: auto;">
+
+			  <div class="ui placeholder inverted segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 475px; overflow-y: auto;">
                 <h1 style="font-size:4vw;">Your Profile</h1>
                 <p style="font-size:2vw;">Make sure the information below is correct</p>
-                
+
                 <form class="ui huge inverted form">
                     <div class="field">
                         <label>First Name</label>
@@ -164,13 +164,13 @@
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input id="password" type="password">  
+                        <input id="password" type="password">
                     </div>
                 </form>
                 <br>
                 <button id="editProfileButton" class="ui button primary">Edit Profile</button>
                 <button id="deleteProfileButton" class="ui button red">Delete Profile</button>
-                
+
               </div>
             </div>
         </div>
@@ -198,7 +198,7 @@ function displayInfo(data){
     }
 }
 
-function getEditProfileData(){ 
+function getEditProfileData(){
     let password = $("#password").val();
     if(password == ""){
         password = null;
@@ -224,12 +224,12 @@ function displayErrors(data){
 }
 
 function displayBadRequestErrors(errors){
-    var index; 
+    var index;
     for(index in errors){
         let error = errors[index];
         let errorElement =  "<li>";
         errorElement += "Error: ";
-        errorElement += error.error; 
+        errorElement += error.error;
         errorElement +=" </li>";
         $("#errorList").append(errorElement);
     }
@@ -295,7 +295,7 @@ $(document).ready(function(){
         }
     ).fail(function(xhr, status, errorThrown){
         displayErrors(xhr.responseJSON);
-    });    
+    });
 });
 
 </script>
