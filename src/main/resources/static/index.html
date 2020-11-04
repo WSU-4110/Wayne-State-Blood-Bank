@@ -3,6 +3,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wayne State Blood Bank</title>
     <link rel="stylesheet" href="design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
@@ -21,9 +22,11 @@
               <button class="ui red button" id="logoutButton">Logout</button>
             </a>
         </div>
-        <h3 class="ui left floated huge red header">
-            Red Cross Warriors
-        </h3>
+        <a href="/index.html">
+          <h3 class="ui left floated huge red header">
+              Red Cross Warriors
+          </h3>
+        </a>
     </div>
 </div>
 
@@ -34,16 +37,16 @@
         <div class="ui placeholder segment">
             <div class="ui two column very relaxed stackable grid">
                 <div class="column">
-                    <form class="ui form" method="post">
+                    <form class="ui form" method="post" action="/">
                         <div class="field">
-                            <label>E-mail</label>
+                            <label style="text-align: left;">E-mail</label>
                             <div class="ui left icon input">
                                 <input type="text"  name="username" placeholder="email" id="un"/>
                                 <i class="user icon"></i>
                             </div>
                         </div>
                         <div class="field">
-                            <label>Password</label>
+                            <label style="text-align: left;">Password</label>
                             <div class="ui left icon input">
                                 <input type="password" placeholder="password" name="password" id="pw"/>
                                 <i class="lock icon"></i>
@@ -85,11 +88,11 @@
             <a class="item" onclick="location.href='index.html'">
                 <i class="home icon" id="homeButton"></i> Home
             </a>
-            <a class="item">
-                <i class="grid layout icon"></i> Page 2
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
             </a>
             <a class="item">
-                <i class="mail icon"></i> Page 3
+                <i class="grid layout icon"></i> option 3
             </a>
             <!--how to lock this behind login-->
             <div class="ui simple dropdown item">
@@ -106,31 +109,37 @@
 
 </nav>
 
-<body>
+<body style="background: #21ba45">
 <div class="ui fluid container">
     <div class="content">
         <div class="transparent-bg">
-            <img src="Blood-Donation.jpg" id="bdimg" style="width:100%;">
+            <img src="Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
         </div>
         <div class="ui container">
             <div class="centered">
               <div class="mainContainer" id="mainContainer" style="display: block">
+                <div class="ui inverted blue segment" id="logoutLabel" style="display: none">
+                  <p>you have successfully been logged out</p>
+                </div>
                 <h1 style="font-size:4vw;">Donate Blood To Save Life</h1>
                 <p style="font-size:2vw;">Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo,
                     eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri
                     ponderum tractatos ei.</p>
-
-                <button class="ui red button" id="Register" onclick="openLoginModal()">Register now</button>
-                <button class="ui basic inverted button" onclick="tempButton()">Search for blood</button>
+                    <div class="ui container">
+                      <a href="/signup.html">
+                        <button class="ui large red button" id="Register">Register now</button>
+                      </a>
+                      <button class="ui large basic inverted button" id="Search" onclick="tempButton()">Search for blood</button>
+                    </div>
               </div>
 
               <div class="loginContainer" id="loginContainer" style="display: none">
-                <div class="ui placeholder segment" style="background: rgba(0,0,0,.7)">
+                <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7);">
                   <h2>Login</h2>
-                  <form class="ui form" method="post">
-                      <label>Email</label>
+                  <form class="ui form" method="post" action="/">
+                      <label style="text-align: left;">Email</label>
                       <input type="text"  name="username" placeholder="email" />
-                      <label>Password</label>
+                      <label style="text-align: left;">Password</label>
                       <input type="password" placeholder="password" name="password" />
                       <input type="submit"/>
                   </form>
@@ -147,6 +156,7 @@
                               <i class="signup icon"></i>
                               Sign Up
                           </div>
+                        </a>
                   </div>
                 </div>
               </div>
@@ -159,10 +169,12 @@
     </div>
 
 </div>
-<script>
-    loginCheck();
-</script>
+  <script>
+      loginCheck();
+      checkCookie();
+  </script>
 </body>
+
 
 <div class="footer">
 

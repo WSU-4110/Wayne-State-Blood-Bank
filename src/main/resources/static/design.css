@@ -2,26 +2,27 @@
   box-sizing: border-box;
 }
 
-
-.body {
-  font-family: Arial;
-  font-size: 17px;
+footer {
+  background-color: #21ba45;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: normal 16px sans-serif;
+  padding: 45px 50px;
 }
 
 .header {
   background-blend-mode: color;
 }
 
-.footer {
-  background-color: #21ba45;
-  top: 10%;
-  padding: 50px;
-}
-
 .content {
   position: relative;
   text-align: center;
   color: white;
+  max-height: 90%;
+  /*overflow: auto;*/
+  background: rgba(0,0,0,.75);
 }
 
 /* Centered text */
@@ -30,6 +31,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow: auto;
 }
 
 .transparent-bg{
@@ -48,6 +50,7 @@ position:relative;
     display: block;
     background-color: rgba(0,0,0,0.5);
 }
+
 
 /*Added to align input boxes*/
 label
@@ -77,6 +80,26 @@ input[type=submit] {
 
 }
 
+#mainContainer {
+  position: relative;
+}
+
 #logoutButton {
     display: none;
+}
+
+#feedbackDisplay {
+    display: none;
+}
+
+#viewFeed {
+    display: none;
+}
+
+#Search {
+  max-height: 42em;
+}
+
+#Register {
+  max-height: 42em
 }
