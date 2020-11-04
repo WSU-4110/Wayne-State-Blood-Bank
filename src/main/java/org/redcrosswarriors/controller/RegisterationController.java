@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class RegisterationController
     RegistrationControllerService registerService;
 
     @PostMapping("/registration")
-    public ResponseEntity<Object> registerAccount(@RequestBody RegistrationInput input)
+    public ResponseEntity<Object> registerAccount(@RequestBody @Valid RegistrationInput input)
     {
         Map<String, Object> json = new HashMap();
         if(registerService.userExists(input))
