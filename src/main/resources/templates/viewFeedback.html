@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>View Feedback</title>
+    <link rel="stylesheet" href="design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> master
 <div class="header">
     <div class="ui green clearing inverted segment">
         <!--See modal section of semantic, click on login to popup the username and pw prompt-->
@@ -34,6 +39,7 @@
     <div class="ui attached stackable menu">
         <!--how to make this fully left l-->
         <div class="ui container">
+<<<<<<< HEAD
             <a class="item" href="/">
                 <i class="home icon" id="homeButton"></i> Home
             </a>
@@ -42,13 +48,29 @@
             </a>
             <a class="item" href="requestBlood.html">
                 <i class="grid layout icon"></i> Request Blood Donors
+=======
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
+            </a>
+            <a class="item">
+                <i class="grid layout icon"></i> option 3
+>>>>>>> master
             </a>
             <!--how to lock this behind login-->
             <div class="ui simple dropdown item">
                 More
                 <i class="dropdown icon"></i>
                 <div class="menu">
+<<<<<<< HEAD
                     <a class="item" href="/myProfile"> Edit Profile</a>
+=======
+                    <a class="item"> Edit Profile</a>
+                    <a class="item"> Send Request?</a>
+                    <a class="item">Account Settings</a>
+>>>>>>> master
                 </div>
             </div>
         </div>
@@ -57,8 +79,137 @@
 </nav>
 
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> master
 <body>
+  <body style="background: #21ba45">
+  <div class="ui fluid container">
+      <div class="content">
+          <div class="transparent-bg">
+              <img src="Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
+          </div>
+          <div class="ui left aligned container">
+              <div class="centered">
+                <div class="feedbackContainer" id="feedbackContainer">
+                  <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 753px; max-height: 349px; overflow-y: auto;">
+                    <h2>Feedback</h2>
+                    <template id="commentTemplate">
+                        <div class="comment">
+                            <div class="text">
 
+                            </div>
+
+                        </div>
+                    </template>
+                    <div class="ui container" id="feedbackList">
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+
+
+
+<script>
+  loginCheck();
+
+  function deleteButton (id) {
+      $.ajax({
+          type: 'DELETE',
+          dataType: 'json',
+          url: `/feedback/${id}`,
+          success: function(){
+              location.reload();
+          },
+          error: function(){
+              alert("Error Failed To Delete Feedback");
+          }
+      });
+  }
+
+  function removeChildNodes(parent){
+    while (parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+    }
+  }
+
+function showMessages(data){
+    let feedbackList = document.querySelector("#feedbackList");
+    // clear all messages
+    removeChildNodes(feedbackList);
+    let messageTemplate = document.getElementById("commentTemplate");
+
+    // loop through each message and display it.
+
+    for(var i=0; i < data.length; i++){
+        // create a new message element from the template
+        let newMessageElement = messageTemplate.content.cloneNode(true);
+
+        // get the text component of the message
+        let textComponent = newMessageElement.querySelector('.text');
+        // set the message to the current message
+        let format = "<hr/>Name: " + data[i].name + "<br/>"
+          + "E-mail: " + data[i].email + "<br/>"
+          + "Message: <br/>" + data[i].message;
+
+          var button = document.createElement('input');
+
+          // SET INPUT ATTRIBUTE 'type' AND 'value'.
+          button.setAttribute('type', 'button');
+          button.setAttribute('class', 'ui red inverted button');
+          button.setAttribute('value', 'Resolve');
+          button.setAttribute('id', data[i].id);
+
+          // ADD THE BUTTON's 'onclick' EVENT.
+          button.setAttribute('onclick', 'deleteButton(this.id)');
+
+
+        textComponent.innerHTML = format;
+
+        // Add the message to the document
+        feedbackList.appendChild(newMessageElement);
+        feedbackList.appendChild(button);
+
+      }
+
+  }
+
+  function fetchMessages(){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/feedback',
+        success: function(data){
+            showMessages(data);
+        },
+        error: function(){
+            alert("Error Failed To Retrieve Feedback");
+        }
+    });
+
+
+  }
+
+  $(document).ready(function() {
+    fetchMessages();
+
+  });
+
+
+
+</script>
 </body>
 </html>
