@@ -20,5 +20,4 @@ public class EditProfileInput extends AbstractProfile {
         this.password = password;
     }
 
-
 }

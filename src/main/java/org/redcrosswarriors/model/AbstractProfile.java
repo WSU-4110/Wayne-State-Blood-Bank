@@ -14,24 +14,19 @@ import javax.validation.constraints.Pattern;
 @MappedSuperclass
 public abstract class AbstractProfile {
 
-    @NotBlank
-    @NotNull
+
     @Pattern(regexp = "^[a-zA-Z]+", message="Invalid first name can only contain alphabetical characters")
     protected String firstName;
 
-    @NotBlank
-    @NotNull
+
     @Pattern(regexp = "^[a-zA-Z]+", message="Invalid last name can only contain alphabetical characters")
     protected String lastName;
 
-    @NotNull
-    @NotBlank
+
     @Pattern(regexp = "^\\d{10}", message = "Invalid phone number must only contain digits")
     protected String phoneNumber;
 
     //type of string instead of boolean so that it doesn't break existing code
-    @NotNull
-    @NotBlank
     @Pattern(regexp = "^Y|N", message = "Invalid blood donor status must be either 'Y' or 'N'")
     protected String bloodDonorStatus;
 
