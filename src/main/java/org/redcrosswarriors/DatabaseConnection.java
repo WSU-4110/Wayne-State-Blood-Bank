@@ -24,9 +24,9 @@ public class DatabaseConnection {
     private static DatabaseConnection connection;
 
     // database connection information.
-    private static final String databaseURL = "jdbc:mysql://localhost:3306/testdb";
-    private static final String databasePassword = "admin";
-    private static final String databaseUserName = "root";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/testdb";
+    private static final String DATABASE_PASSWORD = "admin";
+    private static final String DATABASE_USER_NAME = "root";
 
     public DatabaseConnection(){
         // initialize our data source
@@ -63,7 +63,7 @@ public class DatabaseConnection {
 
     private void initDataSource(){
         DriverManagerDataSource driver = new DriverManagerDataSource(
-                databaseURL, databaseUserName, databasePassword
+                DATABASE_URL, DATABASE_USER_NAME, DATABASE_PASSWORD
         );
         this.dataSource = driver;
     }
