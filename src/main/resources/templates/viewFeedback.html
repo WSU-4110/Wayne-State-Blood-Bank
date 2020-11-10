@@ -122,6 +122,26 @@
     }
   }
 
+  //=========================Assignment 4============================================
+    function Feedback(feedback) {
+      this.id = feedback.id;
+      this.name = feedback.name;
+      this.email = feedback.email;
+      this.message = feedback.message;
+
+      this.format = "<hr/>Name: " + this.name + "<br/>"
+          + "E-mail: " + this.email + "<br/>"
+          + "Message: <br/>" + this.message;
+    }
+
+    function FeedbackFactory() {
+      this.create = function(feedback) {
+        return new Feedback(feedback);
+      };
+    }
+    //================================================================================
+
+
 function showMessages(data){
     let feedbackList = document.querySelector("#feedbackList");
     // clear all messages
@@ -136,10 +156,12 @@ function showMessages(data){
 
         // get the text component of the message
         let textComponent = newMessageElement.querySelector('.text');
-        // set the message to the current message
-        let format = "<hr/>Name: " + data[i].name + "<br/>"
-          + "E-mail: " + data[i].email + "<br/>"
-          + "Message: <br/>" + data[i].message;
+
+        //=========================================================================================
+        //create the factory that will build the feedback
+        var feedbackFactory = new FeedbackFactory();
+        //build the feedback in this temp variable using the data retrieved from the db
+        var temp = feedbackFactory.create(data[i]);
 
           var button = document.createElement('input');
 
@@ -147,14 +169,14 @@ function showMessages(data){
           button.setAttribute('type', 'button');
           button.setAttribute('class', 'ui red inverted button');
           button.setAttribute('value', 'Resolve');
-          button.setAttribute('id', data[i].id);
+          button.setAttribute('id', temp.id);
 
           // ADD THE BUTTON's 'onclick' EVENT.
           button.setAttribute('onclick', 'deleteButton(this.id)');
 
 
-        textComponent.innerHTML = format;
-
+        textComponent.innerHTML = temp.format;
+        //=========================================================================================
         // Add the message to the document
         feedbackList.appendChild(newMessageElement);
         feedbackList.appendChild(button);
