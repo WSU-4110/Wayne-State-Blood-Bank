@@ -22,7 +22,7 @@ public class BloodDriveController {
 
     @GetMapping("/bloodDrive/upcoming")
     public ResponseEntity<List<BloodDrive>> getUpcomingDrives(){
-        List<BloodDrive> bloodDrives = repository.findMostRecentBloodDrives();
+        List<BloodDrive> bloodDrives = repository.findUpcomingBloodDrives();
         return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
     }
 
