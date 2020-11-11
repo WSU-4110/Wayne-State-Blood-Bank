@@ -16,12 +16,11 @@ import java.util.Map;
 public class BloodDriveController {
 
     @Autowired
-    BloodDriveRepository repository;
+    private BloodDriveRepository repository;
 
     @GetMapping("/bloodDrive")
     public ResponseEntity<List<BloodDrive>> getAllBloodDrives(){
         List<BloodDrive> bloodDrives = repository.findMostRecentBloodDrives();
-
         return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
     }
 
@@ -54,4 +53,14 @@ public class BloodDriveController {
         }
         return new ResponseEntity<>(json, HttpStatus.OK);
     }
+
+    @DeleteMapping("/bloodDrive/outdated")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<Object> deleteOutdatedBloodDrives(){
+        Map<String, Object> json = new HashMap<String, Object>();
+        json.put("message", "Successfully deleted all outdated blood drives");
+        repository.deleteOutdatedBloodDrives();
+        return new ResponseEntity<>(json, HttpStatus.OK);
+    }
+
 }
