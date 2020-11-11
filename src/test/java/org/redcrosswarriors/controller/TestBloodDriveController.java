@@ -39,9 +39,7 @@ public class TestBloodDriveController {
         gson = new Gson();
     }
 
-    @Test
-    public void testGetBloodDrives() throws Exception{
-        List<BloodDrive> bloodDrives = new ArrayList<>();
+    private void setTestData(List<BloodDrive> bloodDrives){
         bloodDrives.add(new BloodDrive(
                 1,
                 "Wayne State Blood Drive",
@@ -62,6 +60,12 @@ public class TestBloodDriveController {
         ));
         Iterable<BloodDrive> testBloodDrives = (Iterable<BloodDrive>) bloodDrives;
         when(repository.findAll()).thenReturn(testBloodDrives);
+        when(repository.findUpcomingBloodDrives()).thenReturn(bloodDrives);
+    }
+    @Test
+    public void testGetBloodDrives() throws Exception{
+        List<BloodDrive> bloodDrives = new ArrayList<>();
+        setTestData(bloodDrives);
         MvcResult result = this.mockMvc.perform(get("/bloodDrive")).andDo(print()).andExpect(
                 status().isOk()
         ).andReturn();
@@ -91,4 +95,23 @@ public class TestBloodDriveController {
     public void testDeleteBloodDrive() throws Exception{
         this.mockMvc.perform(delete("/bloodDrive/1")).andDo(print()).andExpect(status().isOk());
     }
+
+    @Test
+    public void testGetUpcommingDrives() throws Exception{
+        List<BloodDrive> bloodDrives = new ArrayList<>();
+        setTestData(bloodDrives);
+        MvcResult result = this.mockMvc.perform(get("/bloodDrive/upcoming")).andDo(print()).andExpect(
+                status().isOk()
+        ).andReturn();
+        String jsonResponse = result.getResponse().getContentAsString();
+        BloodDrive[] returnedBloodDrives = gson.fromJson(jsonResponse, BloodDrive[].class);
+        assertEquals(returnedBloodDrives.length, 2);
+    }
+
+    @Test
+    @WithMockUser(username="admin@wayne.edu",roles={"USER","ADMIN"})
+    public void testDeleteOutdatedBloodDrives() throws Exception{
+        this.mockMvc.perform(delete("/bloodDrive/outdated")).andDo(print()).andExpect(status().isOk());
+    }
+
 }
