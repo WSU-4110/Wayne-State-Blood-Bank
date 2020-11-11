@@ -1,9 +1,8 @@
 package org.redcrosswarriors.model;
-
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="blood_drives")
@@ -26,13 +25,13 @@ public class BloodDrive {
     @Column(name="blood_drive_time")
     @NotNull
     @NotBlank
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @Pattern(regexp="^\\d{2}:\\d{2}:\\d{2}", message = "Invalid time must be in the format HH:mm:ss")
     private String time;
 
     @Column(name="blood_drive_date")
     @NotNull
     @NotBlank
-    @DateTimeFormat(pattern = "yyyy.MM.dd")
+    @Pattern(regexp="^\\d{4}-\\d{2}-\\d{2}", message = "Invalid time must be in the format yyyy-mm-dd")
     private String date;
 
     @Column
