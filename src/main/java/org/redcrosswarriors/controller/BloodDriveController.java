@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 public class BloodDriveController {
@@ -18,9 +20,19 @@ public class BloodDriveController {
     @Autowired
     private BloodDriveRepository repository;
 
+    @GetMapping("/bloodDrive/upcoming")
+    public ResponseEntity<List<BloodDrive>> getUpcomingDrives(){
+        List<BloodDrive> bloodDrives = repository.findMostRecentBloodDrives();
+        return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
+    }
+
     @GetMapping("/bloodDrive")
     public ResponseEntity<List<BloodDrive>> getAllBloodDrives(){
-        List<BloodDrive> bloodDrives = repository.findMostRecentBloodDrives();
+        List<BloodDrive>  bloodDrives = StreamSupport.stream(
+                repository.findAll().spliterator(),
+                false
+        ).collect(Collectors.toList());
+
         return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
     }
 
