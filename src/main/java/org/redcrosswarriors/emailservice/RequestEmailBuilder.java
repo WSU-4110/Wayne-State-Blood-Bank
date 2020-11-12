@@ -5,16 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class RequestEmailBuilder extends EmailBuilder {
-    private Request request;
 
 
-    RequestEmailBuilder() throws FileNotFoundException {
+    RequestEmailBuilder() {
         subject = "Red Cross Warriors: Someone needs YOUR help!";
     }
 
 
     public EmailBuilder setRequest(Request request) throws FileNotFoundException {
-        this.request = new Request(request);
         htmlCode = new String(String.valueOf(new Scanner(new File("src/main/resources/templates/matchNotification.html")).useDelimiter("\\Z").next()));
         htmlCode = htmlCode.replace("NAME", request.getName());
         htmlCode = htmlCode.replace("EMAIL_ADDRESS", request.getEmailAddress());
@@ -24,7 +22,7 @@ public class RequestEmailBuilder extends EmailBuilder {
     }
 
     @Override
-    public EmailBuilder setHtmlCode(String htmlCode) throws FileNotFoundException {
+    public EmailBuilder setHtmlCode(String htmlCode) {
         this.htmlCode = htmlCode;
         return this;
     }

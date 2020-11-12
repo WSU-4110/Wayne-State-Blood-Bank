@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ContactEmailBuilder extends EmailBuilder {
 
 
-    ContactEmailBuilder() throws FileNotFoundException {
+    ContactEmailBuilder() {
         subject = "Red Cross Warriors User Contact";
         recipients = new String[1];
         recipients[0] = "wsuredcrosswarriors@gmail.com";

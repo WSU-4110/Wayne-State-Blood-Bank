@@ -3,9 +3,8 @@ package org.redcrosswarriors.emailservice;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.util.Properties;
-import java.util.Scanner;
+
 
 public class Email {
     private String myEmail = null;
@@ -18,7 +17,7 @@ public class Email {
 
     private Email(){};
 
-    public Email(String htmlCode, String recipients[], String subject){
+    public Email(String htmlCode, String[] recipients, String subject){
         this.htmlCode = htmlCode;
         this.recipients = recipients.clone();
         this.subject = subject;
