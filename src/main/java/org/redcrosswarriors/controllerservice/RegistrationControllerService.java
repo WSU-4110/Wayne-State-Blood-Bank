@@ -1,16 +1,15 @@
 package org.redcrosswarriors.controllerservice;
 
 import org.redcrosswarriors.emailservice.send_mail;
-import org.redcrosswarriors.model.AccountDetails;
-import org.redcrosswarriors.model.VerificationToken;
+import org.redcrosswarriors.model.*;
 import org.redcrosswarriors.model.input.RegisterationInput;
 import org.redcrosswarriors.repository.AccountDetailsRepository;
-import org.redcrosswarriors.repository.RegistrationDetailsRepository;
+import org.redcrosswarriors.repository.DonorDetailsRepository;
+import org.redcrosswarriors.repository.NonDonorDetailsRepository;
 import org.redcrosswarriors.security.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.redcrosswarriors.model.RegistrationDetails;
+
 import javax.transaction.Transactional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,8 +18,12 @@ import java.util.regex.Pattern;
 public class RegistrationControllerService {
 
 
-    @Autowired // dependencies injection, automatically
-    private RegistrationDetailsRepository registrationRepository;
+
+    @Autowired
+    private NonDonorDetailsRepository nonDonorRegistration;
+
+    @Autowired
+    private DonorDetailsRepository donorRegistration;
 
     @Autowired
     private AccountDetailsService accountService;
@@ -58,14 +61,25 @@ public class RegistrationControllerService {
         String lastName = registerInput.getLastName();
         firstName.replace(" ", "");
         lastName.replace(" ", "");
-        registrationRepository.registerAccount(
-                    accountDetailsRepository.findIdByEmail(registerInput.getEmail()),
-                    firstName,
+
+        if(registerInput.getBloodDonor() == "Y")
+        {
+            donorRegistration.registerAccount(firstName,
                     lastName,
                     registerInput.getBirthDay(),
                     registerInput.getBloodDonor(),
                     registerInput.getPhoneNumber(),
                     registerInput.getBloodType());
+        }
+        else if(registerInput.getBloodDonor() == "N")
+        {
+            nonDonorRegistration.registerAccount(firstName,
+                    lastName,
+                    registerInput.getBirthDay(),
+                    registerInput.getBloodDonor(),
+                    registerInput.getPhoneNumber());
+        }
+
 
 
         return true;

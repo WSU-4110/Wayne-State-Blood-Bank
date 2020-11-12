@@ -57,6 +57,31 @@ CREATE TABLE userDetails
     phoneNumber VARCHAR(11),
     bloodType CHAR(3),
     PRIMARY KEY (id),
+    CHECK (bloodDonor = 'Y' || bloodDonor = 'N')
+);
+
+CREATE TABLE nonDonorUserDetails
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    birthDay DATE NOT NULL,
+    bloodDonor CHAR(1),
+    phoneNumber VARCHAR(11),
+    PRIMARY KEY (id),
+    CHECK (bloodDonor = 'N')
+);
+
+CREATE TABLE donorUserDetails
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    firstName VARCHAR(100) NOT NULL,
+    lastName VARCHAR(100) NOT NULL,
+    birthDay DATE NOT NULL,
+    bloodDonor CHAR(1),
+    phoneNumber VARCHAR(11),
+    bloodType CHAR(3),
+    PRIMARY KEY (id),
     CHECK (bloodDonor = 'Y')
 );
 
