@@ -87,6 +87,14 @@ CREATE TABLE blood_drives(
     PRIMARY KEY (id)
 );
 
+CREATE TABLE events(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(350) NOT NULL,
+    description TEXT NOT NULL,
+    event_date DATE NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
 INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
 
