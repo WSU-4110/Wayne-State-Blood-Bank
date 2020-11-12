@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EmailTest extends SendMail {
+class EmailTest {
 
     @Test
     void send_contact() {

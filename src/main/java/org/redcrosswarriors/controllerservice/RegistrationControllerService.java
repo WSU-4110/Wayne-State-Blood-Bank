@@ -1,6 +1,7 @@
 package org.redcrosswarriors.controllerservice;
 
-import org.redcrosswarriors.emailservice.SendMail;
+import org.redcrosswarriors.emailservice.Email;
+import org.redcrosswarriors.emailservice.VerificationEmailBuilder;
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegisterationInput;
@@ -46,9 +47,9 @@ public class RegistrationControllerService {
 
         // send verificationEmail
         try {
-            SendMail verify;
-            verify = new SendMail(registerInput.getEmail(), link);
-            verify.sendVerification();
+            Email verify;
+            verify = new VerificationEmailBuilder().setRecipient("lbrombach2@gmail.com").setHtmlCode(link).build();
+            verify.send();
         } catch (Exception e) {
             e.printStackTrace();
         }

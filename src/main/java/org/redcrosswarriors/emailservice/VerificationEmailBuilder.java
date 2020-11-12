@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class VerificationEmailBuilder extends EmailBuilder{
 
-    VerificationEmailBuilder(){
+    public VerificationEmailBuilder(){
         subject = "Red Cross Warriors Account Verification";
     }
 
