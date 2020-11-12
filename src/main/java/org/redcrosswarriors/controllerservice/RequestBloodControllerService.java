@@ -3,6 +3,7 @@ package org.redcrosswarriors.controllerservice;
 
 import org.redcrosswarriors.emailservice.SendNotificationEmail;
 import org.redcrosswarriors.model.AccountDetails;
+//import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegistrationInput;
@@ -27,13 +28,14 @@ public class RequestBloodControllerService
     private RequestBloodDetailsRepository requestRepository;
 
 
-    private RequestedTimeDetails timeDetails;
+    private RequestedTimeDetails timeDetails = new RequestedTimeDetails();
 
     @Transactional
-    public boolean requestBlood(RequestBloodInput requestInput, String email)
+    public boolean requestBlood(RequestBloodInput requestInput)
     {
         boolean check = true;
         try{
+            System.out.println("start");
             requestRepository.newRequester(requestInput.getFirstName(),
                     requestInput.getLastName(),
                     requestInput.getEmail(),
@@ -42,19 +44,41 @@ public class RequestBloodControllerService
                     requestInput.getHospitalName(),
                     requestInput.getStreet(),
                     requestInput.getCity(),
+                    requestInput.getState(),
                     requestInput.getZipCode(),
                     requestInput.getMessage());
 
-            timeDetails = requestRepository.getRequestedTimeByEmail(email);
+
+            System.out.println(requestInput.getLastName());
+            System.out.println(requestInput.getEmail());
+            System.out.println(requestInput.getPhoneNumber());
+            System.out.println(requestInput.getBloodType());
+            System.out.println(requestInput.getHospitalName());
+
+            System.out.println("start");
+
+            timeDetails = requestRepository.getRequestedTimeByEmail(requestInput.getEmail());
             String currentTime = returnTime();
             if(timeDetails == null)
             {
                 currentTime = returnTime();
-                requestRepository.requesterTimeUpdate(email, currentTime);
+                System.out.println(currentTime);
+                requestRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
                 List<String> matches;
+
                 matches = requestRepository.findMatches(requestInput.getBloodType());
-                SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                sendRequest.start();
+                if(matches.size() == 0)
+                {
+                    System.out.println("0 matches near by");
+                    check = false;
+
+                }
+                else
+                {
+                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    sendRequest.start();
+                }
+
             }
             else
             {
@@ -63,7 +87,7 @@ public class RequestBloodControllerService
                 currentTime = returnTime();
                 if(findDifference(lastTime, currentTime))
                 {
-                    requestRepository.updateTime(currentTime, email);
+                    requestRepository.updateTime(currentTime, requestInput.getEmail());
                     List<String> matches;
                     matches = requestRepository.findMatches(requestInput.getBloodType());
                     SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
@@ -75,6 +99,8 @@ public class RequestBloodControllerService
                     System.out.println("Sorry you have to wait 24 hrs for a new request!");
                 }
             }
+
+
         }
         catch (Exception e){
             check = false;

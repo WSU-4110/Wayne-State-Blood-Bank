@@ -1,9 +1,12 @@
 package org.redcrosswarriors.model.input;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
 
 public class RequestBloodInput
 {
@@ -14,9 +17,9 @@ public class RequestBloodInput
     String phoneNumber;
     String bloodType;
     String hospitalName;
-    String street;
-    String city;
-    String state;
+    String streetN;
+    String cityN;
+    String stateN;
     String zipCode;
     String message;
 
@@ -69,27 +72,27 @@ public class RequestBloodInput
     }
 
     public String getStreet() {
-        return street;
+        return streetN;
     }
 
     public void setStreet(String street) {
-        this.street = street;
+        this.streetN = street;
     }
 
     public String getCity() {
-        return city;
+        return cityN;
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.cityN = cityN;
     }
 
     public String getState() {
-        return state;
+        return stateN;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.stateN = stateN;
     }
 
     public String getZipCode() {

@@ -18,16 +18,21 @@ public class RequestBloodController
     @Autowired
     RequestBloodControllerService requestBloodControllerService;
 
+
+
+
     @PostMapping("/requestblood")
-    public ResponseEntity<Object> registerAccount(@RequestBody RequestBloodInput input, Principal principal)
+    public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input)
     {
         System.out.println("start");
-        String email = principal.getName();
+
         Map<String, Object> json = new HashMap();
-        if(requestBloodControllerService.requestBlood(input, email))
+        if(requestBloodControllerService.requestBlood(input))
         {
+            System.out.println("start");
             json.put("status", "Request Processed completely");
             int numbers = requestBloodControllerService.numberOfMatches(input.getBloodType());
+            System.out.println(numbers);
 
         }
         else

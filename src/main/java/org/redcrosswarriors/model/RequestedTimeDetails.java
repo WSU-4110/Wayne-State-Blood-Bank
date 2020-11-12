@@ -1,10 +1,25 @@
 package org.redcrosswarriors.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "requester_time")
+
 public class RequestedTimeDetails
 {
+    @Id
     int id;
+
+    @Column
+    @NotNull
     String email;
-    String time;
+
+    @Column
+    String time_requested;
 
     public int getId() {
         return id;
@@ -23,11 +38,11 @@ public class RequestedTimeDetails
     }
 
     public String getTime() {
-        return time;
+        return time_requested;
     }
 
     public void setTime(String time) {
-        this.time = time;
+        this.time_requested = time_requested;
     }
 
 

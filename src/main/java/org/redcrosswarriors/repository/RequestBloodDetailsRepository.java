@@ -2,6 +2,8 @@ package org.redcrosswarriors.repository;
 
 import org.redcrosswarriors.model.AccountDetails;
 import org.redcrosswarriors.model.Profile;
+//import org.redcrosswarriors.model.RequestedTimeDetails;
+import org.redcrosswarriors.model.RequestInputDetails;
 import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.input.RequestBloodInput;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,9 +16,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface RequestBloodDetailsRepository extends CrudRepository<RequestBloodInput, String>
+public interface RequestBloodDetailsRepository extends CrudRepository<RequestInputDetails, String>
 {
-    @Query(value="SELECT A.email\n" +
+    @Query(value="SELECT email\n" +
             "FROM vw_user_profile\n" +
             "WHERE blood_donor_status ='Y' AND blood_type = :bloodType", nativeQuery=true)
     List<String> findMatches(@Param("bloodType") String bloodType);
@@ -50,7 +52,7 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestBlo
 
     @Modifying
     @Query(value= "INSERT INTO requester_details(first_name, last_name, email, phone_number, blood_type, hospital_name, street_name, city_name, state_name, zip_code, message) " +
-            "VALUES(:firstName, :lastName, :email, :phoneNumber, :bloodType, :hospitalName, :street, :city, :state, :zipCode, :message)", nativeQuery = true)
+            "VALUES(:firstName, :lastName, :email, :phoneNumber, :bloodType, :hospitalName, :streetN, :cityN, :stateN, :zipCode, :message)", nativeQuery = true)
     void newRequester(
             @Param("firstName") String firstName,
             @Param("lastName") String lastName,
@@ -58,8 +60,9 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestBlo
             @Param("phoneNumber") String phoneNumber,
             @Param("bloodType") String bloodType,
             @Param("hospitalName") String hospitalName,
-            @Param("street") String street,
-            @Param("city") String city,
+            @Param("streetN") String streetN,
+            @Param("cityN") String cityN,
+            @Param("stateN") String stateN,
             @Param("zipCode") String zipCode,
             @Param("message") String message);
 
@@ -75,5 +78,6 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestBlo
 
     @Modifying
     @Query(value="UPDATE requester_time SET time_requested = :timeRequested WHERE email = :email", nativeQuery=true)
-    void updateTime(@Param("timeRequested") String timeRequested, @Param("email") String email);
+    void updateTime(@Param("timeRequested") String timeRequested,
+                    @Param("email") String email);
 }

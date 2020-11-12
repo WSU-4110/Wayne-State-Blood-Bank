@@ -67,10 +67,10 @@ CREATE TABLE requester_details
     phone_number VARCHAR(11),
     blood_type CHAR(3),
     hospital_name VARCHAR(100) NOT NULL,
-    street_name VARCHAR(100) NOT NULL,
-    city_name VARCHAR(100) NOT NULL,
-    state_name VARCHAR(100) NOT NULL,
-    zip_code VARCHAR(10) NOT NULL,
+    street_name VARCHAR(100),
+    city_name VARCHAR(100),
+    state_name VARCHAR(100),
+    zip_code VARCHAR(10),
     message VARCHAR(500),
     PRIMARY KEY (id)
 );
@@ -79,7 +79,7 @@ CREATE TABLE requester_time
 (
     id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(320) NOT NULL,
-    time_requested VARCHAR(100) NOT NULL,
+    time_requested VARCHAR(100),
     PRIMARY KEY (id)
 );
 
