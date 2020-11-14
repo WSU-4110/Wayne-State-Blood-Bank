@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface UserDetailsRepository extends CrudRepository<Profile, String> {
@@ -40,4 +41,11 @@ public interface UserDetailsRepository extends CrudRepository<Profile, String> {
             @Param("phoneNumber") String phoneNumber,
             @Param("bloodDonorStatus") String bloodDonorStatus);
 
+
+    ////////////////////////////////////////////////////////////
+    @Query(value = "SELECT * FROM vw_user_profile", nativeQuery = true)
+    List<Profile> getAllProfiles();
+    ////////////////////////////////////////////////////////////
+
 }
+
