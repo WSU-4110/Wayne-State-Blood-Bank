@@ -55,13 +55,13 @@ import javax.validation.constraints.NotNull;
         @Column(name="message")
         private String message;
 
-//        public int getId() {
-//            return id;
-//        }
-//
-//        public void setId(int id) {
-//            this.id = id;
-//        }
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
 
 
         public String getFirstName() {
@@ -116,7 +116,7 @@ import javax.validation.constraints.NotNull;
             return streetName;
         }
 
-        public void setStreet(String street) {
+        public void setStreet(String streetName) {
             this.streetName = streetName;
         }
 
@@ -124,7 +124,7 @@ import javax.validation.constraints.NotNull;
             return cityName;
         }
 
-        public void setCity(String city) {
+        public void setCity(String cityName) {
             this.cityName = cityName;
         }
 
@@ -132,7 +132,7 @@ import javax.validation.constraints.NotNull;
             return stateName;
         }
 
-        public void setState(String state) {
+        public void setState(String stateName) {
             this.stateName = stateName;
         }
 
