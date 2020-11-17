@@ -9,6 +9,7 @@ import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegistrationInput;
 import org.redcrosswarriors.model.input.RequestBloodInput;
 import org.redcrosswarriors.repository.RequestBloodDetailsRepository;
+import org.redcrosswarriors.repository.RequestTimeDetailsRepository;
 import org.redcrosswarriors.repository.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +29,11 @@ public class RequestBloodControllerService
     @Autowired
     private RequestBloodDetailsRepository requestRepository;
 
+    @Autowired
+    private RequestTimeDetailsRepository requestTimeRepository;
 
-    private RequestedTimeDetails timeDetails = new RequestedTimeDetails();
+
+    private RequestedTimeDetails timeDetails;
 
     @Transactional
     public boolean requestBlood(RequestBloodInput requestInput)
@@ -54,29 +59,35 @@ public class RequestBloodControllerService
             System.out.println(requestInput.getPhoneNumber());
             System.out.println(requestInput.getBloodType());
             System.out.println(requestInput.getHospitalName());
+            System.out.println(requestInput.getStreet());
+            System.out.println(requestInput.getCity());
+            System.out.println(requestInput.getState());
+            System.out.println( requestInput.getZipCode());
+            System.out.println( requestInput.getMessage());
 
-            System.out.println("start");
 
-            timeDetails = requestRepository.getRequestedTimeByEmail(requestInput.getEmail());
-            String currentTime = returnTime();
+
+            timeDetails = requestTimeRepository.getRequestedTimeByEmail(requestInput.getEmail());
+            String currentTime;
             if(timeDetails == null)
             {
                 currentTime = returnTime();
                 System.out.println(currentTime);
-                requestRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
+                requestTimeRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
                 List<String> matches;
 
                 matches = requestRepository.findMatches(requestInput.getBloodType());
                 if(matches.size() == 0)
                 {
                     System.out.println("0 matches near by");
-                    check = false;
+                    //check = false;
 
                 }
                 else
                 {
-                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    sendRequest.start();
+                    System.out.println("matches found: " + matches.size());
+                    //SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    //sendRequest.start();
                 }
 
             }
@@ -87,15 +98,16 @@ public class RequestBloodControllerService
                 currentTime = returnTime();
                 if(findDifference(lastTime, currentTime))
                 {
-                    requestRepository.updateTime(currentTime, requestInput.getEmail());
+                    requestTimeRepository.updateTime(currentTime, requestInput.getEmail());
                     List<String> matches;
                     matches = requestRepository.findMatches(requestInput.getBloodType());
-                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    sendRequest.start();
+                    System.out.println("matches found: " + matches.size());
+                    //SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    //sendRequest.start();
                 }
                 else
                 {
-                    check = false;
+                    //check = t;
                     System.out.println("Sorry you have to wait 24 hrs for a new request!");
                 }
             }

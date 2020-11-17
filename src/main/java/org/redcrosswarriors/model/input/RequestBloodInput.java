@@ -17,9 +17,9 @@ public class RequestBloodInput
     String phoneNumber;
     String bloodType;
     String hospitalName;
-    String streetN;
-    String cityN;
-    String stateN;
+    String streetName;
+    String cityName;
+    String stateName;
     String zipCode;
     String message;
 
@@ -72,27 +72,27 @@ public class RequestBloodInput
     }
 
     public String getStreet() {
-        return streetN;
+        return streetName;
     }
 
     public void setStreet(String street) {
-        this.streetN = street;
+        this.streetName = street;
     }
 
     public String getCity() {
-        return cityN;
+        return cityName;
     }
 
     public void setCity(String city) {
-        this.cityN = cityN;
+        this.cityName = cityName;
     }
 
     public String getState() {
-        return stateN;
+        return stateName;
     }
 
     public void setState(String state) {
-        this.stateN = stateN;
+        this.stateName = stateName;
     }
 
     public String getZipCode() {

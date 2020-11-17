@@ -16,15 +16,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface RequestBloodDetailsRepository extends CrudRepository<RequestInputDetails, String>
+public interface RequestBloodDetailsRepository extends CrudRepository<RequestInputDetails, Integer>
 {
     @Query(value="SELECT email\n" +
             "FROM vw_user_profile\n" +
             "WHERE blood_donor_status ='Y' AND blood_type = :bloodType", nativeQuery=true)
     List<String> findMatches(@Param("bloodType") String bloodType);
-
-    @Query(value = "SELECT * FROM requester_time WHERE email = :email", nativeQuery = true)
-    RequestedTimeDetails getRequestedTimeByEmail(@Param("email") String email);
 
     @Query(value = "SELECT COUNT(*) FROM blood_a_plus", nativeQuery = true)
     int aPlus();
@@ -52,18 +49,18 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestInp
 
     @Modifying
     @Query(value= "INSERT INTO requester_details(first_name, last_name, email, phone_number, blood_type, hospital_name, street_name, city_name, state_name, zip_code, message) " +
-            "VALUES(:firstName, :lastName, :email, :phoneNumber, :bloodType, :hospitalName, :streetN, :cityN, :stateN, :zipCode, :message)", nativeQuery = true)
+            "VALUES(:first_name, :last_name, :email, :phone_number, :blood_type, :hospital_name, :street_name, :city_name, :state_name, :zip_code, :message)", nativeQuery = true)
     void newRequester(
-            @Param("firstName") String firstName,
-            @Param("lastName") String lastName,
+            @Param("first_name") String firstName,
+            @Param("last_name") String lastName,
             @Param("email") String email,
-            @Param("phoneNumber") String phoneNumber,
-            @Param("bloodType") String bloodType,
-            @Param("hospitalName") String hospitalName,
-            @Param("streetN") String streetN,
-            @Param("cityN") String cityN,
-            @Param("stateN") String stateN,
-            @Param("zipCode") String zipCode,
+            @Param("phone_number") String phoneNumber,
+            @Param("blood_type") String bloodType,
+            @Param("hospital_name") String hospitalName,
+            @Param("street_name") String streetName,
+            @Param("city_name") String cityName,
+            @Param("state_name") String stateName,
+            @Param("zip_code") String zipCode,
             @Param("message") String message);
 
     @Modifying

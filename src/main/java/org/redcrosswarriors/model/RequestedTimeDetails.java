@@ -1,9 +1,6 @@
 package org.redcrosswarriors.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -12,6 +9,7 @@ import javax.validation.constraints.NotNull;
 public class RequestedTimeDetails
 {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     int id;
 
     @Column

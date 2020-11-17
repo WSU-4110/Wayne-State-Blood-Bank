@@ -1,9 +1,6 @@
 package org.redcrosswarriors.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
@@ -13,47 +10,49 @@ import javax.validation.constraints.NotNull;
     public class RequestInputDetails
     {
 
+
         @Id
+        @GeneratedValue(strategy= GenerationType.IDENTITY)
         private int id;
 
-        @Column
+        @Column(name="first_name")
         @NotNull
         private String firstName;
 
-        @Column
+        @Column(name="last_name")
         @NotNull
         private String lastName;
 
-        @Column
+        @Column(name="email")
         @NotNull
         private String email;
 
-        @Column
+        @Column(name="phone_number")
         private String phoneNumber;
 
-        @Column
+        @Column(name="blood_type")
         @NotNull
         private String bloodType;
 
-        @Column
+        @Column(name="hospital_name")
         @NotNull
         private String hospitalName;
 
-        @Column
-        private String streetN;
+        @Column(name="street_name")
+        private String streetName;
 
 
-        @Column
-        private String cityN;
+        @Column(name="city_name")
+        private String cityName;
 
 
-        @Column
-        private String stateN;
+        @Column(name="state_name")
+        private String stateName;
 
-        @Column
+        @Column(name="zip_code")
         private String zipCode;
 
-        @Column
+        @Column(name="message")
         private String message;
 
 //        public int getId() {
@@ -114,27 +113,27 @@ import javax.validation.constraints.NotNull;
         }
 
         public String getStreet() {
-            return streetN;
+            return streetName;
         }
 
         public void setStreet(String street) {
-            this.streetN = streetN;
+            this.streetName = streetName;
         }
 
         public String getCity() {
-            return cityN;
+            return cityName;
         }
 
         public void setCity(String city) {
-            this.cityN = cityN;
+            this.cityName = cityName;
         }
 
         public String getState() {
-            return stateN;
+            return stateName;
         }
 
         public void setState(String state) {
-            this.stateN = stateN;
+            this.stateName = stateName;
         }
 
         public String getZipCode() {
