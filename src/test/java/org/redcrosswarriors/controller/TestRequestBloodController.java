@@ -40,7 +40,7 @@ public class TestRequestBloodController {
 
         input.setFirstName("John");
         input.setLastName("Doe");
-        input.setEmail("john@wayne.edu");
+        input.setEmail("johhn@wayne.edu");
         input.setPhoneNumber("0000000000");
         input.setBloodType("AB+");
         input.setHospitalName("Beaumont");

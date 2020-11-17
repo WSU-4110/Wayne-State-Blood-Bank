@@ -75,15 +75,15 @@ public class RequestBloodInput
         return streetName;
     }
 
-    public void setStreet(String street) {
-        this.streetName = street;
+    public void setStreet(String streetName) {
+        this.streetName = streetName;
     }
 
     public String getCity() {
         return cityName;
     }
 
-    public void setCity(String city) {
+    public void setCity(String cityName) {
         this.cityName = cityName;
     }
 
@@ -91,7 +91,7 @@ public class RequestBloodInput
         return stateName;
     }
 
-    public void setState(String state) {
+    public void setState(String stateName) {
         this.stateName = stateName;
     }
 
