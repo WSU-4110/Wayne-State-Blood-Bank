@@ -67,9 +67,19 @@
 
 <main>
 <body>
-<h3>Register</h3>
+<div class="ui fluid container">
+    <div class="content">
+        <div class="transparent-bg">
+            <img src="Blood-Donation.jpg" id="bdimg" style="width:100%;">
+        </div>
+        <div class="ui container">
+            <div class="centered">
+              <div class="mainContainer" id="mainContainer" style="display: block">
+			  <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 500px; overflow-y: auto;">
+                <h1 style="font-size:4vw;">Register</h1>
+                <p style="font-size:2vw;">Thank you for signing up with us, please fill out the information below.</p>
 
-<p>Thank you for signing up with us, please fill out the information below.</p>
+
 
 <!--User input-->
 <form>
@@ -137,7 +147,12 @@
 </form>
 
 <button onclick = "registerAccount()">Submit</button>
-
+              </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--Functions for validation-->
 <script>
