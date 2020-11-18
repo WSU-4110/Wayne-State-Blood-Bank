@@ -86,8 +86,8 @@ public class RequestBloodControllerService
                 else
                 {
                     System.out.println("matches found: " + matches.size());
-                    //SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    //sendRequest.start();
+                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    sendRequest.start();
                 }
 
             }
@@ -102,8 +102,8 @@ public class RequestBloodControllerService
                     List<String> matches;
                     matches = requestRepository.findMatches(requestInput.getBloodType());
                     System.out.println("matches found: " + matches.size());
-                    //SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    //sendRequest.start();
+                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                    sendRequest.start();
                 }
                 else
                 {

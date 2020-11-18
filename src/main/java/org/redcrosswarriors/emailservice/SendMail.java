@@ -3,6 +3,8 @@ package org.redcrosswarriors.emailservice;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -14,7 +16,7 @@ import java.util.Properties;
 abstract public class SendMail extends Thread {
     protected String myEmail;
     protected String myPW;
-    protected String[] recipients;
+    protected ArrayList<String> recipients;
     protected Properties properties;
     protected String htmlCode;
     protected String subject;
@@ -61,9 +63,9 @@ abstract public class SendMail extends Thread {
             message.setFrom(new InternetAddress(myEmail));
             message.setSubject(subject);
 
-            for (String address : recipients) {
-                System.out.println("Sending to : " + address);
-                message.setRecipient(Message.RecipientType.TO, new InternetAddress(address));
+            for (Object recipient : recipients) {
+                System.out.println("Sending to : " + recipient);
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress((String) recipient));
                 message.setContent(htmlCode, "text/html");
                 Transport.send(message);
             }
@@ -86,7 +88,7 @@ abstract public class SendMail extends Thread {
      *
      * @return array of recipients
      */
-    public String[] getRecipients() {
+    public List<String> getRecipients() {
         return recipients;
     }
 }

@@ -17,7 +17,7 @@ class TestSendVerificationEmail extends SendMail {
         testVerify = new SendVerificationEmail("testmail@gmail.com", link);
         String testHtml;
         testHtml = String.valueOf(new Scanner(new File("src/main/resources/static/verificationEmailTest.html")).useDelimiter("\\Z").next());
-        assertEquals(testVerify.getRecipients()[0], "testmail@gmail.com");
+        assertEquals(testVerify.recipients.get(0), "testmail@gmail.com");
         assertEquals(testVerify.getHtmlCode(), testHtml);
     }
 
