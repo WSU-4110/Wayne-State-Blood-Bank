@@ -123,10 +123,38 @@
 <form>
 
 
-   <label for="name">*Name:</label>
-   <input style="color: black;" type="text" name="name" id="name"
-    required = "required"> 
-	<br>
+    <label for="myFName">*First Name:</label>
+    <input style="color: black;" type="text" name="myFName" id="myFName"
+           required = "required">
+    <br><br>
+
+    <label for="myLName">*Last Name:</label>
+    <input style="color: black;" type="text" name="myLName" id="myLName"
+           required = "required">
+    <br><br>
+
+    <label for="myEmail">*E-Mail:</label>
+    <input style="color: black;" type="email" name="myEmail" id="myEmail"
+           required = "required">
+    <br><br>
+
+
+    <label for="myPhone">Phone:</label>
+    <input style="color: black;" type="tel" name="myPhone" id = "myPhone" required = "required">
+    <br><br>
+
+    <label>Blood Type:</label>
+    <select  style="color: black;" name="myBlood" id = "bloodType">
+        <option value="A+"class = "others">A+</option>
+        <option value="B+"class = "others">B+</option>
+        <option value="O+"class = "others">O+</option>
+        <option value="AB+"class = "others">AB+</option>
+        <option value="A-"class = "others">A-</option>
+        <option value="B-"class = "others">B-</option>
+        <option value="O-"class = "others">O-</option>
+        <option value="AB-"class = "others">AB-</option>
+    </select>
+    <br>
 
    <label for="hospital">*Hospital</label>
    <input style="color: black;"  type="text" name="myHospital" id="hospital">
@@ -148,26 +176,11 @@
     </select> 
     <br>
 
-   <label for="myPhone">Phone:</label>
-   <input  style="color: black;" type="tel" name="myPhone" id = "myPhone">
-   <br>
-
-
-   
-	<label>Blood Type:</label>
-    <select  style="color: black;" name="myBlood" id = "bloodType">
-      <option value="A+"class = "others">A+</option>
-      <option value="B+"class = "others">B+</option>
-      <option value="O+"class = "others">O+</option>
-	  <option value="AB+"class = "others">AB+</option>
-      <option value="A-"class = "others">A-</option>
-      <option value="B-"class = "others">B-</option>
-      <option value="O-"class = "others">O-</option>
-      <option value="AB-"class = "others">AB-</option>
-    </select> 
+    <label for="zipCode">*Zip Code:</label>
+    <input style="color: black;"  type="text" name="zipCode" id="zipCode"
+           required = "required">
     <br>
-	
-	
+
    <label for="description">*Situation:</label>
   <textarea  style="color: black;" name="Text1" cols="40" rows="5" style="color=black" id = "situation"
              required = "required"> </textarea>
@@ -185,30 +198,38 @@
 <script>
 
 function validate()
- if(checkForm() == true )
- {
-					console.log("hi");
-                    var name = document.getElementById("name").value;
-                    var hospital = document.getElementById("hospital").value;
-                    var street = document.getElementById("myStreet").value;
-                    var city = document.getElementById("myCity").value;
-                    var state = document.getElementById("myState").value;
-                    var phoneNumber = document.getElementById("myPhone").value;
-                    var bloodType =  document.getElementById("bloodType").value;
-                    var situation = document.getElementById("situation").value;
-					
-					var requestInfo =
-                    {
-                    
-                        name : name,
-						hospital : hospital,
-                        street : street,
-						city : city,
-						state : state,
-						phoneNumber : phoneNumber,
-                        bloodType :bloodType,
-                        situation : situation
-                    }
+{
+    if(checkForm() == true )
+    {
+        console.log("hi");
+        var firstName = document.getElementById("myFName").value;
+        var lastName = document.getElementById("myLName").value;
+        var email = document.getElementById("myEmail").value;
+        var phoneNumber = document.getElementById("myPhone").value;
+        var bloodType =  document.getElementById("bloodType").value;
+        var hospital = document.getElementById("hospital").value;
+        var street = document.getElementById("myStreet").value;
+        var city = document.getElementById("myCity").value;
+        var state = document.getElementById("myState").value;
+        var zipCode = document.getElementById("zipCode").value;
+        var situation = document.getElementById("situation").value;
+
+        var requestInfo =
+        {
+            firstName: firstName ,
+            lastName : lastName ,
+            email : email,
+            phoneNumber : phoneNumber,
+            bloodType: bloodType
+            hospitalName : hospital,
+            streetName : street,
+            cityName : city,
+            stateName : state,
+            zipCode : zipCode,
+            message : situation
+
+
+        }
                     $.ajax(
                     {
                         type:"POST",
@@ -226,7 +247,15 @@ function validate()
                             alert(error);
                         }
                     });
-  }
+    }
+    else
+    {
+        alert("Fields cannot be empty")
+        console.log("fields are empty");
+    }
+
+}
+
 </script>
 
 
@@ -243,7 +272,7 @@ function checkForm()
   var bloodType =  document.getElementById("bloodType").value;
   var situation = document.getElementById("situation").value;
 
-if (name == "")
+   if (name == "")
   {alert("Error: Please enter a name");
         document.getElementById("name").focus();
         check = false;

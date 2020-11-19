@@ -21,7 +21,7 @@ public class RequestBloodController
 
 
 
-    @PostMapping("/requestblood")
+    @PostMapping("/requestBlood")
     public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input)
     {
         System.out.println("start");
