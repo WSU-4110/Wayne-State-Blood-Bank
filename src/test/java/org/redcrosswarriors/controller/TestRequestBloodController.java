@@ -44,9 +44,9 @@ public class TestRequestBloodController {
         input.setPhoneNumber("0000000000");
         input.setBloodType("AB+");
         input.setHospitalName("Beaumont");
-        input.setStreet("1234 XYZ");
-        input.setCity("ABC");
-        input.setState("MI");
+        input.setStreetName("1234 XYZ");
+        input.setCityName("ABC");
+        input.setStateName("MI");
         input.setZipCode("48084");
         input.setMessage("I need Blood");
 

@@ -47,9 +47,9 @@ public class RequestBloodControllerService
                     requestInput.getPhoneNumber(),
                     requestInput.getBloodType(),
                     requestInput.getHospitalName(),
-                    requestInput.getStreet(),
-                    requestInput.getCity(),
-                    requestInput.getState(),
+                    requestInput.getStreetName(),
+                    requestInput.getCityName(),
+                    requestInput.getStateName(),
                     requestInput.getZipCode(),
                     requestInput.getMessage());
 
@@ -59,9 +59,9 @@ public class RequestBloodControllerService
             System.out.println(requestInput.getPhoneNumber());
             System.out.println(requestInput.getBloodType());
             System.out.println(requestInput.getHospitalName());
-            System.out.println(requestInput.getStreet());
-            System.out.println(requestInput.getCity());
-            System.out.println(requestInput.getState());
+            System.out.println(requestInput.getStreetName());
+            System.out.println(requestInput.getCityName());
+            System.out.println(requestInput.getStateName());
             System.out.println( requestInput.getZipCode());
             System.out.println( requestInput.getMessage());
 

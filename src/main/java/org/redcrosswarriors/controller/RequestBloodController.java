@@ -25,16 +25,8 @@ public class RequestBloodController
     public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input)
     {
         System.out.println("start");
-//        System.out.println(input.getLastName());
-//        System.out.println(input.getEmail());
-//        System.out.println(input.getPhoneNumber());
-//        System.out.println(input.getBloodType());
-//        System.out.println(input.getHospitalName());
-//        System.out.println(input.getStreet());
-//        System.out.println(input.getCity());
-//        System.out.println(input.getState());
-//        System.out.println( input.getZipCode());
-//        System.out.println( input.getMessage());
+
+
 
         Map<String, Object> json = new HashMap();
         if(requestBloodControllerService.requestBlood(input))

@@ -29,8 +29,8 @@ class TestSendNotificationEmail extends SendMail {
                 requestInput.setPhoneNumber("248-555-1212");
                 requestInput.setBloodType("A+");
                 requestInput.setHospitalName("Beaumont Royal Oak");
-                requestInput.setStreet("123 W 13 Mile rd");
-                requestInput.setCity("Royal Oak");
+                requestInput.setStreetName("123 W 13 Mile rd");
+                requestInput.setCityName("Royal Oak");
                 requestInput.setZipCode("48073");
                 requestInput.setMessage("I am so thirsty pleeze help. This is a unit test");
 

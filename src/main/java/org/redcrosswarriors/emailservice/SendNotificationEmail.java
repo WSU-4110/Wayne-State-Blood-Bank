@@ -32,8 +32,8 @@ public class SendNotificationEmail extends SendMail {
         htmlCode = htmlCode.replace("PHONE_NUMBER", requestInput.getPhoneNumber());
         htmlCode = htmlCode.replace("MESSAGE", requestInput.getMessage());
         htmlCode = htmlCode.replace("HOSPITAL", requestInput.getHospitalName());
-        htmlCode = htmlCode.replace("STREET", requestInput.getStreet());
-        htmlCode = htmlCode.replace("CITY", requestInput.getCity());
+        htmlCode = htmlCode.replace("STREET", requestInput.getStreetName());
+        htmlCode = htmlCode.replace("CITY", requestInput.getCityName());
         htmlCode = htmlCode.replace("ZIP_CODE", requestInput.getZipCode());
     }
 }

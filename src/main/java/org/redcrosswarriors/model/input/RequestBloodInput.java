@@ -71,27 +71,27 @@ public class RequestBloodInput
         this.hospitalName = hospitalName;
     }
 
-    public String getStreet() {
+    public String getStreetName() {
         return streetName;
     }
 
-    public void setStreet(String streetName) {
+    public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
 
-    public String getCity() {
+    public String getCityName() {
         return cityName;
     }
 
-    public void setCity(String cityName) {
+    public void setCityName(String cityName) {
         this.cityName = cityName;
     }
 
-    public String getState() {
+    public String getStateName() {
         return stateName;
     }
 
-    public void setState(String stateName) {
+    public void setStateName(String stateName) {
         this.stateName = stateName;
     }
 
