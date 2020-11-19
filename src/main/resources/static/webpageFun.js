@@ -94,7 +94,7 @@ function getCookie(cname) {
   return "";
 }
 
-function checkCookie() {
+function checkLoginCookie() {
   var user = getCookie("openModal");
   if (user == "true") {
     openLoginModal();

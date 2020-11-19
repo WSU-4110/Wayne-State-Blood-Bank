@@ -91,16 +91,22 @@
             <a class="item" onclick="location.href='contactus.html'">
                 <i class="mail icon"></i> Contact Us
             </a>
-			<a class="item" onclick="location.href='myProfile.html'">
-                 Profile
+			      <a class="item" onclick="location.href='myProfile.html'">
+                 <i class="address card icon"></i>Profile
             </a>
-            <a class="item">
-                <i class="grid layout icon"></i> option 3
+            <a class="item" onclick="location.href='bloodDrives.html'">
+                <i class="tint icon"></i> Blood Drives
             </a>
             <!--how to lock this behind login-->
-            <div class="ui simple dropdown item">
-                More
+            <div class="ui simple dropdown item" id="adminNav">
+                Admin
                 <i class="dropdown icon"></i>
+                <div class="menu">
+                  <a class="item" href="/addBloodDrive"></i>Add Blood Drive</a>
+                  <a class="item"><i class="globe icon"></i> Add News and Events</a>
+                  <a class="item"><i class="settings icon"></i> Account Settings</a>
+                </div>
+
             </div>
         </div>
     </div>

@@ -33,4 +33,9 @@ public class WebPageController {
         return "viewFeedback.html";
     }
 
+    @RequestMapping("/addBloodDrive")
+    @Secured("ROLE_ADMIN")
+    public String getAddBloodDrivePage(){
+        return "addBloodDrive.html";
+    }
 }
