@@ -33,4 +33,8 @@ public class WebPageController {
         return "viewFeedback.html";
     }
 
+    @RequestMapping("/manageUsers")
+ //   @Secured("ROLE_ADMIN")
+    public String getUsers() { return "manageUsers.html"; }
+
 }

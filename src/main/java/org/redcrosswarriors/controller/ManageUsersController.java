@@ -21,14 +21,14 @@ public class ManageUsersController {
     private AccountDetailsRepository accountRepository;
 
     @GetMapping("/user")
-    @Secured("ROLE_ADMIN")
+ //   @Secured("ROLE_ADMIN")
     public ResponseEntity<List<Profile>> getUsers() {
         List<Profile> users = userRepository.getAllProfiles();
         return new ResponseEntity<List<Profile>>(users, HttpStatus.OK);
     }
 
     @DeleteMapping("/user")
-    @Secured("ROLE_ADMIN")
+  //  @Secured("ROLE_ADMIN")
     public void deleteUser(String emailAddress) {
         accountRepository.removeAccountByEmail(emailAddress);
     }

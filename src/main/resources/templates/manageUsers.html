@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="webpageFun.js"></script>
+
+<body>
+Hello html
+
+<div class="ui fluid container">
+    <h2>Users:</h2>
+    <template id="commentTemplate">
+        <div class="comment">
+            <div class="text">
+
+            </div>
+
+        </div>
+    </template>
+    <p id="user"></p>
+
+    <div class="ui container" id="userList">
+    </div>
+
+</div>
+
+<script>
+console.log('hello admins - in consoleee');
+
+
+    function showUsers(data){
+        console.log(data);
+        var list = "";
+        for(var i = 0; i< data.length;i++){
+            console.log(data[i].email);
+            console.log(data[i].firstName);
+            list += '<br/>';
+            list += data[i].email;
+
+        }
+
+        document.getElementById("user").innerHTML = list
+    }
+
+    $(document).ready(function() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/user',
+            success: function(data){
+                showUsers(data);
+            },
+            error: function(){alert("Error Failed To Retrieve Feedback");}
+            }
+        );
+
+    });
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
