@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Feedback</title>
+    <link rel="stylesheet" href="design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<div class="header">
+    <div class="ui green clearing inverted segment">
+        <!--See modal section of semantic, click on login to popup the username and pw prompt-->
+        <!--signup will be a button next to login that turns into a signout after a user is logged in-->
+
+        <div class="ui right floated header">
+            <button class="ui red button" id="loginButton" onclick="signInButton()">SignUp/Login</button>
+            <!--show after logged in-->
+            <a href="/logout">
+              <button class="ui red button" id="logoutButton">Logout</button>
+            </a>
+        </div>
+        <a href="/index.html">
+          <h3 class="ui left floated huge red header">
+              Red Cross Warriors
+          </h3>
+        </a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="webpageFun.js"></script>
+<nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+        <!--how to make this fully left l-->
+        <div class="ui container">
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
+            </a>
+			      <a class="item" onclick="location.href='myProfile.html'">
+                 <i class="address card icon"></i>Profile
+            </a>
+            <a class="item" onclick="location.href='bloodDrives.html'">
+                <i class="tint icon"></i> Blood Drives
+            </a>
+            <!--how to lock this behind login-->
+            <div class="ui simple dropdown item" id="adminNav">
+                Admin
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <a class="item" href="/addBloodDrive"></i>Add Blood Drive</a>
+                  <a class="item"><i class="globe icon"></i> Add News and Events</a>
+                  <a class="item"><i class="settings icon"></i> Account Settings</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<body>
+  <body style="background: #21ba45">
+  <div class="ui fluid container">
+      <div class="content">
+          <div class="transparent-bg">
+              <img src="Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
+          </div>
+          <div class="ui left aligned container">
+              <div class="centered">
+                <div class="feedbackContainer" id="feedbackContainer">
+                  <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 753px; max-height: 349px; overflow-y: auto;">
+                    <div class="ui basic segment">
+                    <h2>Blood Drives</h2>
+                    <button class="ui left floated green inverted button" id="addBloodDriveButton" style="display: none;" onclick="location.href='/addBloodDrive'">Add Blood Drive</button>
+                    <button class="ui right floated orange inverted button" id="clearOutdatedButton" style="display: none;" onclick="deleteOutdatedBloodDrivesButton()">Delete outdated blood drives</button>
+                    <br/>
+                    </div>
+                    <template id="commentTemplate">
+                        <div class="comment">
+                            <div class="text">
+
+                            </div>
+
+                        </div>
+                    </template>
+                    <div class="ui container" id="feedbackList">
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+
+
+
+
+<script>
+  function deleteButton (id) {
+      $.ajax({
+          type: 'DELETE',
+          dataType: 'json',
+          url: `/bloodDrive/${id}`,
+          success: function(){
+              location.reload();
+          },
+          error: function(){
+              alert("Error Failed To Delete Blood Drive");
+          }
+      });
+  }
+
+  //Roles is stored as an array, search array for admin
+
+  function deleteOutdatedBloodDrivesButton (id) {
+    $.ajax({
+        type: 'DELETE',
+        dataType: 'json',
+        url: '/bloodDrive/outdated',
+        success: function(){
+            location.reload();
+        },
+        error: function(){
+            alert("Error Failed To Delete all outdated blood drives");
+        }
+    });
+}
+
+
+  function removeChildNodes(parent){
+    while (parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+    }
+  }
+
+function showMessages(data){
+    let bloodDriveList = document.querySelector("#feedbackList");
+    // clear all messages
+    removeChildNodes(feedbackList);
+    let messageTemplate = document.getElementById("commentTemplate");
+
+    // loop through each message and display it.
+
+    for(var i=0; i < data.length; i++){
+        // create a new message element from the template
+        let newMessageElement = messageTemplate.content.cloneNode(true);
+
+        // get the text component of the message
+        let textComponent = newMessageElement.querySelector('.text');
+        // set the message to the current message
+        let format = "<hr/>" + data[i].title + "<br/>"
+          + "Locaiton: " + data[i].location + "<br/>"
+          + "Date: <br/>" + data[i].date + "<br/>"
+          + "Time: " + data[i].time + "<br/>"
+          + "Link: " + data[i].link + "<br/>";
+
+          textComponent.innerHTML = format;
+
+          bloodDriveList.appendChild(newMessageElement);
+
+
+      }
+
+  }
+
+function showAdminMessages(data){
+    let bloodDriveList = document.querySelector("#feedbackList");
+    // clear all messages
+    removeChildNodes(feedbackList);
+    let messageTemplate = document.getElementById("commentTemplate");
+
+    // loop through each message and display it.
+
+    for(var i=0; i < data.length; i++){
+        // create a new message element from the template
+        let newMessageElement = messageTemplate.content.cloneNode(true);
+
+        // get the text component of the message
+        let textComponent = newMessageElement.querySelector('.text');
+        // set the message to the current message
+        let format = "<hr/>" + data[i].title + "<br/>"
+          + "Locaiton: " + data[i].location + "<br/>"
+          + "Date: <br/>" + data[i].date + "<br/>"
+          + "Time: " + data[i].time + "<br/>"
+          + "Link: " + data[i].link + "<br/>";
+
+          textComponent.innerHTML = format;
+
+          var button = document.createElement('input');
+
+          // SET INPUT ATTRIBUTE 'type' AND 'value'.
+          button.setAttribute('type', 'button');
+          button.setAttribute('class', 'ui red inverted button');
+          button.setAttribute('value', 'Delete');
+          button.setAttribute('id', data[i].id);
+
+          // ADD THE BUTTON's 'onclick' EVENT.
+          button.setAttribute('onclick', 'deleteButton(this.id)');
+
+          bloodDriveList.appendChild(newMessageElement);
+          bloodDriveList.appendChild(button);
+
+
+      }
+
+  }
+
+  function fetchMessages(){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/bloodDrive',
+        success: function(data){
+            showMessages(data);
+        },
+        error: function(){
+            alert("Error Failed To Retrieve Feedback");
+        }
+    });
+
+
+  }
+
+  function fetchAdminMessages(){
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/bloodDrive',
+        success: function(data){
+            showAdminMessages(data);
+        },
+        error: function(){
+            alert("Error Failed To Retrieve Feedback");
+        }
+    });
+
+
+  }
+
+  $(document).ready(function() {
+    $.get("/loginStatus", function(data, status) {
+      let isAdmin = false;
+
+      if (data.isLoggedIn == true){
+        document.getElementById("logoutButton").style.display = "block";
+        document.getElementById("loginButton").style.display = "none";
+      }
+
+      for (i in data.roles) {
+        if (data.roles[i] == "ADMIN") {
+          isAdmin = true;
+        }
+      }
+
+      if (isAdmin == true) {
+        document.getElementById("clearOutdatedButton").style.display = "block";
+        document.getElementById("addBloodDriveButton").style.display = "block";
+        fetchAdminMessages();
+      }
+      else {
+        fetchMessages();
+      }
+    });
+
+  });
+
+
+
+</script>
+</body>
+</html>
