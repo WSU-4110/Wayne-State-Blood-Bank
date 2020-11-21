@@ -77,32 +77,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="webpageFun.js"></script>
-<nav>
-    <!--whatever pages we want-->
-    <div class="ui attached stackable menu">
-        <!--how to make this fully left l-->
-        <div class="ui container">
-            <a class="item" onclick="location.href='index.html'">
-                <i class="home icon" id="homeButton"></i> Home
-            </a>
-            <a class="item">
-                <i class="grid layout icon"></i> Page 2
-            </a>
-            <a class="item">
-                <i class="mail icon"></i> Page 3
-            </a>
-            <!--how to lock this behind login-->
-            <div class="ui simple dropdown item">
-                More
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" onclick="location.href='myProfile.html'"> My Profile</a>
-                    <a class="item"> Send Request?</a>
-                    <a class="item">Account Settings</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<nav id="nav-placeholder">
+
 
 </nav>
 
@@ -118,14 +94,14 @@
 			  <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 500px; overflow-y: auto;">
                 <h1 style="font-size:4vw;">Request Blood</h1>
                 <p style="font-size:2vw;">Please fill out the form below</p>
-			
-			
+
+
 <form>
 
 
    <label for="myFName">*Name:</label>
    <input style="color: black;" type="text" name="myFName" id="myFName"
-    required = "required"> 
+    required = "required">
 	<br>
 
    <label for="hospital">*Hospital</label>
@@ -141,7 +117,7 @@
    <input style="color: black;"  type="text" name="myCity" id="myCity"
    required = "required">
    <br>
-   
+
   <label>*State:</label>
     <select  style="color: black;" name="myState" id = "myState">
     <option value="AL" class = "others">Alabama</option>
@@ -195,7 +171,7 @@
 	<option value="WV" class = "others">West Virginia</option>
 	<option value="WI" class = "others">Wisconsin</option>
 	<option value="WY" class = "others">Wyoming</option>
-    </select> 
+    </select>
     <br>
 
    <label for="myPhone">Phone:</label>
@@ -203,7 +179,7 @@
    <br>
 
 
-   
+
 	<label>Blood Type:</label>
     <select  style="color: black;" name="myBlood" id = "bloodType">
       <option value="A+"class = "others">A+</option>
@@ -214,10 +190,10 @@
       <option value="B-"class = "others">B-</option>
       <option value="O-"class = "others">O-</option>
       <option value="AB-"class = "others">AB-</option>
-    </select> 
+    </select>
     <br>
-	
-	
+
+
    <label for="description">*Situation:</label>
   <textarea  style="color: black;" name="Text1" cols="40" rows="5" style="color=black"
              required = "required"> </textarea>
@@ -233,8 +209,9 @@
 </div>
 
 
-  
+
 <script>
+    loadNav();
     loginCheck();
 </script>
 </body>

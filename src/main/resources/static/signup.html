@@ -33,32 +33,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
 
-<nav>
-    <!--whatever pages we want-->
-    <div class="ui attached stackable menu">
-        <!--how to make this fully left l-->
-        <div class="ui container">
-            <a class="item" onclick="location.href='index.html'">
-                <i class="home icon" id="homeButton"></i> Home
-            </a>
-            <a class="item">
-                <i class="grid layout icon"></i> Page 2
-            </a>
-            <a class="item">
-                <i class="mail icon"></i> Page 3
-            </a>
-            <!--how to lock this behind login-->
-            <div class="ui simple dropdown item">
-                More
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item"> Edit Profile</a>
-                    <a class="item"> Send Request?</a>
-                    <a class="item">Account Settings</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<nav id="nav-placeholder">
+
 
 </nav>
 
@@ -133,6 +109,7 @@
 
     <!--Functions for validation-->
     <script>
+    loadNav();
  function registerAccount()
  {
    if(ValidateDOB() == true)
