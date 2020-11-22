@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>View Feedback</title>
+    <title>Blood Drive Feed</title>
     <link rel="stylesheet" href="design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
+<body>
 <div class="header">
     <div class="ui green clearing inverted segment">
         <!--See modal section of semantic, click on login to popup the username and pw prompt-->
@@ -62,7 +63,7 @@
 
 </nav>
 
-<body>
+
   <body style="background: #21ba45">
   <div class="ui fluid container">
       <div class="content">
@@ -71,7 +72,7 @@
           </div>
           <div class="ui left aligned container">
               <div class="centered">
-                <div class="feedbackContainer" id="feedbackContainer">
+                <div class="bloodDriveContainer" id="bloodDriveContainer">
                   <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 753px; max-height: 349px; overflow-y: auto;">
                     <div class="ui basic segment">
                     <h2>Blood Drives</h2>
@@ -87,7 +88,7 @@
 
                         </div>
                     </template>
-                    <div class="ui container" id="feedbackList">
+                    <div class="ui container" id="bloodDriveList">
 
                     </div>
 
@@ -145,10 +146,40 @@
     }
   }
 
-function showMessages(data){
-    let bloodDriveList = document.querySelector("#feedbackList");
+  //converts hours(0-24):minutes:seconds to hours(12-12):minutes AM/PM
+  function convertTime(time) {
+    var splitTime = time.split(":");
+
+    var hours = parseInt(splitTime[0]);
+
+
+    if (hours > 12) {
+      hours = hours - 12;
+      splitTime[2] = " PM";
+    }
+    else if (hours == 0) {
+      hours = 12;
+      splitTime[2] = " AM";
+    }
+    else {
+      splitTime[2] = " AM";
+    }
+    var newTime = hours + ":" + splitTime[1] + splitTime[2];
+    return newTime;
+  }
+
+  //converts date from YYYY-DD-MM to MM-DD-YYYY
+  function convertDate(date) {
+    var splitDate = date.split("-");
+    var newDate = splitDate[1] + "-" + splitDate[2] + "-" + splitDate[0];
+
+    return newDate;
+  }
+
+function showBloodDrives(data){
+    let bloodDriveList = document.querySelector("#bloodDriveList");
     // clear all messages
-    removeChildNodes(feedbackList);
+    removeChildNodes(bloodDriveList);
     let messageTemplate = document.getElementById("commentTemplate");
 
     // loop through each message and display it.
@@ -162,8 +193,9 @@ function showMessages(data){
         // set the message to the current message
         let format = "<hr/>" + data[i].title + "<br/>"
           + "Locaiton: " + data[i].location + "<br/>"
-          + "Date: <br/>" + data[i].date + "<br/>"
-          + "Time: " + data[i].time + "<br/>"
+          + "Date: " + convertDate(data[i].date) + "<br/>"
+          + "Time: " + convertTime(data[i].time) + "<br/>"
+          + "Description:<br/>" + data[i].description + "<br/>"
           + "Link: " + data[i].link + "<br/>";
 
           textComponent.innerHTML = format;
@@ -175,10 +207,10 @@ function showMessages(data){
 
   }
 
-function showAdminMessages(data){
-    let bloodDriveList = document.querySelector("#feedbackList");
+function showAdminBloodDrives(data){
+    let bloodDriveList = document.querySelector("#bloodDriveList");
     // clear all messages
-    removeChildNodes(feedbackList);
+    removeChildNodes(bloodDriveList);
     let messageTemplate = document.getElementById("commentTemplate");
 
     // loop through each message and display it.
@@ -192,8 +224,9 @@ function showAdminMessages(data){
         // set the message to the current message
         let format = "<hr/>" + data[i].title + "<br/>"
           + "Locaiton: " + data[i].location + "<br/>"
-          + "Date: <br/>" + data[i].date + "<br/>"
-          + "Time: " + data[i].time + "<br/>"
+          + "Date: " + convertDate(data[i].date) + "<br/>"
+          + "Time: " + convertTime(data[i].time) + "<br/>"
+          + "Description:<br/>" + data[i].description + "<br/>"
           + "Link: " + data[i].link + "<br/>";
 
           textComponent.innerHTML = format;
@@ -217,32 +250,32 @@ function showAdminMessages(data){
 
   }
 
-  function fetchMessages(){
+  function fetchBloodDrives(){
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: '/bloodDrive',
+        url: '/bloodDrive/upcoming',
         success: function(data){
-            showMessages(data);
+            showBloodDrives(data);
         },
         error: function(){
-            alert("Error Failed To Retrieve Feedback");
+            alert("Error Failed To Retrieve Blood Drive Feed");
         }
     });
 
 
   }
 
-  function fetchAdminMessages(){
+  function fetchAdminBloodDrives(){
     $.ajax({
         type: 'GET',
         dataType: 'json',
         url: '/bloodDrive',
         success: function(data){
-            showAdminMessages(data);
+            showAdminBloodDrives(data);
         },
         error: function(){
-            alert("Error Failed To Retrieve Feedback");
+            alert("Error Failed To Retrieve Blood Drive Feed");
         }
     });
 
@@ -267,10 +300,10 @@ function showAdminMessages(data){
       if (isAdmin == true) {
         document.getElementById("clearOutdatedButton").style.display = "block";
         document.getElementById("addBloodDriveButton").style.display = "block";
-        fetchAdminMessages();
+        fetchAdminBloodDrives();
       }
       else {
-        fetchMessages();
+        fetchBloodDrives();
       }
     });
 

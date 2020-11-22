@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Wayne State Blood Bank</title>
+    <title>Add Blood Drive</title>
     <link rel="stylesheet" href="./design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
@@ -128,6 +128,10 @@
     });
   });
 
+  function errorColor(elementId) {
+    document.getElementById(elementId).style.backgroundColor = "#FA8072";
+    return true;
+  }
 
   function inputCheck() {
     var isError = false;
@@ -138,24 +142,19 @@
     var descriptionLen = (($("#description").val()).length);
 
     if (titleLen == 0) {
-      document.getElementById("title").style.backgroundColor = "#FA8072";
-      isError = true;
+      isError = errorColor("title");
     }
     if (locationLen == 0) {
-      document.getElementById("location").style.backgroundColor = "#FA8072";
-      isError = true;
+      isError = errorColor("location");
     }
     if (timeLen != 8) {
-      document.getElementById("time").style.backgroundColor = "#FA8072";
-      isError = true;
+      isError = errorColor("time");
     }
     if (dateLen != 10) {
-      document.getElementById("date").style.backgroundColor = "#FA8072";
-      isError = true;
+      isError = errorColor("date");
     }
     if (descriptionLen == 0) {
-      document.getElementById("description").style.backgroundColor = "#FA8072";
-      isError = true;
+      isError = errorColor("description");
     }
 
     return isError;
