@@ -9,27 +9,70 @@
 <script src="webpageFun.js"></script>
 
 <body>
-Hello html
+    <body style="background: #21ba45">
+    <div class="ui fluid container">
 
-<div class="ui fluid container">
-    <h2>Users:</h2>
-    <template id="commentTemplate">
-        <div class="comment">
-            <div class="text">
+
+        <div class="centered">
+            <div class="userListContainer" id="userListContainer">
+
+                    <h2>Users:</h2>
+
+
+
+                    <div class="ui container" id="userList">
+                        <p id="userListGoesHere"></p>
+                    </div>
+
+                <div>
+                    <br>
+                    Enter Email of User to Delete &nbsp
+                    <input type="text" id="emailToDelete"/>
+                    <br>
+                    Verify Email of User to Delete
+                    <input type="text" id="emailConfirmation"/>
+                    <br>
+                    <button onClick="deleteUser();">Submit</button>
+                </div>
 
             </div>
-
+            </div>
         </div>
-    </template>
-    <p id="user"></p>
 
-    <div class="ui container" id="userList">
     </div>
 
-</div>
-
 <script>
-console.log('hello admins - in consoleee');
+
+    function deleteUser(){
+
+        //this is what works in postman: to delete users from DB:
+        //localhost:8080/user?emailAddress=example@wayne.edu
+
+        let emailConfirmation = document.getElementById("emailConfirmation").value;
+        let email = document.getElementById("emailToDelete").value;
+
+        if(email != emailConfirmation){
+            alert("Emails do not match!");
+        }
+        else
+        {
+            let queryString = '/user?emailAddress=' + email;
+            console.log('deleting user: '+email);
+
+            $.ajax({
+                type: 'DELETE',
+                url: queryString,
+                success: function(){
+                    alert('user account ' + email + ' deleted');
+                    location.reload();
+                },
+                error: function(){
+                    alert("Error Failed To Delete User");
+                    location.reload();
+                }
+            });
+        }
+    }
 
 
     function showUsers(data){
@@ -38,12 +81,13 @@ console.log('hello admins - in consoleee');
         for(var i = 0; i< data.length;i++){
             console.log(data[i].email);
             console.log(data[i].firstName);
-            list += '<br/>';
-            list += data[i].email;
+            list += 'Name: ' + data[i].firstName + ' ' + data[i].lastName
+                    + '<br>' + 'email: '+ data[i].email + '<br>' + '<br>';
 
         }
 
-        document.getElementById("user").innerHTML = list
+        document.getElementById("userListGoesHere").innerHTML = list;
+
     }
 
     $(document).ready(function() {
@@ -54,11 +98,12 @@ console.log('hello admins - in consoleee');
             success: function(data){
                 showUsers(data);
             },
-            error: function(){alert("Error Failed To Retrieve Feedback");}
+            error: function(){alert("Error Failed To Retrieve User List");}
             }
         );
 
     });
+
 
 
 

@@ -34,7 +34,7 @@ public class WebPageController {
     }
 
     @RequestMapping("/manageUsers")
- //   @Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     public String getUsers() { return "manageUsers.html"; }
 
 }
