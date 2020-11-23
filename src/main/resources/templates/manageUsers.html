@@ -8,86 +8,87 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
 <script src="webpageFun.js"></script>
 
-<body>
-    <body style="background: #21ba45">
-    <div class="ui fluid container">
 
+<body style="background: #21ba45">
+<div class="ui fluid container">
 
-        <div class="centered">
-            <div class="userListContainer" id="userListContainer">
+    <h2>Users:</h2>
 
-                    <h2>Users:</h2>
+    <template id="userTemplate">
+        <div class="user">
+            <div class="text">
 
-
-
-                    <div class="ui container" id="userList">
-                        <p id="userListGoesHere"></p>
-                    </div>
-
-                <div>
-                    <br>
-                    Enter Email of User to Delete &nbsp
-                    <input type="text" id="emailToDelete"/>
-                    <br>
-                    Verify Email of User to Delete
-                    <input type="text" id="emailConfirmation"/>
-                    <br>
-                    <button onClick="deleteUser();">Submit</button>
-                </div>
-
-            </div>
             </div>
         </div>
+    </template>
 
+
+    <div class="ui container" id="userList">
+        <p id="userListGoesHere"></p>
     </div>
+
+</div>
+
 
 <script>
 
-    function deleteUser(){
+    function deleteUser(userEmail){
 
         //this is what works in postman: to delete users from DB:
         //localhost:8080/user?emailAddress=example@wayne.edu
 
-        let emailConfirmation = document.getElementById("emailConfirmation").value;
-        let email = document.getElementById("emailToDelete").value;
+        let queryString = '/user?emailAddress=' + userEmail;
+        console.log('deleting user: '+ userEmail);
 
-        if(email != emailConfirmation){
-            alert("Emails do not match!");
-        }
-        else
-        {
-            let queryString = '/user?emailAddress=' + email;
-            console.log('deleting user: '+email);
+        $.ajax({
+            type: 'DELETE',
+            url: queryString,
+            success: function(){
+                alert('user account ' + userEmail + ' deleted');
+                location.reload();
+            },
+            error: function(){
+                alert("Error Failed To Delete User");
+                location.reload();
+            }
+        });
+    }
 
-            $.ajax({
-                type: 'DELETE',
-                url: queryString,
-                success: function(){
-                    alert('user account ' + email + ' deleted');
-                    location.reload();
-                },
-                error: function(){
-                    alert("Error Failed To Delete User");
-                    location.reload();
-                }
-            });
+    function removeChildNodes(parent){
+        while (parent.firstChild) {
+        parent.removeChild(parent.lastChild);
         }
     }
 
 
     function showUsers(data){
+        let userList = document.querySelector("#userList");
+        let entryTemplate = document.getElementById("userTemplate");
         console.log(data);
-        var list = "";
+
         for(var i = 0; i< data.length;i++){
-            console.log(data[i].email);
-            console.log(data[i].firstName);
-            list += 'Name: ' + data[i].firstName + ' ' + data[i].lastName
-                    + '<br>' + 'email: '+ data[i].email + '<br>' + '<br>';
+            // create a new message element from the template
+            let newUserElement = entryTemplate.content.cloneNode(true);
+            // get the text component of the message
+            let textComponent = newUserElement.querySelector('.text');
 
+            let info = "<hr/>Name: " + data[i].firstName + " " + data[i].lastName + "<br/>"
+                + "E-mail: " + data[i].email + "<br/>";
+
+            var button = document.createElement('input');
+            button.setAttribute('type', 'button');
+            button.setAttribute('class', 'ui red inverted button');
+            button.setAttribute('value', 'Delete this user');
+            button.setAttribute('id', data[i].email);
+            button.setAttribute('onclick', 'deleteUser(this.id)');
+
+
+            textComponent.innerHTML = info;
+
+            // Add the message to the document
+            userList.appendChild(newUserElement);
+            userList.appendChild(button);
         }
-
-        document.getElementById("userListGoesHere").innerHTML = list;
-
     }
 
     $(document).ready(function() {
@@ -101,12 +102,7 @@
             error: function(){alert("Error Failed To Retrieve User List");}
             }
         );
-
     });
-
-
-
-
 
 
 </script>
