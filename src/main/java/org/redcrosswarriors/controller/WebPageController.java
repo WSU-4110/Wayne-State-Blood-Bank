@@ -33,4 +33,10 @@ public class WebPageController {
         return "viewFeedback.html";
     }
 
+    @RequestMapping("/viewBloodRequests")
+    @Secured("ROLE_USER")
+    public String getviewBloodRequestsPage(){
+        return "viewBloodRequests.html";
+    }
+
 }
