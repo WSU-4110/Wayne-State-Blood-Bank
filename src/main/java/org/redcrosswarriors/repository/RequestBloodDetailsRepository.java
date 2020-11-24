@@ -23,6 +23,12 @@ public interface RequestBloodDetailsRepository extends CrudRepository<RequestInp
             "WHERE blood_donor_status ='Y' AND blood_type = :bloodType", nativeQuery=true)
     List<String> findMatches(@Param("bloodType") String bloodType);
 
+    @Query(value="SELECT * FROM requester_details\n" +
+            "WHERE blood_type = (\n" +
+            "SELECT blood_type FROM vw_user_profile WHERE email = :email\n" +
+            ")", nativeQuery=true)
+    List<RequestInputDetails> viewRequests(@Param("email") String email);
+
     @Query(value = "SELECT COUNT(*) FROM blood_a_plus", nativeQuery = true)
     int aPlus();
 

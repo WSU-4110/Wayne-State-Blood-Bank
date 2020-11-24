@@ -33,4 +33,10 @@ public class WebPageController {
         return "viewFeedback.html";
     }
 
+    @RequestMapping("/viewRequests")
+    @Secured("ROLE_USER")
+    public String viewResults(){
+        return "viewRequest.html";
+    }
+
 }
