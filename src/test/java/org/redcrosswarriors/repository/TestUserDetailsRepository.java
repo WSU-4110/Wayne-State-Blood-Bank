@@ -2,6 +2,7 @@ package org.redcrosswarriors.repository;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.redcrosswarriors.emailservice.SendMail;
 import org.redcrosswarriors.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,12 +11,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Transactional
-public class TestUserDetailsRepository {
+public class TestUserDetailsRepository extends SendMail {
 
     @Autowired
     private UserDetailsRepository repository;
@@ -38,4 +41,10 @@ public class TestUserDetailsRepository {
         assertEquals("Jane", profile1.getFirstName());
     }
 
+    @Test
+    @Sql("/test_get_profile.sql")
+    void getAllProfiles() {
+        List<Profile> profiles = repository.getAllProfiles();
+        assertEquals(1, profiles.size());
+    }
 }
