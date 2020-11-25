@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Wayne State Blood Bank</title>
-    <link rel="stylesheet" href="design.css" media="screen">
+    <link rel="stylesheet" href="../static/design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
 
@@ -76,7 +76,7 @@
 <!--jquery should be above semantic because of dependencies-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-<script src="webpageFun.js"></script>
+<script src="../static/webpageFun.js"></script>
 <nav>
     <!--whatever pages we want-->
     <div class="ui attached stackable menu">
@@ -181,13 +181,13 @@
            required = "required">
     <br>
 
-   <label for="description">*Situation:</label>
-  <textarea  style="color: black;" name="Text1" cols="40" rows="5" style="color=black" id = "situation"
+   <label for="situation">*Situation:</label>
+  <textarea  style="color: black;" name="Text1" cols="40" rows="5"  id = "situation"
              required = "required"> </textarea>
    <br>
 
 </form>
-<button onclick = "validate()">Submit</button>
+<button style="color: black;" onclick = "validateAccount()">Submit</button>
               </div>
               </div>
             </div>
@@ -197,7 +197,7 @@
 
 <script>
 
-function validate()
+function validateAccount()
 {
     if(checkForm() == true )
     {
@@ -220,7 +220,7 @@ function validate()
             lastName : lastName ,
             email : email,
             phoneNumber : phoneNumber,
-            bloodType: bloodType
+            bloodType: bloodType,
             hospitalName : hospital,
             streetName : street,
             cityName : city,

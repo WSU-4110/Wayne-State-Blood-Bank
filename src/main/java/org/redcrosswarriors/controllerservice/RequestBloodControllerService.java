@@ -5,6 +5,7 @@ import org.redcrosswarriors.emailservice.SendNotificationEmail;
 import org.redcrosswarriors.model.AccountDetails;
 //import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.RequestedTimeDetails;
+import org.redcrosswarriors.model.ReturnForRequestBlood;
 import org.redcrosswarriors.model.VerificationToken;
 import org.redcrosswarriors.model.input.RegistrationInput;
 import org.redcrosswarriors.model.input.RequestBloodInput;
@@ -32,6 +33,7 @@ public class RequestBloodControllerService
     @Autowired
     private RequestTimeDetailsRepository requestTimeRepository;
 
+    private ReturnForRequestBlood returnRequest = new ReturnForRequestBlood();
 
     private RequestedTimeDetails timeDetails;
 
