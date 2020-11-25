@@ -6,7 +6,7 @@ package org.redcrosswarriors.model;
 public class viewRequest
 {
 
-    private String firstName;
+    public String firstName;
 
 
     private String lastName;

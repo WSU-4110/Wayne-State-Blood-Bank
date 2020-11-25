@@ -25,24 +25,27 @@ public class ViewRequestControllerService
     {
 
         List<RequestInputDetails> requestLists = requestRepository.viewRequests(email);
-        /*
-        ArrayList<viewRequest> newRequestLists = new ArrayList<>();
-        for(int i = 0; i < requestLists.size(); i++)
-        {
-            newRequestLists.get(i).setFirstName(requestLists.get(i).getFirstName());
-            newRequestLists.get(i).setLastName(requestLists.get(i).getLastName());
-            newRequestLists.get(i).setEmail(requestLists.get(i).getEmail());
-            newRequestLists.get(i).setPhoneNumber(requestLists.get(i).getPhoneNumber());
-            newRequestLists.get(i).setBloodType(requestLists.get(i).getBloodType());
-            newRequestLists.get(i).setHospitalName(requestLists.get(i).getHospitalName());
-            newRequestLists.get(i).setStreet(requestLists.get(i).getStreet());
-            newRequestLists.get(i).setCity(requestLists.get(i).getCity());
-            newRequestLists.get(i).setState(requestLists.get(i).getState());
-            newRequestLists.get(i).setZipCode(requestLists.get(i).getZipCode());
-            newRequestLists.get(i).setMessage(requestLists.get(i).getMessage());
-        }
 
-         */
+        ArrayList<viewRequest> newRequestLists = new ArrayList<viewRequest>(requestLists.size());
+//        for(int i = 0; i < requestLists.size(); i++)
+//        {
+//            newRequestLists.get(i).firstName = requestLists.get(i).getFirstName();
+//            newRequestLists.get(i).setFirstName(requestLists.get(i).getFirstName());
+//            newRequestLists.get(i).setLastName(requestLists.get(i).getLastName());
+//            newRequestLists.get(i).setEmail(requestLists.get(i).getEmail());
+//            newRequestLists.get(i).setPhoneNumber(requestLists.get(i).getPhoneNumber());
+//            newRequestLists.get(i).setBloodType(requestLists.get(i).getBloodType());
+//            newRequestLists.get(i).setHospitalName(requestLists.get(i).getHospitalName());
+//            newRequestLists.get(i).setStreet(requestLists.get(i).getStreet());
+//            newRequestLists.get(i).setCity(requestLists.get(i).getCity());
+//            newRequestLists.get(i).setState(requestLists.get(i).getState());
+//            newRequestLists.get(i).setZipCode(requestLists.get(i).getZipCode());
+//            newRequestLists.get(i).setMessage(requestLists.get(i).getMessage());
+//
+//            System.out.println(newRequestLists.get(i).getFirstName());
+//        }
+
+
 
         return new ResponseEntity<List<RequestInputDetails>>(requestLists, HttpStatus.OK);
     }
