@@ -69,10 +69,4 @@ public class TestAccountDetailsRepository {
         }
     }
 
-    @Test
-    public void testCreateAccount(){
-        repository.createAccount("user@example.com", "password");
-        AccountDetails details = repository.findByEmail("user@example.com");
-        assertNotNull(details);
-    }
 }
