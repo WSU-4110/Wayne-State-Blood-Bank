@@ -11,6 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -19,6 +21,7 @@ public class TestAccountDetailsRepository {
 
     @Autowired
     private AccountDetailsRepository repository;
+
 
     @Test
     @Sql("/test_account_details_no_roles.sql")
@@ -75,4 +78,12 @@ public class TestAccountDetailsRepository {
         AccountDetails details = repository.findByEmail("user@example.com");
         assertNotNull(details);
     }
+
+    @Test
+    @Sql("/test_account_details.sql")
+    public void testGetRolesByEmail(){
+        List<String> roles = repository.getRolesByEmail("user@example.com");
+        assertEquals(2, roles.size());
+    }
+
 }

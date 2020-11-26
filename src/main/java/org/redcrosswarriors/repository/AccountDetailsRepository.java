@@ -7,7 +7,7 @@ import org.redcrosswarriors.model.AccountDetails;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
-
+import java.util.List;
 
 @Repository
 public interface AccountDetailsRepository extends CrudRepository<AccountDetails, String> {
@@ -38,5 +38,11 @@ public interface AccountDetailsRepository extends CrudRepository<AccountDetails,
     @Modifying
     @Query(value="UPDATE accounts SET password = :password WHERE email = :email", nativeQuery=true)
     void updatePassword(@Param("email") String email, @Param("password") String password);
+
+    @Query(value="SELECT role_name FROM roles AS R " +
+            "INNER JOIN account_roles AS AR ON R.id = AR.role_id " +
+            "INNER JOIN accounts AS A ON AR.account_id = A.id " +
+            "WHERE email = :email", nativeQuery = true)
+    List<String> getRolesByEmail(@Param("email") String email);
 
 }

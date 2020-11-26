@@ -89,6 +89,28 @@ ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
+CREATE TABLE blood_drives(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(350) NOT NULL,
+    location VARCHAR(120) NOT NULL,
+    blood_drive_time TIME NOT NULL,
+    blood_drive_date DATE NOT NULL,
+    description TEXT NOT NULL,
+    link VARCHAR(2048),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE events(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(350) NOT NULL,
+    description TEXT NOT NULL,
+    event_date DATE NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
+INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
+
 CREATE VIEW vw_user_profile AS SELECT U.first_name, U.last_name, U.phone_number
 , U.blood_donor_status, U.blood_type, U.birth_day, A.email as email
     FROM user_details AS U INNER JOIN accounts AS A ON A.id = U.id;
