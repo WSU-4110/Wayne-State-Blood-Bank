@@ -1,8 +1,8 @@
+
 package org.redcrosswarriors.repository;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.redcrosswarriors.emailservice.SendMail;
 import org.redcrosswarriors.model.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Transactional
-public class TestUserDetailsRepository extends SendMail {
+public class TestUserDetailsRepository {
 
     @Autowired
     private UserDetailsRepository repository;
