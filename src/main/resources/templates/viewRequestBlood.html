@@ -110,10 +110,10 @@
         }
     }
 
-    function showMessages(data){
-        let feedbackList = document.querySelector("#feedbackList");
+    function showRequests(data){
+        let viewBloodRequestList = document.querySelector("#feedbackList");
         // clear all messages
-        removeChildNodes(feedbackList);
+        removeChildNodes(viewBloodRequestList);
         let messageTemplate = document.getElementById("commentTemplate");
 
         // loop through each message and display it.
@@ -126,23 +126,18 @@
             // get the text component of the message
             let textComponent = newMessageElement.querySelector('.text');
             // set the message to the current message
-            let format = "<hr/>First Name: " + data[i].firstName + "<br/>"
-                + "Last Name: " + data[i].lastName + "<br/>"
+            let format = "<hr/>First Name: " + data[i].firstName + " " + data[i].lastName + "<br/>"
                 + "Email: " + data[i].email + "<br/>"
                 + "Phone Number: " + data[i].phoneNumber + "<br/>"
                 + "Hospital Name: " + data[i].hospitalName + "<br/>"
-                + "Address: " + data[i].street + data[i].city + data[i].state + "<br/>"
-                + "Message: <br/>" + data[i].message;
-
-
-
-
+                + "Address: " + data[i].street + ", " + data[i].city + ", " + data[i].state + "<br/>"
+                + "Message from the user: <br/>" + data[i].message;
 
 
             textComponent.innerHTML = format;
 
             // Add the message to the document
-            feedbackList.appendChild(newMessageElement);
+            viewBloodRequestList.appendChild(newMessageElement);
             //feedbackList.appendChild(button);
 
         }
@@ -155,7 +150,7 @@
             dataType: 'json',
             url: '/viewRequests',
             success: function(data){
-                showMessages(data);
+                showRequests(data);
             },
             error: function(){
                 alert("Error Failed To Retrieve Requests");
