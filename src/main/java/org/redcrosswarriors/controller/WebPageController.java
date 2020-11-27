@@ -27,6 +27,12 @@ public class WebPageController {
         return "addFeedback.html";
     }
 
+    @RequestMapping("/addRequest")
+    @Secured("ROLE_USER")
+    public String requestBlood(){
+        return "bloodRequest.html";
+    }
+
     @RequestMapping("/viewFeedback")
     @Secured("ROLE_ADMIN")
     public String getViewFeedbackPage(){
