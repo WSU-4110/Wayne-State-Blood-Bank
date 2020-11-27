@@ -24,7 +24,7 @@ public class RequestBloodController
 
 
 
-    @PostMapping("/requestBlood")
+    @PostMapping("/bloodRequest")
     @Secured("ROLE_USER")
     public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input)
     {

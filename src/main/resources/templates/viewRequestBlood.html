@@ -1,14 +1,11 @@
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Wayne State Blood Bank</title>
-    <link rel="stylesheet" href="../static/design.css" media="screen">
+    <meta charset="UTF-8">
+    <title>View Feedback</title>
+    <link rel="stylesheet" href="design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
-
-
 <div class="header">
     <div class="ui green clearing inverted segment">
         <!--See modal section of semantic, click on login to popup the username and pw prompt-->
@@ -21,62 +18,17 @@
                 <button class="ui red button" id="logoutButton">Logout</button>
             </a>
         </div>
-        <h3 class="ui left floated huge red header">
-            Red Cross Warriors
-        </h3>
+        <a href="/index.html">
+            <h3 class="ui left floated huge red header">
+                Red Cross Warriors
+            </h3>
+        </a>
     </div>
 </div>
 
-<!--sign in start may need to get rid of this too sadly-->
-<div class="ui modal">
-    <i class="close icon"></i>
-    <div class="content">
-        <div class="ui placeholder segment">
-            <div class="ui two column very relaxed stackable grid">
-                <div class="column">
-                    <form class="ui form" method="post">
-                        <div class="field">
-                            <label>E-mail</label>
-                            <div class="ui left icon input">
-                                <input type="text"  name="username" placeholder="email" id="un"/>
-                                <i class="user icon"></i>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Password</label>
-                            <div class="ui left icon input">
-                                <input type="password" placeholder="password" name="password" id="pw"/>
-                                <i class="lock icon"></i>
-                            </div>
-                        </div>
-
-                        <input type="submit"/>
-                    </form>
-                </div>
-                <div class="middle aligned column">
-                    <div class="ui header">Don't have an account?<br>
-                        <a href="/signup.html">
-                            <div class="ui big button">
-                                <i class="signup icon"></i>
-                                Sign Up
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <!--Will need to get rid of this-->
-    <!--Sign in end-->
-
-</div>
-<!--jquery should be above semantic because of dependencies-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-<script src="../static/webpageFun.js"></script>
+<script src="webpageFun.js"></script>
 <nav>
     <!--whatever pages we want-->
     <div class="ui attached stackable menu">
@@ -85,11 +37,11 @@
             <a class="item" onclick="location.href='index.html'">
                 <i class="home icon" id="homeButton"></i> Home
             </a>
-            <a class="item">
-                <i class="grid layout icon"></i> Page 2
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
             </a>
             <a class="item">
-                <i class="mail icon"></i> Page 3
+                <i class="grid layout icon"></i> option 3
             </a>
             <!--how to lock this behind login-->
             <div class="ui simple dropdown item">
@@ -106,42 +58,31 @@
 
 </nav>
 
+
 <body>
+<body style="background: #21ba45">
 <div class="ui fluid container">
     <div class="content">
         <div class="transparent-bg">
-            <img src="../static/Blood-Donation.jpg" id="bdimg" style="width:100%;">
+            <img src="Blood-Donation.jpg" id="bdimg" style="width:100%; background-size: cover;">
         </div>
-        <div class="ui container">
+        <div class="ui left aligned container">
             <div class="centered">
-                <div class="mainContainer" id="mainContainer" style="display: block">
-                   // my code
-                </div>
+                <div class="feedbackContainer" id="feedbackContainer">
+                    <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 753px; max-height: 349px; overflow-y: auto;">
+                        <h2>Blood Requests</h2>
+                        <template id="commentTemplate">
+                            <div class="comment">
+                                <div class="text">
 
-                <div class="loginContainer" id="loginContainer" style="display: none">
-                    <div class="ui placeholder segment" style="background: rgba(0,0,0,.7)">
-                        <h2>Login</h2>
-                        <form class="ui form" method="post">
-                            <label>Email</label>
-                            <input type="text"  name="username" placeholder="email" />
-                            <label>Password</label>
-                            <input type="password" placeholder="password" name="password" />
-                            <input type="submit"/>
-                        </form>
-                        <div class="ui inverted green segment" id="confirm" style="display: none">
-                            <p>you have successfully been logged in</p>
-                        </div>
-                        <div class="ui inverted red segment" id="deny">
-                            <p>Wrong Email or password</p>
-                        </div>
-                        <hr>
-                        <div class="ui inverted header">Don't have an account?<br>
-                            <a href="/signup.html">
-                                <div class="ui big button">
-                                    <i class="signup icon"></i>
-                                    Sign Up
                                 </div>
+
+                            </div>
+                        </template>
+                        <div class="ui container" id="feedbackList">
+
                         </div>
+
                     </div>
                 </div>
 
@@ -153,12 +94,84 @@
     </div>
 
 </div>
+
+
+
+
+
 <script>
     loginCheck();
+
+
+
+    function removeChildNodes(parent){
+        while (parent.firstChild) {
+            parent.removeChild(parent.lastChild);
+        }
+    }
+
+    function showMessages(data){
+        let feedbackList = document.querySelector("#feedbackList");
+        // clear all messages
+        removeChildNodes(feedbackList);
+        let messageTemplate = document.getElementById("commentTemplate");
+
+        // loop through each message and display it.
+
+        for(var i=0; i < data.length; i++)
+        {
+            // create a new message element from the template
+            let newMessageElement = messageTemplate.content.cloneNode(true);
+
+            // get the text component of the message
+            let textComponent = newMessageElement.querySelector('.text');
+            // set the message to the current message
+            let format = "<hr/>First Name: " + data[i].firstName + "<br/>"
+                + "Last Name: " + data[i].lastName + "<br/>"
+                + "Email: " + data[i].email + "<br/>"
+                + "Phone Number: " + data[i].phoneNumber + "<br/>"
+                + "Hospital Name: " + data[i].hospitalName + "<br/>"
+                + "Address: " + data[i].street + data[i].city + data[i].state + "<br/>"
+                + "Message: <br/>" + data[i].message;
+
+
+
+
+
+
+            textComponent.innerHTML = format;
+
+            // Add the message to the document
+            feedbackList.appendChild(newMessageElement);
+            //feedbackList.appendChild(button);
+
+        }
+
+    }
+
+    function fetchMessages(){
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/viewRequests',
+            success: function(data){
+                showMessages(data);
+            },
+            error: function(){
+                alert("Error Failed To Retrieve Requests");
+            }
+        });
+
+
+    }
+
+    $(document).ready(function() {
+        fetchMessages();
+
+    });
+
+
+
 </script>
 </body>
-
-<div class="footer">
-
-</div>
 </html>
