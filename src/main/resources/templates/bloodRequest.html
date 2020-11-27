@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Wayne State Blood Bank</title>
-    <link rel="stylesheet" href="../static/design.css" media="screen">
+    <link rel="stylesheet" href="design.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
 </head>
 <body>
@@ -30,31 +30,10 @@
 <!--jquery should be above semantic because of dependencies-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
-<script src="../static/webpageFun.js"></script>
-<nav>
-    <!--whatever pages we want-->
-    <div class="ui attached stackable menu">
-        <!--how to make this fully left l-->
-        <div class="ui container">
-            <a class="item" onclick="location.href='index.html'">
-                <i class="home icon" id="homeButton"></i> Home
-            </a>
-            <a class="item">
-                <i class="grid layout icon"></i> Page 2
-            </a>
-            <a class="item">
-                <i class="mail icon"></i> Page 3
-            </a>
-            <!--how to lock this behind login-->
-            <div class="ui simple dropdown item">
-                More
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="/myProfile"> My Profile</a>
-                </div>
-            </div>
-        </div>
-    </div>
+<script src="webpageFun.js"></script>
+<nav id="nav-placeholder">
+
+
 </nav>
 <div class="ui fluid container">
     <div class="content">
@@ -152,6 +131,7 @@
 
 
 <script>
+    loadNav();
     $(document).ready(function() {
         $.get("/loginStatus", function(data, status) {
             if (data.isLoggedIn == true){

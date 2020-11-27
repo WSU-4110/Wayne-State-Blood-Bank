@@ -3,6 +3,12 @@ function openLoginModal() {
 
 }
 
+function loadNav() {
+  $(function(){
+  $("#nav-placeholder").load("nav.html");
+  });
+}
+
 function check() {
     alert("submit has been pressed");
 }
