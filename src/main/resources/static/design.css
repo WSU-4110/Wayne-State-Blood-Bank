@@ -51,7 +51,9 @@ position:relative;
     background-color: rgba(0,0,0,0.5);
 }
 
-
+.field {
+  text-align: left;
+}
 /*Added to align input boxes*/
 label
 {
