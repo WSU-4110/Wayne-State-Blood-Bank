@@ -89,6 +89,18 @@ ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
+   CREATE TABLE feedback(
+    id INT NOT NULL AUTO_INCREMENT,
+    message TEXT NOT NULL,
+    account_id INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE feedback ADD CONSTRAINT fk_feedback_account_id
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
 CREATE TABLE blood_drives(
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(350) NOT NULL,
