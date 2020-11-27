@@ -2,16 +2,13 @@ package org.redcrosswarriors.controllerservice;
 
 
 import org.redcrosswarriors.emailservice.SendNotificationEmail;
-import org.redcrosswarriors.model.AccountDetails;
-//import org.redcrosswarriors.model.RequestedTimeDetails;
+
 import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.ReturnForRequestBlood;
-import org.redcrosswarriors.model.VerificationToken;
-import org.redcrosswarriors.model.input.RegistrationInput;
 import org.redcrosswarriors.model.input.RequestBloodInput;
 import org.redcrosswarriors.repository.RequestBloodDetailsRepository;
 import org.redcrosswarriors.repository.RequestTimeDetailsRepository;
-import org.redcrosswarriors.repository.UserDetailsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +17,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,17 +52,6 @@ public class RequestBloodControllerService
                     requestInput.getMessage());
 
 
-            System.out.println(requestInput.getLastName());
-            System.out.println(requestInput.getEmail());
-            System.out.println(requestInput.getPhoneNumber());
-            System.out.println(requestInput.getBloodType());
-            System.out.println(requestInput.getHospitalName());
-            System.out.println(requestInput.getStreetName());
-            System.out.println(requestInput.getCityName());
-            System.out.println(requestInput.getStateName());
-            System.out.println( requestInput.getZipCode());
-            System.out.println( requestInput.getMessage());
-
 
 
             timeDetails = requestTimeRepository.getRequestedTimeByEmail(requestInput.getEmail());
@@ -77,20 +62,10 @@ public class RequestBloodControllerService
                 System.out.println(currentTime);
                 requestTimeRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
                 List<String> matches;
-
                 matches = requestRepository.findMatches(requestInput.getBloodType());
-                if(matches.size() == 0)
-                {
-                    System.out.println("0 matches near by");
-                    //check = false;
-
-                }
-                else
-                {
-                    System.out.println("matches found: " + matches.size());
-                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    sendRequest.start();
-                }
+                System.out.println("matches found: " + matches.size());
+                SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
+                sendRequest.start();
 
             }
             else
@@ -123,6 +98,7 @@ public class RequestBloodControllerService
 
         return check;
     }
+
 
     public String returnTime()
     {

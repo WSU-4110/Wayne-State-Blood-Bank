@@ -11,17 +11,17 @@ import javax.validation.constraints.Pattern;
 public class RequestBloodInput
 {
 
-    String firstName;
-    String lastName;
-    String email;
-    String phoneNumber;
-    String bloodType;
-    String hospitalName;
-    String streetName;
-    String cityName;
-    String stateName;
-    String zipCode;
-    String message;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNumber;
+    private String bloodType;
+    private String hospitalName;
+    private String streetName;
+    private String cityName;
+    private String stateName;
+    private String zipCode;
+    private String message;
 
     public String getFirstName() {
         return firstName;

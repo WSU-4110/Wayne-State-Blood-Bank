@@ -144,7 +144,7 @@
 
     }
 
-    function fetchMessages(){
+    function fetchRequests(){
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -161,7 +161,7 @@
     }
 
     $(document).ready(function() {
-        fetchMessages();
+        fetchRequests();
 
     });
 

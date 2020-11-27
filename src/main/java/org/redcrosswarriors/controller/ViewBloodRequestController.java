@@ -1,6 +1,4 @@
 package org.redcrosswarriors.controller;
-
-import org.redcrosswarriors.controllerservice.RequestBloodControllerService;
 import org.redcrosswarriors.controllerservice.ViewRequestControllerService;
 import org.redcrosswarriors.model.RequestInputDetails;
 import org.springframework.beans.factory.annotation.Autowired;
