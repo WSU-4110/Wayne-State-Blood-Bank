@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Wayne State Blood Bank</title>
+    <link rel="stylesheet" href="./design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<body>
+<div class="header">
+    <div class="ui green clearing inverted segment">
+        <!--See modal section of semantic, click on login to popup the username and pw prompt-->
+        <!--signup will be a button next to login that turns into a signout after a user is logged in-->
+
+        <div class="ui right floated header">
+            <button class="ui red button" id="loginButton" onclick="openLoginModal()">SignUp/Login</button>
+            <!--show after logged in-->
+            <a href="/logout">
+                <button class="ui red button" id="logoutButton">Logout</button>
+            </a>
+        </div>
+        <h3 class="ui left floated huge red header">
+            Red Cross Warriors
+        </h3>
+    </div>
+</div>
+
+
+</div>
+<!--jquery should be above semantic because of dependencies-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="./webpageFun.js"></script>
+<nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+        <!--how to make this fully left l-->
+        <div class="ui container">
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item">
+                <i class="grid layout icon"></i> Page 2
+            </a>
+            <a class="item">
+                <i class="mail icon"></i> Page 3
+            </a>
+            <!--how to lock this behind login-->
+            <div class="ui simple dropdown item">
+                More
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="/myProfile"> My Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="ui fluid container">
+    <div class="content">
+        <div class="transparent-bg">
+            <img src="./Blood-Donation.jpg" id="bdimg" style="width:100%;">
+        </div>
+
+        <div class="ui container">
+            <div class="centered">
+                <div id="successMessageContainer" class="ui positive message transition hidden">
+                    <p id="successMessage">Success</p>
+                </div>
+                <div id="errorMessage" class="ui error message hidden">
+                    <div class="header">Invalid Input please fix the following fields</div>
+                    <ul id="errorList">
+                    </ul>
+                </div>
+                <div class="mainContainer" id="mainContainer" style="display: block">
+
+                    <div class="ui placeholder inverted segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 475px; overflow-y: auto;">
+                        <h1 style="font-size:4vw;">Request Blood Form</h1>
+                        <p style="font-size:2vw;">Please enter the following information correctly</p>
+
+                        <form class="ui huge inverted form">
+                            <div class=" field">
+                                <label>First Name</label>
+                                <input type="text" id="firstName" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>Last Name</label>
+                                <input type="text" id="lastName" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>Email</label>
+                                <input type="email" id="email" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>Phone Number</label>
+                                <input type="text" id="phoneNumber" required = "required">
+                            </div>
+
+                            <div class=" field">
+                                <label>Blood Type</label>
+
+                                <select style="color: black;" name="myBlood" id = "bloodType" >
+                                    <option value="A+">A+</option>
+                                    <option value="B+">B+</option>
+                                    <option value="O+">O+</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class=" field">
+                                <label>Hospital Name</label>
+                                <input type="text" id="hospitalName" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>Street Name</label>
+                                <input type="text" id="streetName" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>City</label>
+                                <input type="text" id="cityName" required = "required">
+                            </div>
+                            <div class="field disabled">
+                                <label>State</label>
+                                <input type="text" id="state" value="Michigan"required = "required" readonly>
+                            </div>
+                            <div class=" field">
+                                <label>Zip Code</label>
+                                <input type="text" id="zipCode" required = "required">
+                            </div>
+                            <div class=" field">
+                                <label>Message for the Donors</label>
+                                <input type="text" id="situation" required = "required">
+                            </div>
+                        </form>
+                        <br>
+                        <button class="ui button primary" onclick = "requestBlood()">Submit</button>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $.get("/loginStatus", function(data, status) {
+            if (data.isLoggedIn == true){
+                document.getElementById("logoutButton").style.display = "block";
+                document.getElementById("loginButton").style.display = "none";
+            }
+
+
+        });
+    });
+
+    $('.ui.checkbox')
+        .checkbox()
+    ;
+
+    function requestBlood()
+    {
+        if(Validate() == true)
+        {
+            var email = document.getElementById("email").value;
+            var phoneNumber = document.getElementById("phoneNumber").value;
+            var bloodType =  document.getElementById("bloodType").value;
+
+            if (/@wayne.edu\s*$/.test(email) && /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+            {
+                if(/^\d{10}/.test(phoneNumber))
+                {
+                    if(/^(A\+)|(B\+)|(A-)|(B-)|(O\+)|(O-)|(AB\+)|(AB-)/.test(bloodType))
+                    {
+                        console.log("hi");
+                        var firstName = document.getElementById("firstName").value;
+                        var lastName = document.getElementById("lastName").value;
+                        var email = document.getElementById("email").value;
+                        var phoneNumber = document.getElementById("phoneNumber").value;
+                        var bloodType =  document.getElementById("bloodType").value;
+                        var hospital = document.getElementById("hospitalName").value;
+                        var street = document.getElementById("streetName").value;
+                        var city = document.getElementById("cityName").value;
+                        var state = document.getElementById("state").value;
+                        var zipCode = document.getElementById("zipCode").value;
+                        var message = document.getElementById("situation").value;
+
+                        var requestInfo =
+                            {
+                                firstName: firstName ,
+                                lastName : lastName ,
+                                email : email,
+                                phoneNumber : phoneNumber,
+                                bloodType: bloodType,
+                                hospitalName : hospital,
+                                streetName : street,
+                                cityName : city,
+                                stateName : state,
+                                zipCode : zipCode,
+                                message : message
+
+
+                            }
+                        $.ajax(
+                            {
+                                type:"POST",
+                                url: "/bloodRequest",
+                                data:JSON.stringify(requestInfo),
+                                contentType: 'application/json',
+                                dataType:"json",
+                                success: function(data){
+                                    alert("Your request has been completed");
+                                },
+                                failure: function(error){
+                                    alert("Sorry your request did not go through!");
+                                },
+                                error: function(error){
+                                    alert(error);
+                                }
+                            });
+                    }
+                    else
+                        alert("Invalid Blood Type!");
+
+
+                }
+                else
+                    alert("Invalid Phone Number");
+
+            }
+            else
+                alert("Invalid email address. Please make sure to enter your Wayne email");
+
+        }
+        else
+        {
+            alert("Please enter all valid details.");
+        }
+
+    }
+
+
+
+    function Validate()
+    {
+        var check = false;
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var email = document.getElementById("email").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var bloodType =  document.getElementById("bloodType").value;
+        var hospital = document.getElementById("hospitalName").value;
+        var street = document.getElementById("streetName").value;
+        var city = document.getElementById("cityName").value;
+        var state = document.getElementById("state").value;
+        var zipCode = document.getElementById("zipCode").value;
+        var message = document.getElementById("situation").value;
+
+        if(firstName == "" || lastName == "" || email == "" || phoneNumber == "" || bloodType=="" || hospital== "" || street=="" || city=="" || state=="" || zipCode=="" || message=="")
+        {
+            check = false;
+        }
+        else
+            check = true;
+
+        return check;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<div class="footer">
+</div>
+</body>
+</html>
