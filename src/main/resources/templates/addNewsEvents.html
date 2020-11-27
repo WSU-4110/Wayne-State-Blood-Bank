@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Add News/Event</title>
+    <link rel="stylesheet" href="./design.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<body>
+<div class="header">
+    <div class="ui green clearing inverted segment">
+        <!--See modal section of semantic, click on login to popup the username and pw prompt-->
+        <!--signup will be a button next to login that turns into a signout after a user is logged in-->
+
+        <div class="ui right floated header">
+            <button class="ui red button" id="loginButton" onclick="openLoginModal()">SignUp/Login</button>
+            <!--show after logged in-->
+            <a href="/logout">
+              <button class="ui red button" id="logoutButton">Logout</button>
+            </a>
+        </div>
+        <h3 class="ui left floated huge red header">
+            Red Cross Warriors
+        </h3>
+    </div>
+</div>
+
+
+</div>
+<!--jquery should be above semantic because of dependencies-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<script src="./webpageFun.js"></script>
+<nav>
+    <!--whatever pages we want-->
+    <div class="ui attached stackable menu">
+        <!--how to make this fully left l-->
+        <div class="ui container">
+            <a class="item" onclick="location.href='index.html'">
+                <i class="home icon" id="homeButton"></i> Home
+            </a>
+            <a class="item" onclick="location.href='contactus.html'">
+                <i class="mail icon"></i> Contact Us
+            </a>
+			      <a class="item" onclick="location.href='myProfile.html'">
+                 <i class="address card icon"></i>Profile
+            </a>
+            <a class="item" onclick="location.href='bloodDrives.html'">
+                <i class="tint icon"></i> Blood Drives
+            </a>
+            <!--how to lock this behind login-->
+            <div class="ui simple dropdown item" id="adminNav">
+                Admin
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                  <a class="item" href="/addBloodDrive"></i>Add Blood Drive</a>
+                  <a class="item"><i class="globe icon"></i> Add News and Events</a>
+                  <a class="item"><i class="settings icon"></i> Account Settings</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</nav>
+<div class="ui fluid container">
+    <div class="content">
+        <div class="transparent-bg">
+            <img src="./Blood-Donation.jpg" id="bdimg" style="width:100%;">
+        </div>
+
+        <div class="ui container">
+            <div class="centered">
+                <div id="successMessageContainer" class="ui positive message transition hidden">
+                    <p id="successMessage">News/Event was successfully added</p>
+                </div>
+              <div class="mainContainer" id="mainContainer" style="display: block">
+
+			  <div class="ui placeholder inverted segment" id="fogCover" style="background: rgba(0,0,0,.7); max-width: 1200px; max-height: 475px; overflow-y: auto;">
+                <h1 style="font-size:4vw;">Add News/Events</h1>
+                <p style="font-size:2vw;">Make sure the information below is correct</p>
+
+                <form class="ui inverted form">
+                  <div class="field">
+                    <label>Title:</label>
+                    <input type="text" id="title" placeholder="title">
+                  </div>
+                  <div class="field">
+                    <label>Date:</label>
+                    <input type="date" id="date">
+                  </div>
+                  <div class="field">
+                    <label>Description:</label>
+                    <textarea id="description" placeholder="Description"></textarea>
+                  </div>
+                </form>
+                <br>
+                <button id="addnewsEventsButton" class="ui button primary">Add</button>
+
+              </div>
+            </div>
+        </div>
+
+    </div>
+ </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $.get("/loginStatus", function(data, status) {
+      if (data.isLoggedIn == true){
+        document.getElementById("logoutButton").style.display = "block";
+        document.getElementById("loginButton").style.display = "none";
+      }
+
+
+    });
+  });
+
+  function errorColor(elementId) {
+    document.getElementById(elementId).style.backgroundColor = "#FA8072";
+    return true;
+  }
+
+  function inputCheck() {
+    var isError = false;
+    var titleLen = (($("#title").val()).length)
+    var dateLen = (($("#date").val()).length);
+    var descriptionLen = (($("#description").val()).length);
+
+    if (titleLen == 0) {
+      isError = errorColor("title");
+    }
+    if (dateLen != 10) {
+      isError = errorColor("date");
+    }
+    if (descriptionLen == 0) {
+      isError = errorColor("description");
+    }
+
+    return isError;
+  }
+
+
+  function getNewsEventsData(){
+      return {
+          title: $("#title").val(),
+          date: $("#date").val(),
+          description: $("#description").val(),
+      };
+  }
+
+
+  $("#addnewsEventsButton").click(function(){
+    if (inputCheck() == false) {
+      $.ajax(
+          {
+              type:"POST",
+              url: "/event",
+              data: JSON.stringify(getNewsEventsData()),
+              contentType: "application/json",
+              success: function(data){
+                  displaySuccess(data.message);
+              }
+          }
+      )
+    }
+  });
+
+
+  function displaySuccess(message){
+      $("#mainContainer").hide();
+      $("#successMessageContainer").removeClass("hidden");
+      $("#successMessage").val(message);
+  }
+
+</script>
+<div class="footer">
+</div>
+</body>
+</html>

@@ -38,4 +38,10 @@ public class WebPageController {
     public String getAddBloodDrivePage(){
         return "addBloodDrive.html";
     }
+
+    @RequestMapping("/addNewsAndEvents")
+    @Secured("ROLE_ADMIN")
+    public String getAddNewsAndEventsPage(){
+        return "addNewsEvents.html";
+    }
 }
