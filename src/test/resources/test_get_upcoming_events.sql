@@ -1,0 +1,1 @@
+INSERT INTO events(title, description, event_date) VALUES('test', 'test', CURRENT_DATE());

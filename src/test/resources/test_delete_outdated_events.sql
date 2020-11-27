@@ -1,0 +1,1 @@
+INSERT INTO events(title, description, event_date) VALUES('test', 'test', '0000-01-01');

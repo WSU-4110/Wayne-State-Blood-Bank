@@ -76,6 +76,25 @@ ALTER TABLE feedback ADD CONSTRAINT fk_feedback_account_id
     ON DELETE CASCADE
     ON UPDATE CASCADE;
 
+CREATE TABLE blood_drives(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(350) NOT NULL,
+    location VARCHAR(120) NOT NULL,
+    blood_drive_time TIME NOT NULL,
+    blood_drive_date DATE NOT NULL,
+    description TEXT NOT NULL,
+    link VARCHAR(2048),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE events(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(350) NOT NULL,
+    description TEXT NOT NULL,
+    event_date DATE NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE VIEW vw_feedback AS SELECT F.id, F.message, A.email, CONCAT(U.first_name, ' ',  U.last_name) AS name FROM feedback AS F
 INNER JOIN accounts AS A ON F.account_id = A.id INNER JOIN user_details AS U ON F.account_id = U.id;
 
