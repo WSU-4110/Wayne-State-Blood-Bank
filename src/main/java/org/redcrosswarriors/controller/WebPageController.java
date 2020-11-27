@@ -39,10 +39,10 @@ public class WebPageController {
         return "viewRequestBlood.html";
     }
 
-    @RequestMapping("/requestBlood")
+    @RequestMapping("/bloodRequest")
     @Secured("ROLE_USER")
     public String requestBlood(){
-        return "requestBlood.html";
+        return "bloodRequest.html";
     }
 
 }
