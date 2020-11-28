@@ -16,6 +16,8 @@
         <!--signup will be a button next to login that turns into a signout after a user is logged in-->
 
         <div class="ui right floated header">
+            <button class="ui left floated green inverted button" id="manageUsersNavButton" style="display: none;"
+                    onclick="location.href='/manageUsers'">Manage Users</button>
             <button class="ui red button" id="loginButton" onclick="openLoginModal()">SignUp/Login</button>
             <!--show after logged in-->
             <a href="/logout">
@@ -149,6 +151,24 @@
       loadNav();
       loginCheck();
       checkCookie();
+
+      $(document).ready(function() {
+    $.get("/loginStatus", function(data, status) {
+      let isAdmin = false;
+
+      for (i in data.roles) {
+        if (data.roles[i] == "ADMIN") {
+          isAdmin = true;
+        }
+      }
+
+      if (isAdmin == true) {
+        document.getElementById("manageUsersNavButton").style.display = "block";
+      }
+
+    });
+
+  });
   </script>
 </body>
 
