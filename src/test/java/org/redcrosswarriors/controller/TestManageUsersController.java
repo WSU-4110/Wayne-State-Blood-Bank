@@ -38,21 +38,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class TestManageUsersController {
+
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private UserDetailsRepository userRepository;
 
-    @MockBean
     private ManageUsersController controller;
 
-    @MockBean
     private RegistrationInput input;
 
     List<Profile> users;
-
-    ResponseEntity mockResponse;
 
     @BeforeEach
     void setUp() {
@@ -60,36 +57,29 @@ class TestManageUsersController {
         input.setFirstName("Test");
         input.setLastName("User");
         input.setEmail("testUser@wayne.edu");
-        users = new ArrayList<Profile>();
+        users = new ArrayList<>();
         users.add(input);
-        mockResponse = new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @Test
     @WithMockUser(username = "admin@wayne.edu", roles = {"USER", "ADMIN"})
     void getUsers() throws Exception {
 
-
-        when(controller.getUsers()).thenReturn(
-                new ResponseEntity<>(new ArrayList<Profile>(), HttpStatus.OK)
-        );
+        String expectedResult = "[{\"firstName\":\"Test\",\"lastName\":\"User\",\"phoneNumber\":null,\"bloodDonorStatus\":null,\"bloodType\":null,\"birthDay\":null,\"email\":\"testUser@wayne.edu\",\"password\":null}]";
+        when(userRepository.getAllProfiles()).thenReturn(users);
 
 
-/*
-        Adding this below actually fails if I don't omit the .andExpect(status90.isOk())
-        The error indicates a 404 was received instead of 200, even though I set HttpStatus.OK
-        in the when(...).thenReturn(). I am unable to remedy this problem.
- */
-//        this.mockMvc.perform(get("/users")).andDo(print()).andExpect(status().isOk());
+        MvcResult result = this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk()).andReturn();
+        String jSonResponse = result.getResponse().getContentAsString();
 
+        System.out.println(jSonResponse);
 
-        List<Profile> responseList = (List<Profile>) mockResponse.getBody();
-        assertEquals(1, responseList.size());
-        assertEquals("testUser@wayne.edu", responseList.get(0).getEmail());
+        assertEquals(expectedResult, jSonResponse);
     }
 
 
     @Test
+    @WithMockUser(username = "admin@wayne.edu", roles = {"USER", "ADMIN"})
     void deleteUser() throws Exception {
         this.mockMvc.perform(delete("/user")).andExpect(status().isOk());
     }
