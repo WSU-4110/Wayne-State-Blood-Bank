@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+<nav>
+  <!--whatever pages we want-->
+  <div class="ui attached stackable menu">
+      <!--how to make this fully left l-->
+      <div class="ui container">
+          <a class="item" href="index.html">
+              <i class="home icon" id="homeButton"></i> Home
+          </a>
+          <a class="item" href="contactus.html">
+              <i class="mail icon"></i> Contact Us
+          </a>
+          <a class="item" href="bloodDrives.html">
+              <i class="tint icon"></i> Blood Drives
+          </a>
+          <a class="item" href="newsAndEvents.html">
+            <i class="calendar alternate icon"></i> News and Events
+          </a>
+          <a class="item" id="loginLocked" style="display: none;" href="/myProfile">
+               <i class="address card icon"></i>Profile
+          </a>
+      </div>
+  </div>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $.get("/loginStatus", function(data, status) {
+      if (data.isLoggedIn == true){
+        document.getElementById("loginLocked").style.display = "block";
+      }
+    });
+  });
+  </script>
+</nav>

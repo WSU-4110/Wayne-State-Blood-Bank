@@ -33,6 +33,17 @@ public class WebPageController {
         return "viewFeedback.html";
     }
 
+    @RequestMapping("/addBloodDrive")
+    @Secured("ROLE_ADMIN")
+    public String getAddBloodDrivePage(){
+        return "addBloodDrive.html";
+    }
+
+    @RequestMapping("/addNewsAndEvents")
+    @Secured("ROLE_ADMIN")
+    public String getAddNewsAndEventsPage(){
+        return "addNewsEvents.html";
+    }
     @RequestMapping("/manageUsers")
     @Secured("ROLE_ADMIN")
     public String getUsers() { return "manageUsers.html"; }
