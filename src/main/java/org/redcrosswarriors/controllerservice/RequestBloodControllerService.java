@@ -10,6 +10,8 @@ import org.redcrosswarriors.repository.RequestBloodDetailsRepository;
 import org.redcrosswarriors.repository.RequestTimeDetailsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,7 +20,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequestBloodControllerService
@@ -29,43 +33,28 @@ public class RequestBloodControllerService
     @Autowired
     private RequestTimeDetailsRepository requestTimeRepository;
 
-    private ReturnForRequestBlood returnRequest = new ReturnForRequestBlood();
+
 
     private RequestedTimeDetails timeDetails;
 
     @Transactional
-    public boolean requestBlood(RequestBloodInput requestInput)
+    public ResponseEntity<Object> requestBlood(RequestBloodInput requestInput, String email)
     {
+        Map<String,String> json = new HashMap<String, String>();
         boolean check = true;
+        String message = "";
         try{
+
             System.out.println("start");
-            requestRepository.newRequester(requestInput.getFirstName(),
-                    requestInput.getLastName(),
-                    requestInput.getEmail(),
-                    requestInput.getPhoneNumber(),
-                    requestInput.getBloodType(),
-                    requestInput.getHospitalName(),
-                    requestInput.getStreetName(),
-                    requestInput.getCityName(),
-                    requestInput.getStateName(),
-                    requestInput.getZipCode(),
-                    requestInput.getMessage());
-
-
-
-
             timeDetails = requestTimeRepository.getRequestedTimeByEmail(requestInput.getEmail());
+
             String currentTime;
             if(timeDetails == null)
             {
                 currentTime = returnTime();
                 System.out.println(currentTime);
                 requestTimeRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
-                List<String> matches;
-                matches = requestRepository.findMatches(requestInput.getBloodType());
-                System.out.println("matches found: " + matches.size());
-                SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                sendRequest.start();
+                message = findMatches(requestInput, requestRepository);
 
             }
             else
@@ -76,18 +65,18 @@ public class RequestBloodControllerService
                 if(findDifference(lastTime, currentTime))
                 {
                     requestTimeRepository.updateTime(currentTime, requestInput.getEmail());
-                    List<String> matches;
-                    matches = requestRepository.findMatches(requestInput.getBloodType());
-                    System.out.println("matches found: " + matches.size());
-                    SendNotificationEmail sendRequest = new SendNotificationEmail(matches, requestInput);
-                    sendRequest.start();
+                    message = findMatches(requestInput, requestRepository);
+
+
                 }
                 else
                 {
                     //check = t;
                     System.out.println("Sorry you have to wait 24 hrs for a new request!");
+                    message = "Hey " + requestInput.getFirstName() + ", your request cannot be processed now. You have already made a request within last 24 hrs. Blood can be requested every 24 hrs for each account holder.";
                 }
             }
+            json.put("message", message);
 
 
         }
@@ -96,9 +85,47 @@ public class RequestBloodControllerService
             e.printStackTrace();
         }
 
-        return check;
+        return new ResponseEntity<Object>(json, HttpStatus.OK);
     }
 
+    public String findMatches(RequestBloodInput input, RequestBloodDetailsRepository requestRepository)
+    {
+        String message = "";
+        List<String> matches;
+        try
+        {
+
+            requestRepository.newRequester(input.getFirstName(),
+                    input.getLastName(),
+                    input.getEmail(),
+                    input.getPhoneNumber(),
+                    input.getBloodType(),
+                    input.getHospitalName(),
+                    input.getStreetName(),
+                    input.getCityName(),
+                    input.getStateName(),
+                    input.getZipCode(),
+                    input.getMessage());
+
+            matches = requestRepository.findMatches(input.getBloodType());
+            if(matches.size() == 0)
+            {
+                message = "Sorry " + input.getFirstName() + ", unfortunately we couldn't find any matching donors for your requested blood type.";
+            }
+            else if(matches.size() == 1)
+                message = "Hey " + input.getFirstName() + ", we found " + Integer.toString(matches.size()) + " match for you. This donor has been notified.";
+            else
+                message = "Hey " + input.getFirstName() + ", we found " + Integer.toString(matches.size()) + " matches for you. These donors has been notified.";
+            SendNotificationEmail sendRequest = new SendNotificationEmail(matches, input);
+            sendRequest.start();
+        }
+        catch (Exception e){
+            message = "Your request was not processes successfully. Sorry";
+            e.printStackTrace();
+        }
+        return message;
+
+    }
 
     public String returnTime()
     {

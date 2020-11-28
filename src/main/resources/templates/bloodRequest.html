@@ -44,7 +44,9 @@
         <div class="ui container">
             <div class="centered">
                 <div id="successMessageContainer" class="ui positive message transition hidden">
-                    <p id="successMessage">Success</p>
+                    <p id="successMessage">
+
+                    </p>
                 </div>
                 <div id="errorMessage" class="ui error message hidden">
                     <div class="header">Invalid Input please fix the following fields</div>
@@ -66,9 +68,9 @@
                                 <label>Last Name</label>
                                 <input type="text" id="lastName" required = "required">
                             </div>
-                            <div class=" field">
+                            <div class="field disabled">
                                 <label>Email</label>
-                                <input type="email" id="email" required = "required">
+                                <input id="email" type="text" readonly>
                             </div>
                             <div class=" field">
                                 <label>Phone Number</label>
@@ -118,7 +120,7 @@
                             </div>
                         </form>
                         <br>
-                        <button class="ui button primary" onclick = "requestBlood()">Submit</button>
+                        <button class="ui button primary" id="button" onclick = "requestBlood()">Submit</button>
 
 
                     </div>
@@ -198,7 +200,7 @@
                                 contentType: 'application/json',
                                 dataType:"json",
                                 success: function(data){
-                                    alert("Your request has been completed");
+                                    displaySuccess(data);
                                 },
                                 failure: function(error){
                                     alert("Sorry your request did not go through!");
@@ -207,6 +209,7 @@
                                     alert(error);
                                 }
                             });
+                        disableButton();
                     }
                     else
                         alert("Invalid Blood Type!");
@@ -257,6 +260,56 @@
 
     }
 
+    function disableButton()
+    {
+        document.getElementById("button").disabled = true;
+    }
+
+    function displayInfo(data){
+
+        $("#email").val(data.email);
+
+    }
+
+    function displaySuccess(data){
+        $("#mainContainer").hide();
+        $("#successMessageContainer").removeClass("hidden");
+        //$("#successMessage").val(data.message);
+        document.getElementById("successMessage").textContent += data.message;
+        $("#errorMessage").hide();
+    }
+
+    // function showRequests(data){
+    //     let viewBloodRequestList = document.querySelector("#successMessage");
+    //
+    //     let format = data.message;
+    //
+    //
+    //     textComponent.innerHTML = format;
+    //
+    //     // Add the message to the document
+    //     viewBloodRequestList.appendChild(format);
+    //     //feedbackList.appendChild(button);
+    //
+    // }
+
+    $(document).ready(function(){
+        $.ajax(
+            {
+                type:"GET",
+                dataType: "JSON",
+                url:"/requestBlood",
+                success: function(data){
+                    displayInfo(data);
+                },
+                failure: function(error){
+                    alert("Sorry your request did not go through!");
+                },
+                error: function(error){
+                    alert(error);
+                }
+            });
+    });
 </script>
 <div class="footer">
 </div>
