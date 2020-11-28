@@ -43,8 +43,8 @@
 
         <div class="ui container">
             <div class="centered">
-                <div id="successMessageContainer" class="ui positive message transition hidden">
-                    <p id="successMessage">
+                <div id="messageContainer" class="ui positive message transition hidden">
+                    <p id="returnMessage">
 
                     </p>
                 </div>
@@ -200,7 +200,7 @@
                                 contentType: 'application/json',
                                 dataType:"json",
                                 success: function(data){
-                                    displaySuccess(data);
+                                    displayMessage(data);
                                 },
                                 failure: function(error){
                                     alert("Sorry your request did not go through!");
@@ -265,33 +265,20 @@
         document.getElementById("button").disabled = true;
     }
 
-    function displayInfo(data){
+    function displayEmail(data){
 
         $("#email").val(data.email);
 
     }
 
-    function displaySuccess(data){
+    function displayMessage(data){
         $("#mainContainer").hide();
-        $("#successMessageContainer").removeClass("hidden");
+        $("#messageContainer").removeClass("hidden");
         //$("#successMessage").val(data.message);
-        document.getElementById("successMessage").textContent += data.message;
+        document.getElementById("returnMessage").textContent += data.message;
         $("#errorMessage").hide();
     }
 
-    // function showRequests(data){
-    //     let viewBloodRequestList = document.querySelector("#successMessage");
-    //
-    //     let format = data.message;
-    //
-    //
-    //     textComponent.innerHTML = format;
-    //
-    //     // Add the message to the document
-    //     viewBloodRequestList.appendChild(format);
-    //     //feedbackList.appendChild(button);
-    //
-    // }
 
     $(document).ready(function(){
         $.ajax(
@@ -300,7 +287,7 @@
                 dataType: "JSON",
                 url:"/requestBlood",
                 success: function(data){
-                    displayInfo(data);
+                    displayEmail(data);
                 },
                 failure: function(error){
                     alert("Sorry your request did not go through!");
