@@ -13,10 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -39,7 +37,9 @@ public class TestBloodDriveController {
         gson = new Gson();
     }
 
-    private void setTestData(List<BloodDrive> bloodDrives){
+    // returns test data for blood drives
+    private Iterable<BloodDrive> getTestBloodDrives(){
+        List<BloodDrive> bloodDrives = new ArrayList<>(2);
         bloodDrives.add(new BloodDrive(
                 1,
                 "Wayne State Blood Drive",
@@ -58,14 +58,17 @@ public class TestBloodDriveController {
                 "Blood drive today",
                 "www.wayne.edu"
         ));
-        Iterable<BloodDrive> testBloodDrives = (Iterable<BloodDrive>) bloodDrives;
-        when(repository.findAll()).thenReturn(testBloodDrives);
-        when(repository.findUpcomingBloodDrives()).thenReturn(bloodDrives);
+        Iterable<BloodDrive> testBloodDrives = bloodDrives;
+
+        return testBloodDrives;
     }
+
     @Test
     public void testGetBloodDrives() throws Exception{
-        List<BloodDrive> bloodDrives = new ArrayList<>();
-        setTestData(bloodDrives);
+        Iterable<BloodDrive> testBloodDrives = getTestBloodDrives();
+        // have the repository return our test data when findAll is called instead of returning data from the database
+        // this ensures that the test is repeatable
+        when(repository.findAll()).thenReturn(testBloodDrives);
         MvcResult result = this.mockMvc.perform(get("/bloodDrive")).andDo(print()).andExpect(
                 status().isOk()
         ).andReturn();
@@ -97,17 +100,21 @@ public class TestBloodDriveController {
     }
 
     @Test
-    public void testGetUpcommingDrives() throws Exception{
-        List<BloodDrive> bloodDrives = new ArrayList<>();
-        setTestData(bloodDrives);
+    public void testGetUpcomingDrives() throws Exception{
+        List<BloodDrive> bloodDrives = (List<BloodDrive>) getTestBloodDrives();
+        // set the repository to return a list of testBloodDrives so that the test is repeatable
+        when(repository.findUpcomingBloodDrives()).thenReturn(bloodDrives);
         MvcResult result = this.mockMvc.perform(get("/bloodDrive/upcoming")).andDo(print()).andExpect(
                 status().isOk()
         ).andReturn();
         String jsonResponse = result.getResponse().getContentAsString();
         BloodDrive[] returnedBloodDrives = gson.fromJson(jsonResponse, BloodDrive[].class);
+        // ensure that we get a json response that can be converted into our blood drive class and that
+        // we have exactly 2 blood drive objects returned in the array.
         assertEquals(returnedBloodDrives.length, 2);
     }
 
+    // run this test with a user that has the role of admin
     @Test
     @WithMockUser(username="admin@wayne.edu",roles={"USER","ADMIN"})
     public void testDeleteOutdatedBloodDrives() throws Exception{
