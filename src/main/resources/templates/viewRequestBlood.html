@@ -56,7 +56,7 @@
 
                             </div>
                         </template>
-                        <div class="ui container" id="feedbackList">
+                        <div class="ui container" id="requestList">
 
                         </div>
 
@@ -89,20 +89,20 @@
     }
 
     function showRequests(data){
-        let viewBloodRequestList = document.querySelector("#feedbackList");
+        let viewBloodRequestList = document.querySelector("#requestList");
         // clear all messages
         removeChildNodes(viewBloodRequestList);
-        let messageTemplate = document.getElementById("commentTemplate");
+        let dataTemplate = document.getElementById("commentTemplate");
 
         // loop through each message and display it.
 
         for(var i=0; i < data.length; i++)
         {
             // create a new message element from the template
-            let newMessageElement = messageTemplate.content.cloneNode(true);
+            let newDataElement = dataTemplate.content.cloneNode(true);
 
             // get the text component of the message
-            let textComponent = newMessageElement.querySelector('.text');
+            let textComponent = newDataElement.querySelector('.text');
             // set the message to the current message
             let format = "<hr/>First Name: " + data[i].firstName + " " + data[i].lastName + "<br/>"
                 + "Email: " + data[i].email + "<br/>"
@@ -115,7 +115,7 @@
             textComponent.innerHTML = format;
 
             // Add the message to the document
-            viewBloodRequestList.appendChild(newMessageElement);
+            viewBloodRequestList.appendChild(newDataElement);
             //feedbackList.appendChild(button);
 
         }
