@@ -22,14 +22,14 @@ public class RegisterationController
         Map<String, Object> json = new HashMap();
         if(registerService.userExists(input))
         {
-            json.put("status", "User with that username already exists.");
+            json.put("message", "User with that email already exists.");
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
 
         }
         else
         {
             registerService.registerAccount(input);
-            json.put("status", "User created.");
+            json.put("message", "User created.");
         }
 
         return new ResponseEntity<>(json, HttpStatus.OK);
