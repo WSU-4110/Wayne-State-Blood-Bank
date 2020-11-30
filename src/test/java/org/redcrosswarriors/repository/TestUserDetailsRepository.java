@@ -1,3 +1,4 @@
+
 package org.redcrosswarriors.repository;
 
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,4 +41,10 @@ public class TestUserDetailsRepository {
         assertEquals("Jane", profile1.getFirstName());
     }
 
+    @Test
+    @Sql("/test_get_profile.sql")
+    void getAllProfiles() {
+        List<Profile> profiles = repository.getAllProfiles();
+        assertEquals(1, profiles.size());
+    }
 }
