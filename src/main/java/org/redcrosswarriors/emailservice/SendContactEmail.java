@@ -1,6 +1,7 @@
 package org.redcrosswarriors.emailservice;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SendContactEmail extends SendMail {
@@ -13,8 +14,8 @@ public class SendContactEmail extends SendMail {
      * @throws Exception :
      */
     public SendContactEmail(String sendersEmail, String contactMessage) throws Exception {
-        recipients = new String[1];
-        recipients[0] = "wsuredcrosswarriors@gmail.com";
+        recipients = new ArrayList<>();
+        recipients.add("wsuredcrosswarriors@gmail.com");
         String HTML_TEMPLATE;
         HTML_TEMPLATE = String.valueOf(new Scanner(new File("src/main/resources/templates/contactEmail.html")).useDelimiter("\\Z").next());
         htmlCode = HTML_TEMPLATE.replace("FROM", sendersEmail);

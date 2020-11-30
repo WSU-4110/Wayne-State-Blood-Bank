@@ -11,7 +11,7 @@ import java.util.List;
 public interface BloodDriveRepository extends CrudRepository<BloodDrive, Integer> {
 
     @Query(value =
-            "SELECT * FROM blood_drives where blood_drive_date >= CURRENT_DATE() AND blood_drive_time >= CURRENT_TIME()" +
+            "SELECT * FROM blood_drives where blood_drive_date >= CURRENT_DATE()" +
                     " ORDER BY blood_drive_date ASC, blood_drive_time ASC",
             nativeQuery = true
     )

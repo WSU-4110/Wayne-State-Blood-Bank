@@ -1,6 +1,4 @@
 package org.redcrosswarriors.controller;
-
-
 import org.redcrosswarriors.controllerservice.RegistrationControllerService;
 import org.redcrosswarriors.model.input.RegistrationInput;
 import org.springframework.beans.factory.annotation.Autowired;
