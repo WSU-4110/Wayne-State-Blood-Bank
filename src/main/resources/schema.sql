@@ -47,8 +47,7 @@ ALTER TABLE verification_tokens ADD CONSTRAINT fk_verification_account_id
         ON DELETE CASCADE
         ON UPDATE CASCADE;
 
-CREATE TABLE user_details
-(
+CREATE TABLE user_details(
     id INT NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -58,8 +57,8 @@ CREATE TABLE user_details
     blood_type CHAR(3),
     PRIMARY KEY (id)
 );
-CREATE TABLE requester_details
-(
+
+CREATE TABLE requester_details(
     id INT NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
@@ -75,8 +74,7 @@ CREATE TABLE requester_details
     PRIMARY KEY (id)
 );
 
-CREATE TABLE requester_time
-(
+CREATE TABLE requester_time(
     id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(320) NOT NULL,
     time_requested VARCHAR(100),
@@ -89,7 +87,7 @@ ALTER TABLE user_details ADD CONSTRAINT fk_user_details_accounts
    ON DELETE CASCADE
    ON UPDATE CASCADE;
 
-   CREATE TABLE feedback(
+CREATE TABLE feedback(
     id INT NOT NULL AUTO_INCREMENT,
     message TEXT NOT NULL,
     account_id INT NOT NULL,

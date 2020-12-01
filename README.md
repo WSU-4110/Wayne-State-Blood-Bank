@@ -1,7 +1,8 @@
 # Wayne State Blood Bank Project
 
 ## Purpose 
-
+The purpose of this project is to help connect Wayne State Students in 
+need of a blood donation with other students that have the same blood type.
 
 ## Functionalities 
 
