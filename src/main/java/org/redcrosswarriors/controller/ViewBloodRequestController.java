@@ -21,8 +21,7 @@ public class ViewBloodRequestController {
 
     @GetMapping("/viewRequests")
     @Secured("ROLE_USER")
-    public ResponseEntity<Object> viewResults(Principal principal)
-    {
+    public ResponseEntity<Object> viewResults(Principal principal) {
         System.out.println(principal.getName());
         String email = principal.getName();
         return service.getAllRequests(email);

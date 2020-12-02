@@ -16,8 +16,7 @@ public class ViewRequestControllerService
 
 
 
-    public ResponseEntity<Object> getAllRequests(String email)
-    {
+    public ResponseEntity<Object> getAllRequests(String email){
 
         List<RequestInputDetails> requestLists = requestRepository.viewRequests(email);
 

@@ -35,8 +35,7 @@ public class TestRequestBloodController {
 
     @WithMockUser(username="admin@wayne.edu",roles={"USER","ADMIN"})
     @Test
-    public void testRequestBlood() throws Exception
-    {
+    public void testRequestBlood() throws Exception {
         RequestBloodInput input  = new RequestBloodInput();
 
         input.setFirstName("John");

@@ -37,8 +37,7 @@ public class RequestBloodController
 
     @PostMapping("/requestBlood")
     @Secured("ROLE_USER")
-    public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input, Principal principal)
-    {
+    public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input, Principal principal) {
 
         Map<String, Object> json = new HashMap();
         String email = principal.getName();

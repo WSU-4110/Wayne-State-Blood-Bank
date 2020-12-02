@@ -17,17 +17,14 @@ public class RegisterationController
     RegistrationControllerService registerService;
 
     @PostMapping("/registration")
-    public ResponseEntity<Object> registerAccount(@RequestBody @Valid RegistrationInput input)
-    {
+    public ResponseEntity<Object> registerAccount(@RequestBody @Valid RegistrationInput input) {
         Map<String, Object> json = new HashMap();
-        if(registerService.userExists(input))
-        {
+        if(registerService.userExists(input)) {
             json.put("status", "User with that username already exists.");
             return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
 
         }
-        else
-        {
+        else {
             registerService.registerAccount(input);
             json.put("status", "User created.");
         }

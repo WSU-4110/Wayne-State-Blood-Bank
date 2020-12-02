@@ -51,22 +51,12 @@ public class TestRequestBloodControllerService {
     }
 
     @Test
-    public void TestTrueFindDifference(){
+    public void testTrueFindDifference(){
         String start_date = "01-11-2020 01:48:38";
         String end_date = "01-11-2020 02:48:38";
         boolean actual = service.findDifference(start_date, end_date);
         assertEquals(false, actual);
     }
-
-
-
-
-
-
-
-
-
-
 
 
     @Test
