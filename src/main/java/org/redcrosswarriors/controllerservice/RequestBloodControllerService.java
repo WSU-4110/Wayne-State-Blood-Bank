@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class RequestBloodControllerService
@@ -81,6 +83,39 @@ public class RequestBloodControllerService
         }
 
         return new ResponseEntity<Object>(json, HttpStatus.OK);
+    }
+
+    public boolean isBloodTypeValid(RequestBloodInput requestInput)
+    {
+        boolean check = false;
+        String bloodType = requestInput.getBloodType();
+
+        // no white space
+        // no numbers
+        // Regex to check valid password.
+        String regex = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
+
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(bloodType);
+
+
+        // Return if the password
+        // matched the ReGex
+        if(m.matches())
+            check = true;
+
+        return check;
+
     }
 
     public String findMatches(RequestBloodInput input, RequestBloodDetailsRepository requestRepository) {

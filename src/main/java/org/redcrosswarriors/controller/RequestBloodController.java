@@ -42,8 +42,18 @@ public class RequestBloodController
         Map<String, Object> json = new HashMap();
         String email = principal.getName();
 
+
         try{
-            return requestBloodControllerService.requestBlood(input, email);
+            if(requestBloodControllerService.isBloodTypeValid(input))
+            {
+                return requestBloodControllerService.requestBlood(input, email);
+            }
+            else
+            {
+                json.put("message", "An unknown error has occurred");
+                return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
+            }
+            //return requestBloodControllerService.requestBlood(input, email);
         }
         catch (Exception e){
             json.put("message", "An unknown error has occurred");
