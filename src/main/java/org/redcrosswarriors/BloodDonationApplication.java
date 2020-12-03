@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableJpaRepositories("org.redcrosswarriors.repository")
 @EnableSwagger2
-public class BloodDonationApplication {
+public class 	BloodDonationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BloodDonationApplication.class, args);

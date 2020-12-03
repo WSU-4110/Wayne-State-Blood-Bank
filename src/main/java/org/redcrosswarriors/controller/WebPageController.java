@@ -46,7 +46,6 @@ public class WebPageController {
         return "bloodRequest.html";
     }
 
-
     @RequestMapping("/addBloodDrive")
     @Secured("ROLE_ADMIN")
     public String getAddBloodDrivePage(){
@@ -58,5 +57,8 @@ public class WebPageController {
     public String getAddNewsAndEventsPage(){
         return "addNewsEvents.html";
     }
+    @RequestMapping("/manageUsers")
+    @Secured("ROLE_ADMIN")
+    public String getUsers() { return "manageUsers.html"; }
 
 }

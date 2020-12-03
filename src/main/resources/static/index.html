@@ -15,16 +15,19 @@
         <!--signup will be a button next to login that turns into a signout after a user is logged in-->
 
         <div class="ui right floated header">
+            <button class="ui left floated button" id="manageUsersNavButton" style="display: none;"
+                    onclick="location.href='/manageUsers'">Manage Users
+            </button>
             <button class="ui red button" id="loginButton" onclick="openLoginModal()">SignUp/Login</button>
             <!--show after logged in-->
             <a href="/logout">
-              <button class="ui red button" id="logoutButton">Logout</button>
+                <button class="ui red button" id="logoutButton">Logout</button>
             </a>
         </div>
         <a href="/index.html">
-          <h3 class="ui left floated huge red header">
-              Red Cross Warriors
-          </h3>
+            <h3 class="ui left floated huge red header">
+                Red Cross Warriors
+            </h3>
         </a>
     </div>
 </div>
@@ -40,7 +43,7 @@
                         <div class="field">
                             <label style="text-align: left;">E-mail</label>
                             <div class="ui left icon input">
-                                <input type="text"  name="username" placeholder="email" id="un"/>
+                                <input type="text" name="username" placeholder="email" id="un"/>
                                 <i class="user icon"></i>
                             </div>
                         </div>
@@ -58,10 +61,10 @@
                 <div class="middle aligned column">
                     <div class="ui header">Don't have an account?<br>
                         <a href="/signup.html">
-                        <div class="ui big button">
-                            <i class="signup icon"></i>
-                            Sign Up
-                        </div>
+                            <div class="ui big button">
+                                <i class="signup icon"></i>
+                                Sign Up
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -92,49 +95,55 @@
         </div>
         <div class="ui container">
             <div class="centered">
-              <div class="mainContainer" id="mainContainer" style="display: block">
-                <div class="ui inverted blue segment" id="logoutLabel" style="display: none">
-                  <p>you have successfully been logged out</p>
-                </div>
-                <h1 style="font-size:4vw;">Donate Blood To Save Life</h1>
-                <p style="font-size:2vw;">Lorem ipsum dolor sit amet, an his etiam torquatos. Tollit soleat phaedrum te duo,
-                    eum cu recteque expetendis neglegentur. Cu mentitum maiestatis persequeris pro, pri
-                    ponderum tractatos ei.</p>
-                    <div class="ui container">
-                      <a href="/signup.html">
-                        <button class="ui large red button" id="Register">Register now</button>
-                      </a>
-                      <button class="ui large basic inverted button" id="Search" onclick="tempButton()">Search for blood</button>
+                <div class="mainContainer" id="mainContainer" style="display: block">
+                    <div class="ui inverted blue segment" id="logoutLabel" style="display: none">
+                        <p>you have successfully been logged out</p>
                     </div>
-              </div>
+                    <h1 style="font-size:4vw;">Donate Blood To Save Life</h1>
 
-              <div class="loginContainer" id="loginContainer" style="display: none">
-                <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7);">
-                  <h2>Login</h2>
-                  <form class="ui form" method="post" action="/">
-                      <label style="text-align: left;">Email</label>
-                      <input type="text"  name="username" placeholder="email" />
-                      <label style="text-align: left;">Password</label>
-                      <input type="password" placeholder="password" name="password" />
-                      <input type="submit"/>
-                  </form>
-                  <div class="ui inverted green segment" id="confirm" style="display: none">
-                    <p>you have successfully been logged in</p>
-                  </div>
-                  <div class="ui inverted red segment" id="deny">
-                    <p>Wrong Email or password</p>
-                  </div>
-                  <hr>
-                  <div class="ui inverted header">Don't have an account?<br>
-                      <a href="/signup.html">
-                          <div class="ui big button">
-                              <i class="signup icon"></i>
-                              Sign Up
-                          </div>
+                    <iframe width="728" height="409" src="https://www.youtube.com/embed/qEo2wrYyCRI"
+                            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                          picture-in-picture" allowfullscreen>
+                    </iframe>
+                    <br>
+                    **click the "YouTube" link in the video player for higher resolution video**
+
+                    <br>
+                    <br>
+                    <div class="ui container">
+                        <a href="/signup.html">
+                            <button class="ui large red button" id="Register">Register now</button>
                         </a>
-                  </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="loginContainer" id="loginContainer" style="display: none">
+                    <div class="ui placeholder segment" id="fogCover" style="background: rgba(0,0,0,.7);">
+                        <h2>Login</h2>
+                        <form class="ui form" method="post" action="/">
+                            <label style="text-align: left;">Email</label>
+                            <input type="text" name="username" placeholder="email"/>
+                            <label style="text-align: left;">Password</label>
+                            <input type="password" placeholder="password" name="password"/>
+                            <input type="submit"/>
+                        </form>
+                        <div class="ui inverted green segment" id="confirm" style="display: none">
+                            <p>you have successfully been logged in</p>
+                        </div>
+                        <div class="ui inverted red segment" id="deny">
+                            <p>Wrong Email or password</p>
+                        </div>
+                        <hr>
+                        <div class="ui inverted header">Don't have an account?<br>
+                            <a href="/signup.html">
+                                <div class="ui big button">
+                                    <i class="signup icon"></i>
+                                    Sign Up
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
@@ -144,11 +153,30 @@
     </div>
 
 </div>
-  <script>
+<script>
       loadNav();
       loginCheck();
       checkCookie();
-  </script>
+
+      $(document).ready(function() {
+    $.get("/loginStatus", function(data, status) {
+      let isAdmin = false;
+
+      for (i in data.roles) {
+        if (data.roles[i] == "ADMIN") {
+          isAdmin = true;
+        }
+      }
+
+      if (isAdmin == true) {
+        document.getElementById("manageUsersNavButton").style.display = "block";
+      }
+
+    });
+
+  });
+
+</script>
 </body>
 
 
@@ -156,4 +184,3 @@
 
 </div>
 </html>
-

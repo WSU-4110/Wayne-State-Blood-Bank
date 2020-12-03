@@ -1,14 +1,28 @@
 # Wayne State Blood Bank Project
 
-## Instructions to run
+## Purpose 
+The purpose of this project is to help connect Wayne State Students in 
+need of a blood donation with other students that have the same blood type.
 
-- install maven using: sudo apt-get install maven
-- run the command: mvn package 
-    - This should run all the tests, download all dependencies and generate an executable jar file in the target folder
-- Run the program: java -jar target/Blood-Donation-0.0.1-SNAPSHOT.jar
+## Functionalities 
 
-- Alternatively if your using an IDE such as eclipse or intellij import the project as a maven project. 
-
-Once the program is running open http://localhost:8080/ in google chrome. 
-
-- Documentation can be found at http://localhost:8080/swagger-ui/
+| Feature Name | Github Issue Number | Contributors |
+| ------------ | ------------------- | ------------ |
+| FR1 Login    | #1                  | Jacob (Backend), Kyle(Frontend)  |
+| FR2 Registration | #2              | Tia (Backend), Khang (Frontend)  |
+| FR3 Verification Email | #3        | Lloyd                            |
+| FR11 Logout  |             #11     | Jacob (Backend), Kyle (Frontend) |
+| FR8 Connect Social Media | #8      | Kyle                             |
+| FR15 Admin Login         | #15     | Jacob (Backend), Kyle (Frontend) |
+| FR12 Send Feedback       | #12     | Jacob (Backend) , Kyle (Frontend)|
+| FR7 Contact Email        | #7      | Kyle                             |
+| FR5 Delete Account by User | #5    | Jacob (Backend), Kyle (Frontend) |
+| FR4 Edit Profile Page      | #4    | Jacob                            |
+| FR17 Delete Users (Admin)          | #17   | Lloyd                    |
+| FR9 Request Donors                 | #9    | Tia                      |
+| FR10 Notify the Matching Donors    | #10   | Lloyd                    |
+| FR13 Spam Prevention               | #13   | Tia                      |
+| View Blood Request          | #65          | Tia                      |
+| FR16 Update News and Events      | #16     | Jacob (Backend), Kyle (Frontend) |
+| FR14 Campus Blood Drive Feed     | #14     | Jacob (Backend), Kyle (Frontend) |
+| FR18 Add blood drive information | #18     | Jacob (Backend), Kyle (Frontend) |

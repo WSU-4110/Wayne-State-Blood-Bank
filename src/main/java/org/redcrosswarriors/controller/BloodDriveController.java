@@ -23,7 +23,7 @@ public class BloodDriveController {
     @GetMapping("/bloodDrive/upcoming")
     public ResponseEntity<List<BloodDrive>> getUpcomingDrives(){
         List<BloodDrive> bloodDrives = repository.findUpcomingBloodDrives();
-        return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
+        return new ResponseEntity<>(bloodDrives, HttpStatus.OK);
     }
 
     @GetMapping("/bloodDrive")
@@ -33,7 +33,7 @@ public class BloodDriveController {
                 false
         ).collect(Collectors.toList());
 
-        return new ResponseEntity<List<BloodDrive>>(bloodDrives, HttpStatus.OK);
+        return new ResponseEntity<>(bloodDrives, HttpStatus.OK);
     }
 
     @PostMapping("/bloodDrive")
