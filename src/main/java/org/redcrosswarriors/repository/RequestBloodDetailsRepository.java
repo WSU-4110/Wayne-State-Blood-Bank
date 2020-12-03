@@ -1,11 +1,5 @@
 package org.redcrosswarriors.repository;
-
-import org.redcrosswarriors.model.AccountDetails;
-import org.redcrosswarriors.model.Profile;
-//import org.redcrosswarriors.model.RequestedTimeDetails;
 import org.redcrosswarriors.model.RequestInputDetails;
-import org.redcrosswarriors.model.RequestedTimeDetails;
-import org.redcrosswarriors.model.input.RequestBloodInput;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -16,12 +16,11 @@ public class ViewRequestControllerService
 
 
 
-    public ResponseEntity<List<RequestInputDetails>> getAllRequests(String email)
-    {
+    public ResponseEntity<Object> getAllRequests(String email){
 
         List<RequestInputDetails> requestLists = requestRepository.viewRequests(email);
 
-        return new ResponseEntity<List<RequestInputDetails>>(requestLists, HttpStatus.OK);
+        return new ResponseEntity<Object>(requestLists, HttpStatus.OK);
     }
 
 }

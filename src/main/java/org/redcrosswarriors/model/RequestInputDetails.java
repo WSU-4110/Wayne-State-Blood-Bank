@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -19,10 +19,12 @@ public class RequestInputDetails
 
     @Column(name="first_name")
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+", message="Invalid first name can only contain alphabetical characters")
     private String firstName;
 
     @Column(name="last_name")
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+", message="Invalid first name can only contain alphabetical characters")
     private String lastName;
 
     @Column(name="email")
@@ -30,6 +32,7 @@ public class RequestInputDetails
     private String email;
 
     @Column(name="phone_number")
+    @Pattern(regexp = "^\\d{10}", message = "Invalid phone number must only contain digits")
     private String phoneNumber;
 
     @Column(name="blood_type")

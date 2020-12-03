@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class RequestBloodControllerService
@@ -38,8 +40,7 @@ public class RequestBloodControllerService
     private RequestedTimeDetails timeDetails;
 
     @Transactional
-    public ResponseEntity<Object> requestBlood(RequestBloodInput requestInput, String email)
-    {
+    public ResponseEntity<Object> requestBlood(RequestBloodInput requestInput, String email) {
         Map<String,String> json = new HashMap<String, String>();
         boolean check = true;
         String message = "";
@@ -49,28 +50,24 @@ public class RequestBloodControllerService
             timeDetails = requestTimeRepository.getRequestedTimeByEmail(requestInput.getEmail());
 
             String currentTime;
-            if(timeDetails == null)
-            {
+            if(timeDetails == null) {
                 currentTime = returnTime();
                 System.out.println(currentTime);
                 requestTimeRepository.requesterTimeUpdate(requestInput.getEmail(), currentTime);
                 message = findMatches(requestInput, requestRepository);
 
             }
-            else
-            {
+            else {
                 String lastTime;
                 lastTime = timeDetails.getTime();
                 currentTime = returnTime();
-                if(findDifference(lastTime, currentTime))
-                {
+                if(findDifference(lastTime, currentTime)) {
                     requestTimeRepository.updateTime(currentTime, requestInput.getEmail());
                     message = findMatches(requestInput, requestRepository);
 
 
                 }
-                else
-                {
+                else {
                     //check = t;
                     System.out.println("Sorry you have to wait 24 hrs for a new request!");
                     message = "Hey " + requestInput.getFirstName() + ", your request cannot be processed now. You have already made a request within last 24 hrs. Blood can be requested every 24 hrs for each account holder.";
@@ -88,12 +85,43 @@ public class RequestBloodControllerService
         return new ResponseEntity<Object>(json, HttpStatus.OK);
     }
 
-    public String findMatches(RequestBloodInput input, RequestBloodDetailsRepository requestRepository)
+    public boolean isBloodTypeValid(RequestBloodInput requestInput)
     {
+        boolean check = false;
+        String bloodType = requestInput.getBloodType();
+
+        // no white space
+        // no numbers
+        // Regex to check valid password.
+        String regex = "^(A\\+)|(B\\+)|(A-)|(B-)|(O\\+)|(O-)|(AB\\+)|(AB-)";
+
+
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
+
+        // If the password is empty
+        // return false
+
+
+        // Pattern class contains matcher() method
+        // to find matching between given password
+        // and regular expression.
+        Matcher m = p.matcher(bloodType);
+
+
+        // Return if the password
+        // matched the ReGex
+        if(m.matches())
+            check = true;
+
+        return check;
+
+    }
+
+    public String findMatches(RequestBloodInput input, RequestBloodDetailsRepository requestRepository) {
         String message = "";
         List<String> matches;
-        try
-        {
+        try {
 
             requestRepository.newRequester(input.getFirstName(),
                     input.getLastName(),
@@ -108,8 +136,7 @@ public class RequestBloodControllerService
                     input.getMessage());
 
             matches = requestRepository.findMatches(input.getBloodType());
-            if(matches.size() == 0)
-            {
+            if(matches.size() == 0) {
                 message = "Sorry " + input.getFirstName() + ", unfortunately we couldn't find any matching donors for your requested blood type.";
             }
             else if(matches.size() == 1)
@@ -127,15 +154,13 @@ public class RequestBloodControllerService
 
     }
 
-    public String returnTime()
-    {
+    public String returnTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
     }
 
-    public boolean findDifference(String start_date, String end_date)
-    {
+    public boolean findDifference(String start_date, String end_date) {
 
         // SimpleDateFormat converts the
         // string format to date object
@@ -206,8 +231,7 @@ public class RequestBloodControllerService
                             + " seconds");
             if(difference_In_Days>=1)
                 check = true;
-            else
-            {
+            else {
                 check = false;
             }
         }
@@ -221,11 +245,9 @@ public class RequestBloodControllerService
     }
 
 
-    public int numberOfMatches(String BloodType)
-    {
+    public int numberOfMatches(String BloodType) {
         int number = 0;
-        switch(BloodType)
-        {
+        switch(BloodType) {
             case "A+":
                 number = requestRepository.aPlus();
                 break;

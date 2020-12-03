@@ -74,8 +74,7 @@ public class RegistrationControllerService {
     public boolean userExists(RegistrationInput input) {
         boolean check;
         AccountDetails account = accountDetailsRepository.findByEmail(input.getEmail());
-        if (account != null)
-        {
+        if (account != null) {
             check = true;
         }
         else

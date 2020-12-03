@@ -21,15 +21,11 @@ public class ViewBloodRequestController {
 
     @GetMapping("/viewRequests")
     @Secured("ROLE_USER")
-    public ResponseEntity<List<RequestInputDetails>> viewResults(Principal principal)
-    {
-        if(principal != null){
-            System.out.println(principal.getName());
-            String email = principal.getName();
-            return service.getAllRequests(email);
-        }
-        else
-            return new ResponseEntity<>(new ArrayList<RequestInputDetails>(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> viewResults(Principal principal) {
+        System.out.println(principal.getName());
+        String email = principal.getName();
+        return service.getAllRequests(email);
+
     }
 
 }
