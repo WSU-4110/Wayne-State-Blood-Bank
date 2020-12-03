@@ -21,11 +21,11 @@
           <a class="item" id="loginLocked" style="display: none;" href="/myProfile">
                <i class="address card icon"></i>Profile
           </a>
-          <a class="item" href="/viewRequestBlood">
-              <i class="grid layout icon"></i> Who needs my blood?
+          <a class="item" id="bloodRequestsLink" style="display: none;" href="/viewRequestBlood">
+              <i class=" tint icon"></i> Who needs my blood?
           </a>
-          <a class="item" href="/bloodRequest">
-              <i class="grid layout icon"></i> Search blood
+          <a class="item" id="requestBloodDonorsLink" style="display: none;" href="/bloodRequest">
+              <i class="tint icon"></i> Request Blood Donors
           </a>
       </div>
   </div>
@@ -34,6 +34,8 @@
     $.get("/loginStatus", function(data, status) {
       if (data.isLoggedIn == true){
         document.getElementById("loginLocked").style.display = "block";
+        document.getElementById("bloodRequestsLink").style.display = "block";
+        document.getElementById("requestBloodDonorsLink").style.display = "block";
       }
     });
   });

@@ -26,7 +26,7 @@ public class TestBloodDriveRepository {
     @Autowired
     private BloodDriveRepository repository;
 
-    // add some test blood drives that are umcomming
+    // add some test blood drives that are upcoming
     private void addRecentBloodDrives(){
 
         Calendar calendar = Calendar.getInstance();
