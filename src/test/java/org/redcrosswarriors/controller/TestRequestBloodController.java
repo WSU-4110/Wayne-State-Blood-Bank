@@ -16,6 +16,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,6 +54,7 @@ public class TestRequestBloodController {
 
         Map<String, Object> responseObject = new HashMap<String, Object>();
         responseObject.put("message", "Successfully requested");
+        when(service.isBloodTypeValid(any())).thenReturn(true);
         when(service.requestBlood(input, "admin@wayne.edu")).thenReturn(new ResponseEntity<Object>(responseObject, HttpStatus.OK));
         Gson gson = new Gson();
         String json = gson.toJson(input);

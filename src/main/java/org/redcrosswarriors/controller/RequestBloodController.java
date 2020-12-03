@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class RequestBloodController
 
     @PostMapping("/requestBlood")
     @Secured("ROLE_USER")
+    @Valid
     public ResponseEntity<Object> requestBlood(@RequestBody RequestBloodInput input, Principal principal) {
 
         Map<String, Object> json = new HashMap();
@@ -44,12 +46,10 @@ public class RequestBloodController
 
 
         try{
-            if(requestBloodControllerService.isBloodTypeValid(input))
-            {
+            if(requestBloodControllerService.isBloodTypeValid(input)) {
                 return requestBloodControllerService.requestBlood(input, email);
             }
-            else
-            {
+            else {
                 json.put("message", "An unknown error has occurred");
                 return new ResponseEntity<>(json, HttpStatus.BAD_REQUEST);
             }
