@@ -1,6 +1,7 @@
 package org.redcrosswarriors.controllerservice;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.redcrosswarriors.model.Feedback;
 import org.redcrosswarriors.model.ViewFeedback;
 import org.redcrosswarriors.repository.AccountDetailsRepository;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -20,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class TestFeedbackControllerService {
 
     @MockBean
