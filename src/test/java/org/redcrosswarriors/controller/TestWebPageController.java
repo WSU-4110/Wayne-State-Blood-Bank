@@ -10,25 +10,25 @@ class TestWebPageController {
 
 
     @Test
-    void TestGetAccessDenied() {
+    void testGetAccessDenied() {
         WebPageController controller = new WebPageController();
         assertEquals("accessDenied.html", controller.getAccessDenied());
     }
 
     @Test
-    void getMyProfilePage() {
+    void testGetMyProfilePage() {
         WebPageController controller = new WebPageController();
         assertEquals("myProfile.html", controller.getMyProfilePage());
     }
 
     @Test
-    void getAddFeedbackPage() {
+    void testGetAddFeedbackPage() {
         WebPageController controller = new WebPageController();
         assertEquals("addFeedback.html", controller.getAddFeedbackPage());
     }
 
     @Test
-    void getViewFeedbackPage() {
+    void testGetViewFeedbackPage() {
         WebPageController controller = new WebPageController();
         assertEquals("viewFeedback.html", controller.getViewFeedbackPage());
     }
